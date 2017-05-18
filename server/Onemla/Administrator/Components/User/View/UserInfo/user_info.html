@@ -1,0 +1,115 @@
+<!--<extend name="Public/base"/>-->
+<block name="head">
+    <!--<link rel="stylesheet" href="__CSS__member_center.css" />-->
+    <link rel="stylesheet" href="__CSS__user_info.css" />
+</block>
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Menu2')}
+</block>
+<block name="main">
+    <div id="main">
+        <p class="location" style="visibility: hidden;">
+            我的资料
+        </p>
+        <div class="user_info">
+            <div class="user_logo">
+                <if condition="$info['logo']==''">
+                    <img src="__IMAGES__def_logo.jpg">
+                    <elseif condition="$logo=='data'"/>
+                    <img src="{$info['logo']}" width='36' height='36'>
+                    <else/>
+                    <img src="__UPLOAD_LOGO__/{$info['logo']}" width='36' height='36'>
+                </if>
+            </div>
+            <p class="text_href">
+                <a href="{:U('User/UserInfo/userInfoEdit')}">修改资料</a>
+            </p>
+            <div class="edit_list">
+                <dl>
+                    <dd>
+                        <p class="icon">
+                            <span class="pword_icon"></span>
+                        </p>
+                        <p class="text">
+                            **********
+                        </p>
+                    </dd>
+                    <dd>
+                        <p class="icon">
+                            <span class="phone_icon"></span>
+                        </p>
+                        <p class="text">
+                            {$info['phone']}
+                        </p>
+                    </dd>
+                    <dd>
+                        <p class="icon">
+                            <span class="email_icon"></span>
+                        </p>
+                        <p class="text">
+                            {$info['email']}
+                        </p>
+                    </dd>
+                    <dd>
+                        <p class="icon">
+                            <span class="pay_icon"></span>
+                        </p>
+                        <p class="text">
+                            ******
+                        </p>
+                    </dd>
+                </dl>
+            </div>
+            <div class="user_info_con">
+                <dl>
+                    <dd class="name">
+                        用户名：
+                    </dd>
+                    <dd class="text">
+                        {$info.user_name}
+                    </dd>
+                    <dd class="name">
+                        车牌号码 ：
+                    </dd>
+                    <dd class="text">
+                        {$info.car_belonging}{$info.car_letter}{$info.car_num}
+                    </dd>
+                </dl>
+                <dl>
+                    <dd class="name">
+                        姓名 ：
+                    </dd>
+                    <dd class="text">
+                        {$info.nick_name}
+                    </dd>
+                    <dd class="name">
+                        车辆型号 ：
+                    </dd>
+                    <dd class="text">
+                        {$info['model']['model']}
+                    </dd>
+                </dl>
+                <dl>
+                    <dd class="name">
+                        年龄：
+                    </dd>
+                    <dd class="text">
+                        {$info.age}
+                    </dd>
+                    <dd class="name">
+                        购买年份：
+                    </dd>
+                    <dd class="text">
+                        {$info.purchase_date}年
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="footer">
+
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+
+</block>

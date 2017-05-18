@@ -1,0 +1,518 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Jerry
+ * Date: 2015/4/16
+ * Time: 18:09
+ */
+namespace Onemla;
+
+use Onemla\UCenter\UCUser;
+use Services\User\User;
+use Services\User\UserService;
+
+class OnemlaHelper{
+
+    /**
+     * 实例化模型类
+     * @param string $name 资源地址
+     * @param string $layer 模型层名称
+     * @return Think\Model
+     */
+    public static function getModel($name='',$layer='Model'){
+        if(false === strpos($name, '/')) {
+            if(COMPONENTS_INPUT != $name){
+                $newName = COMPONENTS_INPUT . '/' . $name;
+                $classPathName = ADDON_INPUT.'://'.$newName;
+                $class = parse_res_name($classPathName, $layer);
+                $name = class_exists($class) ? $newName : $name . '/' . $name;
+            }else{
+                $name = COMPONENTS_INPUT . '/' . $name;
+            }
+        }
+
+        return D(ADDON_INPUT.'://'.$name, $layer);
+    }
+
+    /**
+     * 缓存管理
+     * @param mixed $name 缓存名称
+     * @param mixed $value 缓存值
+     * @param mixed $storage 缓存类型
+     * @return mixed
+     */
+    public static function cache($name, $value='', $storage = null){
+        $storage = $storage ? $storage : C('CACHE_CNF.DATA_CACHE_TYPE');
+        $options = C('CACHE_CNF.'.$storage);
+        $options['type'] = $storage;
+        return S($name, $value, $options);
+    }
+
+    /**
+     * session管理函数
+     * @param string|array $name session名称 如果为数组则表示进行session设置
+     * @param mixed $value session值
+     * @return mixed
+     */
+    public static function session($name='', $value=''){
+        $prefix = C('SESSION_PREFIX');
+        $prefix = $prefix ? $prefix : 'Onemla';
+        C('SESSION_PREFIX', $prefix);
+
+        return session($name, $value);
+    }
+
+    /**
+     * Create a document object
+     *
+     * @return  OnemlaDocument object
+     */
+    public static function getDocument()
+    {
+        static $document;
+        if (!isset($document))
+        {
+            $attributes = array(
+                'charset' => 'utf-8',
+                'lineend' => 'win'/*'unix'*/,
+                'tab' => '  ',
+                'mediaversion' => C('VERSION')
+            );
+
+            $document = new OnemlaDocument($attributes);
+        }
+
+        return $document;
+    }
+
+    /**
+     * Get an user object.
+     *
+     * Returns the global {@link UCUser} object, only creating it if it doesn't already exist.
+     *
+     * @param   integer  $id  The user to load - Can be an integer or string - If string, it is converted to ID automatically.
+     *
+     * @return  User object
+     *
+     */
+    /**
+     * 获取用户数据
+     */
+    public static function getUser($id = null){
+        return self::session(SESSION_UCENTER);
+    }
+
+    public static function getUserId()
+    {
+        static $iUserId = NULL;
+
+        if(!$iUserId){
+            $pUser = self::getUser();
+            if ( ! $pUser && C('CORS_USEXDOMAIN') ) {
+                $iUserId = (int)static::decrypt($_SERVER['HTTP_X_ACCESS_TOKEN']);
+            }else{
+                $iUserId = $pUser -> user_id;
+            }
+        }
+
+        return $iUserId;
+    }
+
+    //语言包
+    public static function lang($name=null){
+        $array = explode('.', $name);
+        $lang = L($array[0]);
+        unset($array[0]);
+        foreach($array as $key){
+            $lang = $lang[$key];
+        }
+
+        return $lang;
+    }
+
+    //判断是否登陆
+    public static function isLogin(){
+        return static::getUser() != null;
+    }
+
+    public static function getClient(){
+        static $client;
+        if(!isset($client)){
+            $client = new OnemlaWebClient();
+        }
+        return $client;
+    }
+
+    //
+    public static function validate_utf8($text) {
+        if (strlen($text) == 0) {
+            return TRUE;
+        }
+        // With the PCRE_UTF8 modifier 'u', preg_match() fails silently on strings
+        // containing invalid UTF-8 byte sequences. It does not reject character
+        // codes above U+10FFFF (represented by 4 or more octets), though.
+        return (preg_match('/^./us', $text) == 1);
+    }
+
+    /**
+     * API服务层调用
+     * @param $name
+     * @param array $data
+     * @return mixed
+     */
+    public static function service($name, $data=array()){
+        $name = str_replace('.', '/', $name);
+
+        return self::call_class_func(SERVICE_INPUT, $name, $data, 'Service');
+    }
+
+    /**
+     * 系统级API服务层调用
+     * @param $name
+     * @param array $data
+     * @return mixed
+     */
+    public static function systemService($name, $data=array()){
+        $name = str_replace('.', '/', $name);
+        $array = explode('/', $name);
+        if(count($array) == 2){
+            $name = $array[0].'/'.$array[0].'/'.$array[1];
+        }
+        if ( ! is_array($data) ) {
+            $data = array($data);
+        }
+        return static::service('System/'.$name, $data);
+    }
+
+    /**
+     * 渲染输出Widget
+     * @param string $name Widget名称
+     * @param array $data 传入的参数
+     * @return void
+     */
+    public static function W($name, $data=array()) {
+        return self::call_class_func(WIDGET_INPUT, $name, $data, 'Widget');
+    }
+
+    //调用类函数
+    protected static function call_class_func($type, $name, $data=array(), $layer){
+        $array  =   explode('/',$name);
+        $count  =   count($array);
+
+        if($count == 1){
+            $name = $name.'/'.$name.'/'.C('DEFAULT_CONTROLLER');
+        }elseif($count == 2){
+            $name = $array[0].'/'.$name;
+        }
+        return self::R($type.'://'.$name, $data, $layer);
+    }
+
+    /**
+     * 远程调用控制器的操作方法 URL 参数格式 [资源://][模块/]控制器/操作
+     * @param string $url 调用地址
+     * @param string|array $vars 调用参数 支持字符串和数组
+     * @param string $layer 要调用的控制层名称
+     * @return mixed
+     */
+    public static function R($url,$vars=array(),$layer='') {
+        $info   =   pathinfo($url);
+        $action =   $info['basename'];
+        $module =   $info['dirname'];
+        $class  =   self::A($module,$layer);
+
+        if($class){
+            if(is_string($vars)) {
+                parse_str($vars,$vars);
+            }
+            return call_user_func_array(array(&$class,$action.C('ACTION_SUFFIX')),$vars);
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * 实例化多层控制器 格式：资源/模块/控制器
+     * @param string $name 资源地址
+     * @param string $layer 控制层名称
+     * @param integer $level 控制器层次
+     * @return Think\Controller|false
+     */
+    protected static function A($name,$layer='') {
+        static $_action = array();
+        if(isset($_action[$name.$layer]))
+            return $_action[$name.$layer];
+
+        $class = self::parse_class_name($name, $layer);
+        if(class_exists($class)) {
+            $action             =   new $class();
+
+            $_action[$name.$layer]     =   $action;
+            return $action;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * 解析资源地址并导入类库文件
+     * 例如 module/controller Widgets://module/behavior
+     * @param string $name 资源地址 格式：[扩展://][模块/]资源名
+     * @param string $layer 分层名称
+     * @param integer $level 控制器层次
+     * @return string
+     */
+    protected static function parse_class_name($name, $layer){
+        if(strpos($name,'://')) {// 指定扩展资源
+            list($extend,$name)  =   explode('://',$name);
+        }else{
+            $extend  =   '';
+        }
+        $array  =   explode('/',$name);
+        $class = $extend;
+        foreach($array as $name) {
+            $class .= '\\' . parse_name($name, 1);
+        }
+
+        return $class . $layer;
+    }
+
+    /**
+     * 添加js文件
+     * @param 路径 $url
+     */
+    public static function addScript($url, $jsPaht=null)
+    {
+        $document = OnemlaHelper::getDocument();
+        $jsPath = is_null($jsPaht) ? C('TMPL_PARSE_STRING.__JAVASCRIPTS__') : $jsPaht;
+        $document->addScript($jsPath.$url);
+    }
+
+    /**
+     * 添加css文件
+     */
+    public static function addCss($url, $cssPath=null)
+    {
+        $document = \Onemla\OnemlaHelper::getDocument();
+        $cssPath  = is_null($cssPath) ? C('TMPL_PARSE_STRING.__CSS__') : $cssPath;
+        $document -> addStyleSheet($cssPath.$url);
+    }
+
+    /**
+     * 快速导入第三方框架类库 所有第三方框架的类库文件统一放到 系统的Vendor目录下面
+     * @param string $class 类库
+     * @param string $baseUrl 基础目录
+     * @param string $ext 类库后缀
+     * @return boolean
+     */
+    public static function Vendor($class, $baseUrl = '', $ext='.php') {
+        if (empty($baseUrl))
+            $baseUrl = APP_PATH.'Libraries/Onemla/Vendor';
+        return import($class, $baseUrl, $ext);
+    }
+
+    /**
+     * Send a GET requst using cURL
+     * @param $url
+     * @param array $get
+     * @param array $options
+     * @param bool $judge
+     * @return mixed|string
+     */
+    public static function requestGet($url, $get = array(), $options = array(), $judge = TRUE) {
+
+        $defaults = array(
+            CURLOPT_URL            => $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($get),
+            CURLOPT_HEADER         => 0,
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_SSL_VERIFYPEER => $judge === FALSE ? FALSE : TRUE,
+            CURLOPT_SSL_VERIFYHOST => $judge === FALSE ? FALSE : TRUE,
+        );
+
+        $ch = curl_init();
+        curl_setopt_array($ch, ($options + $defaults));
+        if( ! $result = curl_exec($ch) ) {
+            $result = curl_error($ch);
+        }
+        curl_close($ch);
+        return $result;
+    }
+
+    /**
+     * Send a POST requst using cURL
+     * @param string $url to request
+     * @param array $post
+     * @param array $options
+     * @param int $iTimeout
+     * @param bool $judge
+     * @return mixed|string
+     */
+    public static function requestPost($url, $post = array(), $options = array(), $iTimeout = 30 ,$judge = TRUE) {
+
+        $defaults = array(
+            CURLOPT_POST           => 1,
+            CURLOPT_HEADER         => 0,
+            CURLOPT_URL            => $url,
+            CURLOPT_FRESH_CONNECT  => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_FORBID_REUSE   => 1,
+            CURLOPT_TIMEOUT        => $iTimeout,
+            CURLOPT_POSTFIELDS     => $post,
+            CURLOPT_SSL_VERIFYPEER => $judge === FALSE ? FALSE : TRUE,
+            CURLOPT_SSL_VERIFYHOST => $judge === FALSE ? FALSE : TRUE,
+        );
+
+        $ch = curl_init();
+        curl_setopt_array($ch, ($options + $defaults) );
+        if( ! $result = curl_exec($ch) ){
+            $result = curl_error($ch);
+        }
+        curl_close($ch);
+        return $result;
+    }
+
+    /**
+     * 加密
+     *
+     * @param string $aSource      加密字符串
+     * @return string
+     * @since 1.0.0
+     */
+    private static function _mcrypt_encrypt( $aSource, $secretKey = NULL  ){
+        $secretKey = $secretKey == NULL ? C('TOKEN_SECRET') : $secretKey;
+        $secretKey = hash('sha256',$secretKey,TRUE);
+
+        $text = urlencode(trim($aSource));
+        $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+        return mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $secretKey, $text, MCRYPT_MODE_ECB, $iv);
+    }
+
+    /**
+     * 解密
+     *
+     * @param string $aSource      解密字符串
+     * @return string
+     * @since 1.0.0
+     */
+    private static function _mcrypt_decrypt( $aSource, $secretKey = NULL ){
+        $secretKey = $secretKey == NULL ? C('TOKEN_SECRET') : $secretKey;
+        $secretKey = hash('sha256',$secretKey,TRUE);
+
+        $crypttext = base64_decode($aSource);
+        $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB);
+        $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+        return mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $secretKey, $crypttext, MCRYPT_MODE_ECB, $iv);
+    }
+
+    /**
+     * 加密函数
+     *
+     * @param string $aSource     加密前的字符串
+     * @param int $safe           有效时间，默认为0
+     * @return string
+     * @since 1.0.0
+     */
+    public static function encrypt( $aSource, $safe = 0, $s_Secret = NULL ){
+        if($safe && is_numeric($safe)){
+            $safe = OnemlaRequest::requestTime() + $safe;
+            $aSource = sprintf('%012d%s',$safe, $aSource);
+        }
+        return base64_encode(static::_mcrypt_encrypt($aSource, $s_Secret));
+    }
+
+    /**
+     * 解密函数
+     *
+     * @param string $aSource     解密前的字符串
+     * @param int $safe           有效时间，默认为0
+     * @return string
+     * @since 1.0.0
+     */
+    public static function decrypt( $aSource, $safe = 0, $s_Secret = NULL ){
+        $safed = '';
+        $ret = trim(urldecode(static::_mcrypt_decrypt($aSource, $s_Secret)));
+        if($safe && is_numeric($safe)){
+            $safed = (int) substr($ret, 0, 12);
+            $ret_str = substr($ret, 12);
+            return OnemlaRequest::requestTime() > $safed ? '' : $ret_str;
+        }
+        return $ret;
+    }
+
+    public static function getTheme(){
+        $theme = self::session(SESSION_THEME);
+        if(empty($theme)){
+            $theme = C('DEFAULT_THEME');
+        }
+        return $theme;
+    }
+
+    public static function setTheme($theme){
+        self::session(SESSION_THEME,$theme);
+    }
+
+
+    /**
+     * 左边菜单栏
+     **/
+    const ACTIVED_NONE          = 0;
+    
+    const ACTIVED_ADMIN         = 1;//用户管理
+    const ACTIVED_ADMIN_ONE     = 11;//用户管理
+    
+    const ACTIVED_ACTIVITY         = 2;//活动管理
+    const ACTIVED_ACTIVITY_ONE = 21;
+    
+    const ACTIVED_REPAIR       = 3;//工单管理
+    const ACTIVED_REPAIR_ONE       = 31;//工单管理
+
+    const ACTIVED_CAANDSO     = 7;//案例管理
+    const ACTIVED_CAANDSO_ONE       = 71;//案例管理
+    const ACTIVED_CAANDSO_TWO       = 72;//解决方案
+    
+    const ACTIVED_MEMBER       = 4;//会员管理
+    const ACTIVED_MEMBER_ONE       = 41;//会员信息
+    const ACTIVED_MEMBER_TWO       = 42;//会员信息
+    const ACTIVED_MEMBER_THEWW       = 43;//会员信息
+    
+    const ACTIVED_MEMBER_ACTIVITY       = 5;//会员活动管理
+    const ACTIVED_MEMBER_ACTIVITY_ONE       = 51;//活动列表
+    
+    const ACTIVED_MEMBER_REPAIR       = 6;//会员工单管理
+    const ACTIVED_MEMBER_REPAIR_ONE       = 61;//工单列表
+    
+    
+    /**
+     * 左边菜单栏设置和读取
+     **/
+    public static function getActived(){
+        $act = self::session(SESSION_ACTIVED);
+        if(empty($act)){
+            $act = self::ACTIVED_NONE;
+        }
+        return $act;
+    }
+    
+    /**
+     * 左边菜单栏设置和读取
+     * */
+
+    public static function getMenuActived() {
+        $act = self::session(SESSION_MENU_ACTIVED);
+        if (empty($act)) {
+            $act = self::ACTIVED_NONE;
+        }
+        return $act;
+    }
+
+    //设置左边菜单栏显示
+    public static function setActived($act){
+        self::session(SESSION_ACTIVED,$act);
+    }
+    
+    //设置左边菜单栏显示
+    public static function setMenuActived($act) {
+        self::session(SESSION_MENU_ACTIVED, $act);
+    }
+}

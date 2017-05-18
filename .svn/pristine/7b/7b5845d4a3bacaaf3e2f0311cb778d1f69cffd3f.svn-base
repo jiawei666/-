@@ -1,0 +1,216 @@
+<extend name="Admin/base"/>
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__style.css">
+
+    <script>
+        $().ready(function() {
+            {$pCitySelectJs}
+        });
+
+        function fileChange(){
+            var imgFile = 'file';
+            $.ajaxFileUpload({
+                url: "{:U('File/File/upload')}", //上传地址
+                secureuri: false,
+                fileElementId: imgFile, //图片上传关联input元素id
+                dataType: 'json',
+                data:{
+                    savePath:'user',
+                    exts:'jpg,png,jpeg'
+                },
+                beforeSend: function () {
+                },
+                complete: function () {
+                },
+                success: function (data, status) {
+                    console.log(data);
+
+                    $("#logo_url_img").attr("src",data.url);
+                    $("#logo_url").val(data.url);
+                },
+                error: function (data, status, e) {
+                    console.write(data);
+                }
+            })
+        }
+
+    </script>
+</block>
+
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                员工列表
+                <small>Staff list</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{:U('Home/Index/index')}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li>员工管理</li>
+                <li class="active">员工列表</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="box">
+                <div class="box-body">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="topbox" style="color: #1D89E4;">
+                            <span class="fl">{$info['id'] == 0 ? '添加' : '编辑'}员工</span>
+                        </div>
+
+                        <form method="post" action="{:U('User/Index/modify')}">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-hover dataTable" role="grid">
+                                    <tr>
+                                        <td>姓名</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="real_name" value="{$info.real_name}">
+                                        </td>
+                                        <td>性别</td>
+                                        <td>
+                                            <select class="select-style" name="sex">
+                                                <option value="1" <if condition="$info['sex'] eq 1">selected</if>>男</option>
+                                                <option value="2" <if condition="$info['sex'] eq 2">selected</if>>女</option>
+                                            </select>
+                                        </td>
+                                        <td>年龄</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="age" value="{$info.age}">
+                                        </td>
+                                        <td>出生年月</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="birthday" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="" value="{:date('Y-m-d',$info['birthday'])}">
+                                        </td>
+                                        <td rowspan="4">
+                                            <input style="display:none;" type="file" name="photo_name" id="file" onchange="fileChange()">
+                                            <div id="logo-photo" style="width:240px;height:240px;">
+                                                <input type="hidden" name="photo" id="logo_url" value="{$info['photo']}"/>
+                                                <img width="100%" height="100%" src="{$info['photo']}" id="logo_url_img" title="点击上传图片"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学历</td>
+                                        <td>
+                                            <select class="select-style" name="diploma" >
+                                                <volist name="diploma" id="vo">
+                                                    <option value="{$i}" <if condition="$i eq $info['diploma']">selected</if>>{$vo}</option>
+                                                </volist>
+                                            </select>
+                                        </td>
+                                        <td>毕业院校</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="school" value="{$info['school']}">
+                                        </td>
+                                        <td>电话号码</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="phone" value="{$info['phone']}">
+                                        </td>
+                                        <td>身份证号</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="id_number" value="{$info['id_number']}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>员工编号</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="job_no" value="{$info['job_no']}">
+                                        </td>
+                                        <td>部门</td>
+                                        <td>
+                                            <select class="select-style" name="department_id" >
+                                                <volist name="department_list" id="vo">
+                                                    <option value="{$vo['id']}" <if condition="$vo['id'] eq $info['department_id']">selected</if>>{$vo['department_name']}</option>
+                                                </volist>
+                                            </select>
+                                        </td>
+                                        <td>职位</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="position" value="{$info['position']}">
+                                        </td>
+                                        <td>入职时间</td>
+                                        <td>
+                                            <input type="text" class="input-text" name="entry_time" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="" value="{:date('Y-m-d',$info['entry_time'])}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>住址</td>
+                                        <td colspan="3">
+                                            <select class="select-style" id="province"  name="province_id" required>
+                                                <option value="">---请选择---</option>
+                                                {$region}
+                                            </select>
+                                            <select class="select-style" id="city"  name="city_id" required>
+                                                <option value="">---请选择---</option>
+                                            </select>
+                                            <input type="text" class="input-text" name="address" value="{$info.address}">
+                                        </td>
+                                        <td>备注</td>
+                                        <td colspan="3">
+                                            <input type="text" class="input-text input-text-width" name="desc" value="{$info['desc']}">
+                                        </td>
+                                    </tr>
+                                    <if condition="$info['state'] eq 2">
+                                        <tr>
+                                            <td>离职时间</td>
+                                            <td colspan="3">
+                                                <input type="text" class="input-text" name="leave_time" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask="" value="{:date('Y-m-d',$info['leave_time'])}">
+                                            </td>
+                                            <td>离职原因</td>
+                                            <td colspan="3">
+                                                <input type="text" class="input-text input-text-width" name="leave_reason" value="{$info['leave_reason']}">
+                                            </td>
+                                        </tr>
+                                    </if>
+
+                                </table>
+                                <div class="form-group">
+                                    <label for="content"  class="col-md-1 control-label" >履历</label>
+                                    <div class="col-md-11">
+                                        <textarea name="record" rows="5">{$info['record']}</textarea>
+                                        {:textArea('record',array('height'=>'500','width'=>'980','resize_type'=>0))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="id" value="{$id}">
+                        <div class="button">
+                            <input type="submit" class="btn btn-primary" value="提交"/>
+                            <button type="button" class="btn btn-primary"  onclick="self.location=document.referrer;">返回</button>
+                        </div>
+                        </form>
+                    </div>
+                </div><!-- /.box-body -->
+            </div>
+        </section>
+    </div>
+</block>
+
+<block name="footer">
+
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+
+</block>
+
+<block name="bottom">
+    <script src="__PLUGINS__input-mask/jquery.inputmask.js"></script>
+    <script src="__PLUGINS__input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script>
+        $("#datemask2").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+        $("[data-mask]").inputmask();
+
+        $("#logo-photo").click(function(){
+            $("#file").click();
+        });
+    </script>
+</block>

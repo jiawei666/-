@@ -1,0 +1,136 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>直播家后台</title>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/jquery.min.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/bootstrap.min.js" ></script> 
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/js.cookie.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sub.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/css.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/style.css" />
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sweetalert.min.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/sweetalert.css" />
+
+        <?php echo \Onemla\OnemlaHelper::getDocument()->fetchHead();?>
+    
+    <script type="text/javascript" src="/live/server/Onemla/Res/js/activity.js" ></script>
+
+</head>
+<body>
+
+
+    <div id="main">
+        <?php echo \Onemla\OnemlaHelper::W('Menu/Index');?>
+        <div id="box" class="flex">
+            <?php echo \Onemla\OnemlaHelper::W('Menu/Left_Menu');?>
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    活动管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">活动列表</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="<?php echo U('Activity/Index/index');?>" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="<?php echo ($title); ?>" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <input type="text" name="user_name" value="<?php echo ($user_name); ?>" placeholder="请输入搜索的用户名" class="input_01" />
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="<?php echo U('Activity/Index/editPage');?>" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="80">
+                                编号
+                            </th>
+                            <th>
+                                活动标题
+                            </th>
+                            <th>
+                                活动时间
+                            </th>
+                            <th>
+                                所属频道
+                            </th>
+                            <th>
+                                活动背景
+                            </th>
+                            <th>
+                                活动logo
+                            </th>
+                            <th>
+                                会员账号
+                            </th>
+                            <th>
+                                活动状态
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+                                <td>
+                                    <?php echo ($vo["serial_number"]); ?>
+                                </td>
+                                <td>
+                                    <?php echo ($vo["title"]); ?>
+                                </td>
+                                <td>
+                                    <?php echo ($vo["time"]); ?>
+                                </td>
+                                <td>
+                                    <?php echo ($vo["channel"]); ?>
+                                </td>
+                                <td><img src="/live/server/Onemla/Res/Uploads/activity/<?php echo ($vo["bg_image"]); ?>" width="120px"></td>
+                                <td><img src="/live/server/Onemla/Res/Uploads/activity/<?php echo ($vo["logo"]); ?>" width="120px"></td>
+                                <td><?php echo ($vo["user_name"]); ?></td>
+                                <td>
+                                    <?php if($vo[status]==1): ?>待审核
+                                        <?php elseif($vo[status]==2): ?>
+                                        审核通过
+                                        <?php else: ?>
+                                        不通过<?php endif; ?>
+                                </td>
+                                <td class="bt">
+                                    <a href="<?php echo U('Activity/Index/detail',array('id'=>$vo[id]));?>" class="">详情</a>
+                                    <a href="#" class="edit_bt"></a>
+                                    <a href="#" class="del_bt"></a>
+                                    <input type="hidden" value="<?php echo ($vo["id"]); ?>" id='id'>
+                                    <input type="hidden" value="<?php echo ($vo["status"]); ?>" id='status'>
+                                </td>
+                            </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            <?php echo ($page_show); ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+
+
+
+</body>
+</html>

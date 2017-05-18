@@ -1,0 +1,582 @@
+<div class="article" style="overflow:auto;">
+
+    <div class="accounts">
+				<span class="set_parement">
+					<b class="fangxing"></b>
+					参数设置
+					<b class="jiantou"></b>
+				</span>
+        <ul class="set_parement_find">
+            <li>
+                <div class="htdepartment">
+
+
+                    部门管理
+
+                </div>
+            </li>
+            <li>
+                <div class="htprofessional">
+
+
+                    专业管理
+
+                </div>
+            </li>
+            <li>
+                <div class="htcrew">
+
+
+                    机组管理
+
+                </div>
+            </li>
+            <li>
+                <div class="htappointed">
+
+
+                    设备分类
+
+                </div>
+            </li>
+            <li>
+                <div class="htsystem">
+
+
+                    设备类型
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="account" id="basic" style="margin:2px 0;">
+				<span class="set_parement">
+					<b class="fangxing"></b>
+					设备基础台账
+					<b class="jiantou"></b>
+				</span>
+        <p class="add">添加台账</p>
+
+        <ul class="ztree">
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单1</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单11</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单111</a>
+                                <ul class="line">
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1111</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1112</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1113</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1114</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单112</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单113</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单12</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单121</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单2</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单21</a>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单22</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单221</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单222</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单223</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单224</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">带单3</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单31</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+    <div class="account" id="overhalu" style="margin:2px 0;">
+				<span class="set_parement">
+					<b class="fangxing"></b>
+					设备检修台账
+					<b class="jiantou"></b>
+				</span>
+        <p class="add">添加台账</p>
+        <ul class="ztree">
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单1</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单11</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单111</a>
+                                <ul class="line">
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1111</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1112</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1113</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1114</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单112</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单113</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单12</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单121</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单2</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单21</a>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单22</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单221</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单222</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单223</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单224</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">带单3</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单31</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="account" id="maintenance" style="margin:2px 0;">
+				<span class="set_parement">
+					<b class="fangxing"></b>
+					设备维护台账
+					<b class="jiantou"></b>
+				</span>
+        <p class="add">添加台账</p>
+        <ul class="ztree">
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单1</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单11</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单111</a>
+                                <ul class="line">
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1111</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1112</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1113</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1114</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单112</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单113</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单12</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单121</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单2</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单21</a>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单22</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单221</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单222</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单223</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单224</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">带单3</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单31</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="account" id="supervision" style="margin:2px 0;">
+				<span class="set_parement">
+					<b class="fangxing"></b>
+					设备技术监督台账
+					<b class="jiantou"></b>
+				</span>
+        <p class="add">添加台账</p>
+        <ul class="ztree">
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单1</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单11</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单111</a>
+                                <ul class="line">
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1111</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1112</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1113</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1114</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单112</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单113</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单12</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单121</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单2</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单21</a>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单22</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单221</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单222</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单223</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单224</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">带单3</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单31</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="account" id="upgraded"  style="margin:2px 0;">
+				<span class="set_parement">
+					<b class="fangxing"></b>
+					设备更新改造台账
+					<b class="jiantou"></b>
+				</span>
+        <p class="add">添加台账</p>
+        <ul class="ztree">
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单1</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单11</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单111</a>
+                                <ul class="line">
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1111</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1112</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1113</a>
+                                    </li>
+                                    <li>
+                                        <span class="switch"></span>
+                                        <a class="leve">菜单1114</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单112</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单113</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">菜单12</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">菜单121</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">菜单2</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单21</a>
+                    </li>
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单22</a>
+                        <ul class="line">
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单221</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单222</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单223</a>
+                            </li>
+                            <li>
+                                <span class="switch"></span>
+                                <a class="leve">带单224</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="switch"></span>
+                <a class="leve">带单3</a>
+                <ul class="line">
+                    <li>
+                        <span class="switch"></span>
+                        <a class="leve">带单31</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+
+</div>

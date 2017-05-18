@@ -1,0 +1,59 @@
+<extend name="Public/base2"/>
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__css.css" />
+    <link rel="stylesheet" href="__CSS__case.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+    <script type="text/javascript" src="__JAVASCRIPTS__regular.js"></script>
+    <script src="__JAVASCRIPTS__SMS_findpsd.js"></script>
+</block>
+
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+
+    <!--重置密码-->
+    <div class="reset" style="display: block">
+        <div class="reset-container">
+            <div class="reset-title">
+                <img src="__IMAGES__login-logo.png"/>
+                <p>重置密码</p>
+            </div>
+            <form action="{:U('User/Findpsd/check_vrf')}" method="post">
+                <div class="reset-email">
+                    <!--<span>手机号</span>-->
+                    <input type="text" name="phone" id="" value=""  placeholder="请输入手机号" oninput="checkphone()" required="required"/>
+                    <input type="text" name="verify" id="" value="" placeholder="请输入验证码" style="width: 65%" required="required"/>
+                    <input type="button" id="btn" value="发送验证码"  style="width: 20%;margin-right: 5.5%;background-color:#9e9e9a " disabled="disabled" />
+                </div>
+                <input type="submit" class="reset-submit" name="" id="" value="下一步" onclick="return registercheck()"/>
+            </form>
+        </div>
+    </div>
+
+    <!--<div class="loginBox" style="background: url(__IMAGES__findpsd_box_bg.png) no-repeat">-->
+
+        <!--<form method="post" action="{:U('User/Findpsd/check_vrf')}" enctype="multipart/form-data" style="margin-top: 150px">-->
+            <!--<ul class="enroll-info">-->
+                <!--<li>-->
+                    <!--<input type="text" name="phone" id="phone" required="" oninput="checkphone()" style="width:60%;margin-left: 20%;border-radius: 0px " placeholder="请输入手机号码"/>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<input type="text" name="verify" id="verify" required="" style="width:26%;margin-left: 20%;border-radius: 0px" placeholder="请输入验证码" />-->
+                    <!--<input type="button" id="btn" disabled="disabled" value="免费获取验证码" style="color: white;width:26%;border-radius: 0px;font-size: 12px;background-color: #9e9e9a;"/>-->
+                <!--</li>-->
+                <!--<li class="isCheckbox">-->
+                    <!--<input type="submit" name="" id="isSubmit" value="下一步" style="width: 60%;border-radius: 0px"/>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</form>-->
+        <!--<a href="{:U('User/Index/login_page')}" style="float: right;margin: 20px">已有账号？去登录&gt;</a>-->
+    <!--</div>-->
+    <script>
+        $('form').submit(function(){
+            $('input[type="submit"]').attr('disabled','')
+        });
+    </script>
+</block>

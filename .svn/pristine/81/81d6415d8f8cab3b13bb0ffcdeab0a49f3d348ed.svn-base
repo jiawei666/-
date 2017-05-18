@@ -1,0 +1,11 @@
+/**
+ * Created by Administrator on 2017/3/16 0016.
+ */
+$(function(){
+    $("#user_name").focusout(function checkPwd2() {
+        var pwd= $("#user_name").val();
+        if (!/[a-zA-Z0-9]{3,8}/.test(pwd)) {
+            alert('用户名格式错误');
+        }
+    })
+}

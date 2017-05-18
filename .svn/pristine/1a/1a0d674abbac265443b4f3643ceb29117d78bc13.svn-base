@@ -1,0 +1,146 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>直播家后台</title>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/jquery.min.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/bootstrap.min.js" ></script> 
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/js.cookie.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sub.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/css.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/style.css" />
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sweetalert.min.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/sweetalert.css" />
+
+        <?php echo \Onemla\OnemlaHelper::getDocument()->fetchHead();?>
+    
+    <script type="text/javascript" src="/live/server/Onemla/Res/js/jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="/live/server/Onemla/Res/css/jquery.datetimepicker.min.css" />
+    <script>
+        $(function () {
+            $('.date_input').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        })
+        function setImagePreview(doc,imgobj,fontobj) {
+	    var docObj = document.getElementById(doc);
+	    var imgObjPreview = document.getElementById(imgobj);
+	    if (docObj.files && docObj.files[0]) {
+	//火狐下，直接设img属性  
+	        imgObjPreview.style.display = 'block';
+	        imgObjPreview.style.width = '100%';
+	        imgObjPreview.style.height = '100%';
+	        imgObjPreview.style.zIndex = "0";
+	        $(fontobj).css({"color":"#fff"})
+	        //imgObjPreview.src = docObj.files[0].getAsDataURL();  
+	
+	        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式    
+	        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+	    } else {
+	//IE下，使用滤镜
+	        docObj.select();
+	        var imgSrc = document.selection.createRange().text;
+	        var localImagId = document.getElementById("localImag");
+	        //必须设置初始大小  
+	        localImagId.style.width = "100%";
+	        localImagId.style.height = "100%";
+	        //图片异常的捕捉，防止用户修改后缀来伪造图片  
+	        try {
+	            localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	        } catch (e) {
+	            alert("您上传的图片格式不正确，请重新选择!");
+	            return false;
+	        }
+	        imgObjPreview.style.display = 'none';
+	        document.selection.empty();
+	    }
+	    return true;
+	}
+    </script>
+
+</head>
+<body>
+
+
+    <div id="main">
+        <?php echo \Onemla\OnemlaHelper::W('Menu/Index');?>
+        <div id="box" class="flex">
+            <?php echo \Onemla\OnemlaHelper::W('Menu/Left_Menu');?>
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    活动管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">活动管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    编辑信息
+                </div>
+                <form action="<?php echo U('Activity/Index/edit');?>" method="post" enctype="multipart/form-data"  >
+                    <ul class="essential-box">
+                        <li class="essential-number">
+                            <span>编号：</span>
+                            <input type="text" name="serial_number" value="<?php echo ($info[serial_number]); ?>" required="" />
+                        </li>
+                        <li class="essential-title">
+                            <span>活动标题：</span>
+                            <input type="text" name="title" value="<?php echo ($info[title]); ?>" required="" />
+                        </li>
+                        <li class="essential-state">
+                            <span>活动状态：</span>
+                            <input type="text" name="status" value="<?php echo ($info[status]); ?>" />
+                        </li>
+                        <li class="essential-time">
+                            <span>活动时间：</span>
+                            <!--<input type="text" />-->
+                            <input type="text" name="time" value="<?php echo ($info[time]); ?>" placeholder="活动时间" class="input_01 date_input date_start" required="" />
+                        </li>
+                        <li class="essential-brief">
+                            <span>活动简介：</span>
+                            <textarea name="introduction" required=""><?php echo ($info[introduction]); ?></textarea>
+                        </li>
+                        <li class="essential-channel">
+                            <span>所属频道：</span>
+                            <select name="channel">
+                                <option value="0">体育</option>
+                                <option value='1'>新闻</option>
+                            </select>
+                        </li>
+                        <li class="essential-bg">
+                            <span>活动背景图：</span>
+                            <div>
+                                点击上传图片
+                                <img id="preview" src="/live/server/Onemla/Res/Uploads/activity/<?php echo ($info[bg_image]); ?>" >
+                                <input type="file"  name="bg_image" value="<?php echo ($bg_image); ?>" id="doc" onchange="javascript:setImagePreview('doc', 'preview', '.essential-bg div');"/>
+                            </div>
+                        </li>
+                        <li class="essential-logo">
+                            <span>活动logo：</span>
+                            <div>
+                                点击上传图片
+                                <img id="previews" src="/live/server/Onemla/Res/Uploads/activity/<?php echo ($info[logo]); ?>" >                             
+                                <input type="file"  name="logo" value="<?php echo ($logo); ?>" id="docs" onchange="javascript:setImagePreview('docs', 'previews', '.essential-logo div');" />
+                            </div>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="<?php echo ($info[id]); ?>" />
+                    <input type="submit" id="info-submit" value="提交" />
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+.search.city{
+	padding: .2rem .2rem .25rem;
+}
+.city .city-search{
+	padding-right:.3rem;
+	font-size: .24rem;
+	color:#c81914;
+	position: relative;
+	float: left;
+	line-height: .5rem;
+	cursor: pointer;
+	background: url(../images/icon/spinner.png) right center no-repeat;
+	background-size: .22rem .12rem;
+}
+.city .search-area{
+	height: .5rem;
+	position: relative;
+}
+.city .search-text{
+	border: 1px solid #c81914;
+	width: calc(100% - .5rem);
+	height: 100%;
+	border-radius: .05rem;
+	float: right;
+	padding-left: .5rem;
+}
+.city .search-submit{
+	width:.32rem;
+	height: .26rem;
+	position: absolute;
+	border:none;
+	left: .1rem;
+	top: .12rem;
+	cursor: pointer;
+	background: url(../images/icon/search.png) no-repeat;
+	background-size: 100% 100%;
+}
+.choice-province{
+	font-size: .2rem;
+	color: #808080;
+	padding: 0 0 0 .2rem;
+	line-height: .4rem;
+}
+.position-city{
+	margin-bottom: .1rem;
+}
+.choice-province a{
+	background: #e5e5e5;
+	border-radius: .05rem;
+	color: #919191;
+	display: inline-block;
+	font-size: .2rem;
+	padding: 0 .3rem;
+}
+.choice-province-list li{
+	float: left;
+	margin: 0 .2rem .25rem 0;
+}

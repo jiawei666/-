@@ -1,0 +1,145 @@
+<div id="nav" class="skin_bg">
+    <dl class="{$menu_actived == 1 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="menu_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                菜单管理
+            </dd>
+        </a>
+        
+        <ul>
+            <li class="{$actived == 10 ? 'active' : ''}">
+                <a href="{:U('FoodsMenu/Index/index')}">菜品信息</a>
+            </li>
+            <li class="{$actived == 11 ? 'active' : ''}">
+                <a href="{:U('FoodsMenu/Classify/index')}">口味分类</a>
+            </li>
+            <li class="{$actived == 12 ? 'active' : ''}">
+                <a href="{:U('FoodsMenu/Classify/cuisine')}">菜品分类</a>
+            </li>
+        </ul>
+    </dl>
+    <dl class="{$menu_actived == 8 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="room_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                食材管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 80 ? 'active' : ''}">
+                <a href="{:U('Ingredients/Index/index')}">食材列表</a>
+            </li>
+        </ul>
+    </dl>
+    <dl class="{$menu_actived == 2 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="room_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                包厢管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 20 ? 'active' : ''}">
+                <a href="{:U('Rooms/Index/index')}">包厢列表</a>
+            </li>
+        </ul>
+    </dl>
+    
+    <dl class="{$menu_actived == 3 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="user_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                用户管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 30 ? 'active' : ''}">
+                <a href="{:U('User/Index/index')}">用户管理</a>
+            </li>
+        </ul>
+    </dl>
+    <dl class="{$menu_actived == 4 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="order_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                订单管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 40 ? 'active' : ''}">
+                <a href="{:U('Order/Index/index',array('step'=>2,'order_type'=>2))}">订单管理</a>
+            </li>
+            <li class="{$actived == 41 ? 'active' : ''}">
+                <a href="{:U('Order/Evaluate/index')}">评价管理</a>
+            </li>
+        </ul>
+    </dl>
+    <dl class="{$menu_actived == 5 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="price_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                财务管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 50 ? 'active' : ''}">
+                <a href="{:U('Financial/Index/index')}">充值管理</a>
+            </li>
+            <li class="{$actived == 51 ? 'active' : ''}">
+                <a href="{:U('Financial/Index/withdrawal',array('type'=>1))}">提现管理</a>
+            </li>
+            <li class="{$actived == 52 ? 'active' : ''}">
+                <a href="{:U('Financial/Refund/index',array('type'=>1))}">退款审核</a>
+            </li>
+        </ul>
+    </dl>
+    <dl class="{$menu_actived == 6 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="admin_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                管理员管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 60 ? 'active' : ''}">
+                <a href="{:U('Admin/Admin/index')}">管理员列表</a>
+            </li>
+            <li class="{$actived == 61 ? 'active' : ''}">
+                <a href="{:U('Admin/Permissions/index')}">权限组</a>
+            </li>
+        </ul>
+    </dl>
+    <dl class="{$menu_actived == 7 ? 'active' : ''}">
+        <a href="#" class="flex">
+            <dd class="icon flex">
+                <span class="sales_icon"></span>
+            </dd>
+            <dd class="text nowrap">
+                销售管理
+            </dd>
+        </a>
+        <ul>
+            <li class="{$actived == 70 ? 'active' : ''}">
+                <a href="{:U('Sales/Index/index')}">每日销售</a>
+            </li>
+            <li class="{$actived == 71 ? 'active' : ''}">
+                <a href="{:U('Sales/Index/report')}">销售报表</a>
+            </li>
+        </ul>
+    </dl>
+</div>

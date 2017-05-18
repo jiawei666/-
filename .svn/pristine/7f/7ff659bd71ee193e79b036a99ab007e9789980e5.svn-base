@@ -1,0 +1,16 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2016/9/5 0005
+ * Time: 下午 1:51
+ */
+
+namespace Components\User\Model;
+
+use Onemla\OnemlaModel;
+
+class UserInfoModel extends OnemlaModel
+{
+
+}

@@ -1,0 +1,83 @@
+<extend name="public/wechatBase2"/>
+<block name="banner">
+	{:\\Onemla\\OnemlaHelper::W('Menu/wechatbanner')}
+</block>
+<block name="main">
+	<script src="__WECHAT__js/more_tags.js"></script>
+	<!--分类栏-->
+	<div class="home-nav">
+		<a class="active" href="{:U('WechatIndex/LiveBsn/tags')}&bsn_id={$bsnInfo[id]}">
+			<span>话题</span>
+		</a>
+		<a href="{:U('WechatIndex/LiveBsn/channel')}&bsn_id={$bsnInfo[id]}">
+			<span>频道</span>
+		</a>
+		<a href="{:U('WechatIndex/LiveBsn/index')}&bsn_id={$bsnInfo[id]}">
+			<span>介绍</span>
+		</a>
+	</div>
+	<!--子分类栏-->
+	<div class="home-subnav">
+		<a {$tags_id=='' ? 'class="active"':''} href="{:U('WechatIndex/LiveBsn/tags')}&bsn_id={$bsnInfo[id]}">
+				<span>
+					全部
+				</span>
+		</a>
+		<volist name="tagsList" id="vo">
+			<a  name="{$vo.id}" {$tags_id==$vo[id] ? 'class="active"':''} href="{:U('WechatIndex/LiveBsn/tags')}&tags_id={$vo[id]}&bsn_id={$bsnInfo[id]}" >
+				<span>
+					{$vo.tags}
+				</span>
+			</a>
+		</volist>
+	</div>
+	<!--话题列表-->
+	<div class="home-list-conmtainer" name="roomList">
+		<volist name="room" id="rm_vo">
+			<div class="home-list">
+				<a href="{$rm_vo.alink}" name="view_count">
+					<input type="hidden" value="{$rm_vo[room_id]}">
+					<img class="home-list-img" src="__ROOT__/Administrator/Res/Uploads/live_room/{$rm_vo['image']}"/>
+					<div class="home-list-container">
+						<h4 class="home-list-title">
+							{$rm_vo.title}
+						</h4>
+						<p class="home-list-time">
+							开始时间：{$rm_vo.start_time}
+						</p>
+						<p class="home-list-number">
+							{$rm_vo.view_count}
+						</p>
+						<if condition="$rm_vo[status]==2">
+							<p class="home-list-href underway" href="javascript:void(0)">
+								直播中
+							</p>
+							<elseif condition="$rm_vo[status]==1" />
+							<p class="home-list-href trailer" href="javascript:void(0)">
+								预告
+							</p>
+							<else/>
+							<p class="home-list-href playback" href="javascript:void(0)">
+								回放
+							</p>
+						</if>
+					</div>
+				</a>
+			</div>
+		</volist>
+	</div>
+	<input type="hidden" name="bsn_id" value="{$bsnInfo[id]}">
+	<!--<button value="2" name="more" style="position: relative;bottom: 1rem;left: 3.2rem;color: white;background-color: #c81914;border: 1px solid #adadad;">加载更多</button>-->
+	<if condition="$isempty==1">
+		<div class="loading_done" name="more" >
+			<p>暂时没有数据</p>
+		</div>
+		<else/>
+		<div class="loading" name="more" >
+			<input type="hidden" value="2" name="number">
+			<p>点击加载更多</p>
+		</div>
+	</if>
+</block>
+
+

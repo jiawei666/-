@@ -1,0 +1,80 @@
+.help{
+	width: 100%;
+	padding-bottom: 110px;
+}
+.help-container{
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+}
+.help-title{
+	color: #c81914;
+	font-size: 20px;
+	line-height: 33px;
+	padding: 0 10px;
+	border: 1px solid #c81914;
+	display: inline-block;
+	position: relative;
+	font-family: '方正正粗黑简体';
+	margin: 35px 0;
+}
+.help-title::after{
+	position: absolute;
+	content: "FAQ";
+	color: #c81914;
+	background: #fff;
+	bottom: -8px;
+	left: 30px;
+	float: left;
+	font-size: 10px;
+	padding: 0 5px;
+	line-height: 15px;
+}
+
+.help-ask h3{
+	margin: 0 10px;
+	padding-left: 26px;
+	background: url(../images/icon/help-icon-1.png) left center no-repeat;
+	text-align: left;
+	line-height: 35px;
+	font-size: 14px;
+	color: #646464;
+	font-weight: 400;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.help-ask{
+	border: 1px solid #b5b5b5;
+	position: relative;
+	cursor: pointer;
+}
+.help-ask span{
+	position: absolute;
+	right: 10px;
+	top: 9px;
+	transform: rotate(-90deg);
+}
+.help-ask span.active{
+	transform: rotate(0deg);
+}
+.help-answer{
+	padding: 10px 13px 15px 36px;
+	text-align: left;
+	font-size: 14px;
+	color: #646464;
+	line-height: 28px;
+	display: none;
+}
+
+@media only screen and (min-width:992px){
+	.help-container{
+		width: 620px;
+	}
+}
+
+@media only screen and (min-width:1200px){
+	.help-container{
+		width: 820px;
+	}
+}

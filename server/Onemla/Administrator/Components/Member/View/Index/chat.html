@@ -1,0 +1,79 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <!-- <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" /> -->
+    <link rel="stylesheet" href="__CSS__record.css" />
+    <script src="__JAVASCRIPTS__ueditor/ueditor.config.js"></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.all.js"></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <div class="chat_con">
+                    <div class="chat_box">
+                        <h3>
+                            <volist name="chat_list[from_user_name]" id="f_vo">
+                                <if condition="$f_vo[id]==$chat_list[from_user_id]">
+                                    <b><a href="{:U('Member/Index/chat')}&from_user_id={$f_vo[id]}">{$f_vo.user_name}</a></b>|
+                                    <else/>
+                                    <a href="{:U('Member/Index/chat')}&from_user_id={$f_vo[id]}">{$f_vo.user_name}</a>|
+                                </if>
+
+                            </volist>
+                        </h3>
+                        <div class="chat_content">
+                            <volist name="chat_list[content]" id="vo">
+                                <if condition="$vo[from_user_id]!=\Onemla\OnemlaHelper::getUserId()">
+                                    <div class="chat_page chat_left">
+                                        <p><span>{$vo.user_name}</span>{$vo.create_time}</p>
+                                        <div class="chat_page_con">
+                                            <div class="triangle-bottomleft"></div>
+                                            <div class="chat_infor receive">{$vo.content|htmlspecialchars_decode|stripslashes}</div>
+                                        </div>
+                                    </div>
+                                    <else/>
+                                    <div class="chat_page chat_right">
+                                        <p><span>{$vo.user_name}</span>{$vo.create_time}</p>
+                                        <div class="chat_page_con">
+                                            <div class="triangle-bottomright"></div>
+                                            <div class="chat_infor send">{$vo.content|htmlspecialchars_decode|stripslashes}</div>
+                                        </div>
+                                    </div>
+                                </if>
+                            </volist>
+
+                        </div>
+                    </div>
+                    <form action="{:U('Member/Index/chat_add')}" method="POST" id="form">
+                        <input name="to_user_id" type="hidden" value="{$chat_list[from_user_id]}">
+                        <div class="contentBottom">
+                            <textarea name="content" rows="5" required="" class="sendContent"></textarea>
+                            {:textArea('content',array('height'=>'150','width'=>'1450','resize_type'=>0))}
+                            <div class="contentBtn">
+                                <a class="sendBtn" id="sendBtn" onclick="reply();">
+                                    <span class="b">Reply</span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function reply(){
+                $('#form').submit();
+            }
+            $('form').submit(function(){
+                $('form').submit(function(){
+                    $('#sendBtn').removeAttr('onclick');
+                });
+            });
+
+        </script>
+</block>

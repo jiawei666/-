@@ -1,0 +1,31 @@
+
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__useraudit.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    用户管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">用户审核</span>
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color"><b>{$username}</b></span>
+
+                </p>
+                <div class="tableBox table_skin">
+                    <img src="__CERTIFICATION__{$type}/{$image}">
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

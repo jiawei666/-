@@ -1,0 +1,112 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.config.js"></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.all.js"></script>
+    <script>
+        function setImagePreview(doc,imgobj,fontobj) {
+            var docObj = document.getElementById(doc);
+            var imgObjPreview = document.getElementById(imgobj);
+            if (docObj.files && docObj.files[0]) {
+                //火狐下，直接设img属性
+                imgObjPreview.style.display = 'block';
+                imgObjPreview.style.width = '100%';
+                imgObjPreview.style.height = '100%';
+                imgObjPreview.style.zIndex = "0";
+                $(fontobj).css({"color":"#fff"})
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            } else {
+                //IE下，使用滤镜
+                docObj.select();
+                var imgSrc = document.selection.createRange().text;
+                var localImagId = document.getElementById("localImag");
+                //必须设置初始大小
+                localImagId.style.width = "100%";
+                localImagId.style.height = "100%";
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                } catch (e) {
+                    alert("您上传的图片格式不正确，请重新选择!");
+                    return false;
+                }
+                imgObjPreview.style.display = 'none';
+                document.selection.empty();
+            }
+            return true;
+        }
+    </script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播商管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">直播商</span>
+                </p>
+                <div class="essential skin_bg">
+                    详细信息
+                </div>
+                <form action="{:U('MemberLive_bsn/Index/edit_introduce')}" method="post" enctype="multipart/form-data">
+                    <ul class="essential-box">
+                        <li class="essential-number">
+                            <span>名称：</span>
+                            <input type="text" name="live_name" value="{$live_name}"  />
+                        </li>
+                        <li class="essential-bg">
+                            <span>公众号LOGO：</span>
+                            <div>
+                                <img id="preview" src="{$public_logo==''? '':'__UPLOAD__/certification/'}{$public_logo}"  >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="public_logo"  id="doc" onchange="javascript:setImagePreview('doc', 'preview', '.essential-logo div');" />
+                            </div>
+                        </li>
+                        <li class="essential-bg">
+                            <span>二维码：</span>
+                            <div>
+                                <img id="preview_public" src="{$qr_code=='' ? '':' __UPLOAD__/certification/'}{$qr_code}" >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="qr_code"  id="doc_public" onchange="javascript:setImagePreview('doc_public', 'preview_public', '.essential-logo div');" />
+                            </div>
+                        </li>
+                        <li class="essential-brief">
+                            <span>简介：</span>
+                            <textarea name="introduce" style="height: 150px;width: 730px;resize: none" rows="5">{$info[introduce]}</textarea>
+                        </li>
+                        <li class="essential-logo">
+                            <span>简介图片：</span>
+                            <div>
+                                点击上传图片
+                                <img id="previews" src="{$info[itd_image] == '' ? '' : '__UPLOAD__/live_bsn/'}{$info[itd_image]}" >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="itd_image"  id="docs" onchange="javascript:setImagePreview('docs', 'previews', '.essential-logo div');" />
+                            </div>
+                            //图片尺寸建议690*295
+                        </li>
+                        <li class="essential-number">
+                            <span>关注人数：</span>
+                            <input type="text" name="repair_number" value="{$info[follow_count]}" disabled="" />
+                        </li>
+                    </ul>
+                    <input type="submit" id="info-submit" value="提交">
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+        <script>
+            $('form').submit(function(){
+                $('.submit_load').show();
+                $('input[type="submit"]').attr('disabled','')
+            });
+        </script>
+    </div>
+</block>

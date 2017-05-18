@@ -1,0 +1,121 @@
+
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__activity.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    用户管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">用户审核</span>
+                </p>
+                <a href="{:U('Home/Useraudit/personal')}" class="essential active">
+                    个人认证信息
+                </a>
+                <a href="{:U('Home/Useraudit/company')}" class="essential skin_bg">
+                    公司认证信息
+                </a>
+                <div class="searchBox flex">
+                    <form action="{:U('Home/Useraudit/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="{$title}" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <input type="text" name="user_name" value="{$user_name}" placeholder="请输入搜索的用户名" class="input_01" />
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="90">
+                                编号
+                            </th>
+                            <th >
+                                用户名
+                            </th>
+                            <th>
+                                认证类型
+                            </th>
+                            <th>
+                                省份
+                            </th>
+                            <th>
+                                城市
+                            </th>
+                            <th>
+                                详细地址
+                            </th>
+                            <th>
+                                真实姓名
+                            </th>
+                            <th>
+
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td width="133">
+                                    {$vo.serial_number}
+                                </td>
+                                <td>
+                                    {$vo.title}
+                                </td>
+                                <td>
+                                    {$vo.time}
+                                </td>
+
+                                <td>
+                                    {$vo.channel_name}
+                                </td>
+
+                                <td><img src="__ACTIVITY__{$vo.bg_image}" width="120px"></td>
+                                <td><img src="__ACTIVITY__{$vo.logo}" width="120px"></td>
+                                <td>{$vo.user_name}</td>
+                                <td>
+                                    <if condition='$vo[status]==1'>
+                                        待审核
+                                        <elseif condition='$vo[status]==2'/>
+                                        审核通过
+                                        <else/>
+                                        不通过
+                                    </if>
+                                </td>
+                                <td class="bt">
+                                    <a href="{:U('Activity/Index/detail',array('id'=>$vo[id]))}" class="">详情</a>
+                                    <a href="#" class="audit">审核</a>
+                                    <a href="#" class="del">删除</a>
+                                    <input type="hidden" value="{$vo.id}" id='id'>
+                                    <input type="hidden" value="{$vo.status}" id='status'>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

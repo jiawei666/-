@@ -1,0 +1,72 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__live_tags.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">性质分类管理</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('MemberLive_bsn/Tags/add')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="tags" placeholder="请输入话题" class="input_01" style="background-color: white" required="required"/>
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01" >新增</button>
+                            </dd>
+                        </dl>
+                    </form>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="250">
+                                编号
+                            </th>
+                            <th>
+                                话题
+                            </th>
+                            <th width="250">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.tags}
+                                </td>
+                                <td class="bt">
+                                    <a href="#" class="del_bt" title="删除"><button class="handle_bt">删除</button></a>
+                                    <input type="hidden" value="{$vo.id}" id='id'>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

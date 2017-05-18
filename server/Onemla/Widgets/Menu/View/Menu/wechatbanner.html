@@ -1,0 +1,46 @@
+<!--二维码-->
+<div class="public-container">
+    <div class="public-code">
+        <img {$userInfo["type"] ==1 ? 'src="__ROOT__/Administrator/Res/Uploads/certification/personal/':'src="__ROOT__/Administrator/Res/Uploads/certification/company/'}{$userInfo[qr_code]}"/>
+    </div>
+</div>
+<!--banner-->
+<div class="banner">
+    <div class="banner-cotainer">
+        <div class="banner-sign">
+            <img {$userInfo["type"] ==1 ? 'src="__ROOT__/Administrator/Res/Uploads/certification/personal/':'src="__ROOT__/Administrator/Res/Uploads/certification/company/'}{$userInfo[public_logo]}"/>
+        </div>
+        <h3 class="banner-title">
+            {$userInfo[live_name]}
+        </h3>
+        <if condition="$session_open_id !=''">
+            <p class="banner-follow">
+                <em>{$bsnInfo[follow_count]}关注</em>
+                <span id="follow" {$followInfo[id] !=''? 'style="display:none;"':''}>
+                <input type="hidden" value="{$bsnInfo[id]}">
+                <img  src="__WECHAT__bsn/images/icon/follow-banner-icon.png"/>
+                加关注
+                </span>
+                <span  {$followInfo[id] == '' ? 'style="display:none;"':'style="background-color: #3b3b3b;"'} >
+                已关注
+                </span>
+            </p>
+        </if>
+    </div>
+
+        <div class="public-number">
+            <p>
+                关注公众号
+            </p>
+        </div>
+
+    <script>
+        $(".public-number").on("click",function(){
+            $(".public-container").toggle();
+        });
+        $('.public-container').on('click',function(){
+            $('.public-container').hide();
+        })
+    </script>
+
+</div>

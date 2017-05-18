@@ -1,0 +1,17 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: User
+ * Date: 2016/8/30
+ * Time: 17:05
+ */
+namespace Components\User\Model;
+
+use Onemla\OnemlaModel;
+use Onemla\OnemlaRequest;
+
+class UserModel extends OnemlaModel
+{
+    
+
+}

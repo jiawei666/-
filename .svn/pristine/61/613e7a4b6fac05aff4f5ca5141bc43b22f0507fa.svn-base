@@ -1,0 +1,358 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: Jerry
+ * Date: 2015/4/23
+ * Time: 18:19
+ */
+namespace Onemla\UCenter;
+
+use Onemla\OnemlaHelper;
+use Onemla\OnemlaRequest;
+
+class UCenterHelper{
+
+    //获取验证信息
+    public static function getAuthenticateInfo($authType, $credentials){
+        $User = M('user');
+        switch($authType){
+            case AuthTypeInterface::AUTH_TYPE_EMAIL:
+                $User->where("email = '%s'", $credentials['username']);
+                break;
+            case AuthTypeInterface::AUTH_TYPE_PHONE:
+                $User->where("phone = '%d'", $credentials['username']);
+                break;
+            default:
+                $User->where("name_crc = '%d' AND username = '%s'", string_to_crc($credentials['username']), $credentials['username']);
+                break;
+        }
+        return $User->field(array('user_id', 'username', 'email', 'phone', 'password', 'login_count', 'login_count', 'logo', 'is_business_cert', 'state'))
+                    ->find();
+    }
+
+    //验证
+    public static function authenticate($credentials,  &$result){
+        // Onemla does not like blank passwords
+        if (empty($credentials['password'])) {
+            $result->status        = AuthTypeInterface::STATUS_FAILURE;
+            $result->error_message ='密码不能为空';
+
+            return false;
+        }
+        $authType = isset($credentials['authType']) ?  $credentials['authType'] : AuthTypeInterface::AUTH_TYPE_EMAIL;
+
+        if($userInfo = static::getAuthenticateInfo($authType, $credentials)){
+            if($userInfo['state'] == 1 ) { //帐号激活
+                $password =$credentials['secretkey'].$credentials['password'];
+                $match = static::verifyPassword($password, $userInfo['password'], $userInfo['user_id']);
+                if ($match === true) {
+                    $user               = UCUser::getInstance($userInfo['user_id']);
+                    $user->set('loginCount', $userInfo['login_count']+1);
+                    $result->id = $userInfo['user_id'];
+                    $result->email    = $userInfo['email'];
+                    $result->username = $userInfo['username'];
+                    $result->phone = $userInfo['phone'];
+                    $result->logo = $userInfo['logo'];
+                    $result->authType = $authType;
+                    $result->status        = AuthTypeInterface::STATUS_SUCCESS;
+                    $result->error_message = '';
+                    $result->is_business_cert = $userInfo['is_business_cert'];
+                }else {
+                    // Invalid password
+                    $result->status        = AuthTypeInterface::STATUS_FAILURE;
+                    $result->error_message = ('密码错误');
+                }
+            }else{
+                // Invalid Activation
+                $result->status        = AuthTypeInterface::STATUS_FAILURE;
+                $result->error_message = ('用户未激活');
+            }
+        } else {
+            // Invalid user
+            $result->status        = AuthTypeInterface::STATUS_FAILURE;
+            $result->error_message = ('用户不存在');
+        }
+    }
+
+    public static function authorise(&$resultSet, $options){
+        if(isset($options['action'])){
+            $user = UCUser::getInstance($resultSet->id);
+            if(!$user->authorise($options)){
+                $resultSet->error_message = "您没有访问该站点的权限";
+                $resultSet->status        = AuthTypeInterface::STATUS_FAILURE;
+            }
+        }
+    }
+
+    //用户注册
+    public static function validateRegister($credentials, &$resultSet, $UserModel=null){
+        $UserModel = is_null($UserModel) ? M('user') : $UserModel;
+        $authType = $credentials['authType'];
+
+        $condition = array();
+        if($authType & AuthTypeInterface::AUTH_TYPE_EMAIL){
+            $condition['email'] = $credentials['email'];
+        }
+        if($authType & AuthTypeInterface::AUTH_TYPE_PHONE){
+            $condition['phone'] = $credentials['phone'];
+        }
+        if($authType & AuthTypeInterface::AUTH_TYPE_NICKE){
+            $condition['_string'] = sprintf('name_crc="%d" AND username="%s"',
+                string_to_crc($credentials['username']), $credentials['username']);
+        }
+        $condition['_logic'] = 'or';
+
+        if($data = $UserModel->where($condition)->field(array('user_id', 'username', 'email', 'phone'))->select()){
+            foreach($data as $value){
+                if($credentials['email'] && $credentials['email'] == $value['email']) {
+                    $resultSet->status = AuthTypeInterface::STATUS_FAILURE;
+                    $resultSet->error_message = array('email'=>'邮箱已经被占用');
+                    return true;
+                }
+            }
+            foreach($data as $value){
+                if($credentials['username'] && $credentials['username'] == $value['username']) {
+                    $resultSet->status = AuthTypeInterface::STATUS_FAILURE;
+                    $resultSet->error_message = array('username' => '昵称已经被占用');
+                    return true;
+                }
+            }
+            foreach($data as $value){
+                if($credentials['phone'] && $credentials['phone'] == $value['phone']) {
+                    $resultSet->status = AuthTypeInterface::STATUS_FAILURE;
+                    $resultSet->error_message = array('phone'=>'手机号码已经被占用');
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Create a activation-string
+     *
+     * @param   integer  $length  Length of string
+     *
+     * @return  string  Generated activation
+     */
+    protected static function _createActivation($length = 8){
+        static $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $max = strlen($chars) - 1;
+        $activation = '';
+        $name = session_name();
+
+        for ($i = 0; $i < $length; ++$i)
+        {
+            $activation .= $chars[(rand(0, $max))];
+        }
+
+        return $activation;
+    }
+
+    public static function getToken($length = 12){
+        return static::_createActivation($length);
+    }
+
+    public static function register($credentials, &$resultSet){
+        if(static::validateRegister($credentials, $resultSet)){
+            return false;
+        }
+        $activation = static::_createActivation();
+        $User = new UCUser();
+
+        if($userId = $User->register($credentials, $activation)){
+            $user               = UCUser::getInstance($userId);
+            $user->set('loginCount', 1);
+            $resultSet->id = $userId;
+            $resultSet->email    = isset($credentials['email']) ? $credentials['email'] : '';
+            $resultSet->username = isset($credentials['username']) ? $credentials['username'] : '';
+            $resultSet->phone = isset($credentials['phone']) ? $credentials['phone'] : '';
+            $resultSet->authType = $credentials['authType'];
+            $resultSet->status = AuthTypeInterface::STATUS_SUCCESS;
+            $resultSet->error_message = '';
+            $resultSet->is_business_cert = 0;
+            $resultSet->logo = '/User/default/user.jpg';
+            $resultSet->activation = $activation;
+        }else{
+            $resultSet->status = AuthTypeInterface::STATUS_FAILURE;
+            $resultSet->error_message = '注册失败，请联系客服';
+        }
+
+        return $resultSet;
+    }
+
+    //重新发送
+    public static function Resend($iUserId){
+        $sActivation = static::_createActivation();
+        $userData = static::getProfile($iUserId, array('user_id', 'email', 'username', 'rese_time'));
+        $resultSet = new ResultSet();
+        $lastSendTime = 0;
+
+        defined('RESEND_TIME_LIMIT') or define('RESEND_TIME_LIMIT', 30);
+        if($userData){
+            $lastSendTime = RESEND_TIME_LIMIT - (OnemlaRequest::requestTime() - $userData['send_time']) %86400%60;
+        }
+
+        if($userData && $lastSendTime <= 0 && UCUser::getInstance($iUserId)->Resend($sActivation)){
+            $resultSet->status = AuthTypeInterface::STATUS_SUCCESS;
+            $resultSet->activation = $sActivation;
+            $resultSet->email = $userData['email'];
+            $resultSet->id = $iUserId;
+            $resultSet->username = $userData['username'];
+        }
+        return $resultSet;
+    }
+
+    //找回密码
+    public static function FindPwdSend($userData, &$resultSet){
+        $sActivation = static::_createActivation();
+        $data['activation'] = $sActivation;
+        $data['rese_time'] = 0;
+        $successed = M('user')->where('user_id = "%d"', $userData['user_id'])->save($data);
+        if( $successed ){
+            $resultSet->status = AuthTypeInterface::STATUS_SUCCESS;
+            $resultSet->activation = $sActivation;
+            $resultSet->email = $userData['email'];
+            $resultSet->id = $userData['user_id'];
+            $resultSet->username = $userData['username'];
+        }else{
+            $resultSet->error_message = '出现异常事项';
+        }
+    }
+
+    public static function ChangePwd($credentials){
+        $data['password'] = static::hashPassword($credentials['secretkey'].$credentials['password']);
+        $data['pass_stren'] = password_strength($credentials['password']);
+
+        $where['user_id'] = $credentials['userId'];
+        if(isset($credentials['activation'])){
+            $where['activation'] = $credentials['activation'];
+        }
+
+        return M('user')->where($where)->save($data);
+    }
+
+
+    //激活用户
+    public static function activateUser($credentials){
+        $resultSet = new ResultSet();
+        $fields = array('user_id', 'email', 'username', 'phone', 'acti_time', 'rese_time', 'logo', 'state');
+        $userData = M('user')->where("user_id = '%d' AND activation = '%s'", $credentials['userId'], $credentials['activation'])
+                             ->field($fields)
+                             ->find();
+        if($userData){
+            if(!$userData['state']){//没有激活就激活
+                $data['state'] = 1;
+                $data['acti_time'] = OnemlaRequest::requestTime();
+                M('user')->where("user_id = '%d'", $credentials['userId'])->save($data);
+            }
+            $resultSet->status = AuthTypeInterface::STATUS_SUCCESS;
+            $resultSet->id = $userData['user_id'];
+            $resultSet->email    = $userData['email'];
+            $resultSet->username = $userData['username'];;
+            $resultSet->phone = $userData['phone'];;
+            $resultSet->error_message = '';
+            $resultSet->logo = $userData['logo'];
+            $resultSet->is_business_cert = 0;
+        }
+        return $resultSet;
+    }
+
+    //获得用户信息
+    public static function getProfile($userId = 0, $field = array()){
+        if ($userId == 0) {
+            $user = OnemlaHelper::getUser();
+            $userId = $user->id;
+        }
+        return M('user')->where("user_id = '%d'", $userId)->field($field)->find();
+    }
+
+    /**
+     * 更改邮箱
+     * @param $sNewEmail
+     * @param null $iUserId
+     * @return bool
+     */
+    public static function changeEmail($sNewEmail, $iUserId = null){
+        $iUserId = is_null($iUserId) ? OnemlaHelper::getUserId() : $iUserId;
+        $data['email'] = $sNewEmail;
+
+        if(M('user')->where("user_id = '%d'", $iUserId) -> save($data)){
+            $User = UCUser::getInstance($iUserId);
+            $fields = array('user_id', 'email', 'username', 'phone', 'acti_time', 'rese_time', 'logo', 'state');
+            $userData = M('user')->where("user_id = '%d'", $iUserId)
+                ->field($fields)
+                ->find();
+            if($userData){
+                $resultSet = new ResultSet();
+                $resultSet->id = $userData['user_id'];
+                $resultSet->email    = $userData['email'];
+                $resultSet->username = $userData['username'];;
+                $resultSet->phone = $userData['phone'];
+                $resultSet->logo = $userData['logo'];
+                $resultSet->is_business_cert = 0;
+                $User->setUser($resultSet);
+            }
+
+            OnemlaHelper::session(SESSION_UCENTER, $User->getUser());
+        }
+        return true;
+    }
+
+    //密码加密
+    public static function hashPassword($password){
+        if (!defined('PASSWORD_DEFAULT')) {
+            // Always make sure that the password hashing API has been defined.
+            include_once COMMON_PATH . 'ircmaxell/password-compat/lib/password.php';
+        }
+
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    //密码判断
+    public static  function verifyPassword($password, $hash, $user_id = 0){
+        if (!defined('PASSWORD_DEFAULT')) {
+            // Always make sure that the password hashing API has been defined.
+            include_once COMMON_PATH . 'ircmaxell/password-compat/lib/password.php';
+        }
+
+        $match = password_verify($password, $hash);
+        $rehash = password_needs_rehash($hash, PASSWORD_DEFAULT);
+
+        if ((int) $user_id > 0 && $match && $rehash) {
+            $user = UCUser::getInstance($user_id);
+            $user->set('password', static::hashPassword($password));
+        }
+
+        return $match;
+    }
+
+    public static function getUrlName(){
+        if (strpos(php_sapi_name(), 'cgi') !== false && !ini_get('cgi.fix_pathinfo') && !empty($_SERVER['REQUEST_URI']))
+        {
+            // PHP-CGI on Apache with "cgi.fix_pathinfo = 0"
+
+            // We shouldn't have user-supplied PATH_INFO in PHP_SELF in this case
+            // because PHP will not work with PATH_INFO at all.
+            $script_name = $_SERVER['PHP_SELF'];
+        }else {
+            // Others
+            $script_name = $_SERVER['SCRIPT_NAME'];
+        }
+
+        return rtrim(dirname($script_name), '/\\');
+    }
+
+    /**
+     * @return string
+     */
+    public static function getShortHashedUserAgent(){
+        $ua = OnemlaHelper::getClient();
+        $uaString = $ua->userAgent;
+        $browserVersion = $ua->browserVersion;
+        $uaShort = str_replace($browserVersion, 'abcd', $uaString);
+
+        return md5(static::getUrlName() . $uaShort);
+    }
+}

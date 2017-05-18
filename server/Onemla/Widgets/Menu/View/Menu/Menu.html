@@ -1,0 +1,104 @@
+<!--手机端导航栏-->
+<div class="header-phone">
+    <ul class="nav-phone">
+        <li class="active">
+            <a href="{:U('Home/Index/index')}">
+                首页
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Scene/Index/video')}">
+                应用场景
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Service/Index/index')}">
+                产品服务
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Caseinfo/Index/index')}">
+                精彩案例
+            </a>
+        </li>
+        <li>
+            <a href="{:U('Solution/Index/index')}">
+                帮助中心
+            </a>
+        </li>
+    </ul>
+</div>
+<!--头部-->
+<header class="container">
+    <div class="header-container">
+        <img class="header-logo" src="__IMAGES__logo.png"/>
+        <ul class="nav">
+            <li class="active">
+                <a href="{:U('Home/Index/index')}">
+                    首页
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Scene/Index/video')}">
+                    应用场景
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Service/Index/index')}">
+                    产品服务
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Caseinfo/Index/index')}">
+                    精彩案例
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Solution/Index/index')}">
+                    帮助中心
+                </a>
+            </li>
+        </ul>
+
+        <if condition="$user_name==''">
+            <!--登录之前-->
+            <div class="header-right">
+                <a class="header-login" href="{:U('User/Index/login_page')}">登录</a>
+                <a class="header-register" href="{:U('User/Index/register_page')}">注册</a>
+            </div>
+            <!--end-->
+            <else/>
+            <!--登录之后-->
+            <div class="header-right">
+                <div class="header-login-urse">
+						<span>
+							<img src="__IMAGES__icon/login-head.png"/>
+						</span>
+                    <p>
+                        {$user_name}
+                    </p>
+                </div>
+                <a class="header-control" href="{:U('User/Index/logout')}">
+                    注销
+                </a>
+                <a class="header-control" href="__ROOT__/administrator">
+                    直播控制台
+                </a>
+            </div>
+            <!--end-->
+        </if>
+        <!--手机端右边导航栏、登录点击按钮-->
+        <div class="header-right-phone">
+					<span class="header-login">
+						<a href="{:U('User/Index/login_page')}"><img src="__IMAGES__icon/login-user.png"/></a>
+					</span>
+					<span class="nav-icon-phone">
+						<img src="__IMAGES__icon/nav.png"/>
+					</span>
+        </div>
+    </div>
+</header>
+
+<script>
+
+</script>

@@ -1,0 +1,74 @@
+<extend name="Public/base2"/>
+<block name="head">
+	<link rel="stylesheet" href="__CSS__css.css" />
+	<link rel="stylesheet" href="__CSS__case.css" />
+	<script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+</block>
+
+<block name="menu">
+	{:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+	<!--页内banner图-->
+	<div class="video_banner">
+		分享，互动，尽在掌握中
+	</div>
+	<!--页内banner图 end-->
+
+	<div class="video_container">
+		<!--视频搜索-->
+		<div class="video_search">
+			<form action="{:U('Caseinfo/Index/index')}" method="post">
+				<div class="search_area">
+					<input type="text" name="search" placeholder="请输入直播名称进行搜索" value="{$search}">
+					<button class="search_button" type="submit"></button>
+
+				</div>
+			</form>
+
+		</div>
+
+		<!--视频列表-->
+		<div class="video_line">
+			<ul>
+				<volist name="list" id="vo">
+					<li>
+						<div class="video_content">
+							<div class="video_bg" style="background: url(__ROOT__/Administrator/Res/Uploads/case/{$vo.image}) no-repeat 50% 50%;"></div>
+							<div class="video_mes">
+								<h3>{$vo.title}</h3>
+								<p class="video_text">发布时间：{$vo.update_time}</p>
+								<a class="video_href" href="{$vo.alink}" target="_blank" title="查看详情">查看详情</a>
+							</div>
+						</div>
+					</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+	<div class="page">
+		<div class="page-content">
+			{$page_show}
+		</div>
+	</div>
+</block>
+
+<block name="footer">
+	{:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+	<script type="text/javascript" src="__JAVASCRIPTS__js.js" ></script>
+	<script>
+		$('.nav li').attr('class','');
+		$('.nav li').eq(3).attr('class','active');
+
+		$('.page-content a[href="javascript:;"]').attr('class','active');
+	</script>
+</block>
+
+
+
+
+
+
+
+

@@ -1,0 +1,265 @@
+.banner{
+	height: 3rem;
+	width: 100%;
+	background: url(../images/follow-home-banner.jpg) no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+	text-align: center;
+	position: relative;
+}
+.banner-cotainer{
+	display: inline-block;
+}
+.banner-sign{
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	border: 0.05rem solid #fff;
+	display: inline-block;
+	margin-top: .3rem;
+	overflow: hidden;
+}
+.banner-sign img{
+	width: 1rem;
+	height: 1rem;
+	float: left;
+}
+.banner-title{
+	font-size:.28rem;
+	color: #fff;
+	font-weight: 400;
+}
+.banner-follow{
+	height: .36rem;
+	overflow: hidden;
+	float: left;
+	margin-top: .25rem;
+}
+.banner-follow em{
+	font-size: .2rem;
+	color: #dadada;
+	float: left;
+	margin-right: .26rem;
+}
+.banner-follow span{
+	font-size: .18rem;
+	color: #fff;
+	height: .36rem;
+	line-height: .36rem;
+	padding: 0 .05rem;
+	display: inline-block;
+	float: right;
+	background:#c81914;
+	border-radius: .05rem;
+	cursor: pointer;
+}
+.banner-follow span img{
+	width: .2rem;
+	height: .2rem;
+	float: left;
+	padding: .08rem .05rem 0 0;
+}
+.public-number{
+	padding: 0 .1rem;
+	border: 1px solid #fff;
+	border-radius: .05rem;
+	display: inline-block;
+	font-size: .2rem;
+	color: #fefefe;
+	height: .42rem;
+	line-height: .42rem;
+	position: absolute;
+	top: .2rem;
+	right: .35rem;
+	cursor: pointer;
+}
+.public-number p{
+	padding-left: .34rem;
+	background: url(../images/icon/follow-code.png) left center no-repeat;
+	background-size: .26rem .26rem;
+}
+/*分类栏*/
+
+.home-nav a{
+	width: 33%;
+	display: inline-block;
+	float: left;
+	font-size: .24rem;
+	text-align: center;
+}
+.home-nav a span{
+	display: inline-block;
+	line-height: .6rem;
+	border-bottom: .03rem solid transparent;
+	color: #787878;
+	padding: 0 .1rem;
+}
+.home-nav{
+	padding: .08rem 0 0;
+	overflow: hidden;
+}
+.home-nav a.active span,
+.home-subnav a.active span{
+	border-bottom: .03rem solid #c50909;
+	color: #c50909;	
+	
+}
+/*子分类栏*/
+.home-subnav a{
+	width: 14%;
+	font-size: .24rem;
+	display: inline-block;
+	float: left;
+	text-align: center;
+}
+.home-subnav a span{
+	color: #787878;
+	display: inline-block;
+	padding: 0 .1rem;
+	border-bottom: .03rem solid transparent;
+	padding-bottom: .15rem;
+}
+.home-subnav{
+	padding: .4rem 0;
+	overflow: hidden;
+}
+
+/*话题列表*/
+.home-list-conmtainer{
+	padding: 0 .25rem;
+}
+.home-list{
+	overflow: hidden;
+	margin-bottom: .4rem;
+}
+.home-list-container{
+	float: left;
+}
+.home-list-title{
+	font-size: .24rem;
+	color: #787878;
+	font-weight: 400;
+	width: 4.1rem;
+	display: block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.home-list-time{
+	font-size: .2rem;
+	color: #b4b4b4;
+	margin: .15rem 0;
+}
+.home-list-number{
+	padding-left: .2rem;
+	background: url(../images/icon/eye-visible-follow.png) left center no-repeat;
+	background-size: .2rem .15rem;
+	font-size: .18rem;
+	color: #b4b4b4;
+	margin-bottom: .15rem;
+}
+.home-list-href{
+	border-radius: .05rem;
+	font-size: .16rem;
+	color: #fff;
+	display: inline-block;
+	float: left;
+	width: .64rem;
+	height: .28rem;
+	line-height: .28rem;
+	text-align: center;
+	min-width: 40px;
+	min-height: 14px;
+}
+.home-list-img{
+	width:2.55rem;
+	height: 1.65rem;
+	float: left;
+	margin-right: .25rem;
+}
+@media screen and (max-width:320px) {
+	.home-list-href{
+		line-height: 14px;
+	}
+}
+
+
+/*频道分类*/
+.channel-list-title{
+	font-size: .24rem;
+	color: #787878;
+	line-height: .6rem;
+	float: left;
+}
+.channel-list-img{
+	width: 2.2rem;
+	height: 2.2rem;
+	float: left;
+}
+.channel-list{
+	padding: .35rem .1rem .35rem .2rem;
+	overflow: hidden;
+}
+.channel-list-container{
+	width: 33.3%;
+	float: left;
+	text-align: center;
+}
+.channel-list-container a{
+	overflow: hidden;
+}
+
+
+/*介绍*/
+.introduce-home-title{
+	font-size: .24rem;
+	color: #787878;
+	font-weight: 400;
+	text-align: center;
+	margin-bottom: .25rem;
+}
+.introduce-home-container{
+	padding: .35rem .55rem 1rem;
+}
+.introduce-home-text{
+	font-size: .24rem;
+	color: #b4b4b4;
+	line-height: .42rem;
+}
+.introduce-home-img{
+	width: 100%;
+	height: 2.95rem;
+	margin-top: .2rem;
+}
+
+
+/*频道详情 导航*/
+.channel-details-nav a{
+	width: 50%;
+	display: inline-block;
+	float: left;
+	font-size: .24rem;
+	text-align: center;
+}
+.channel-details-nav a span{
+	display: inline-block;
+	line-height: .6rem;
+	border-bottom: .03rem solid transparent;
+	color: #787878;
+	padding: 0 .1rem;
+}
+.channel-details-nav{
+	padding: .08rem 0 0;
+	overflow: hidden;
+}
+.channel-details-nav a.active span,
+.channel-details-nav a.active span{
+	border-bottom: .03rem solid #c50909;
+	color: #c50909;	
+	
+}
+
+/*频道详情活动页面*/
+.channel-details-container{
+	padding: .4rem .25rem 0;
+}

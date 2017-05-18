@@ -1,0 +1,122 @@
+[ 2017-05-17T17:33:32+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:33:47+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:33:57+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:34:01+08:00 ] ::1 /live/server/Onemla/index.php?m=WechatIndex&c=Index&a=reloadMore
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001453s ]
+INFO: Run Onemla\Behaviors\OnemlaLangBehavior [ RunTime:0.006232s ]
+NOTIC: [2] Illegal string offset 'All' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'WechatIndex' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'Index' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'reloadMore' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] join(): Invalid arguments passed D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 27 行.
+NOTIC: [2] Illegal string offset 'replace' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 28 行.
+NOTIC: [2] Illegal string offset 'key' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 31 行.
+NOTIC: [2] Illegal string offset 'key' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 32 行.
+INFO: Run Onemla\Behaviors\OnemlaKeyWorldsBehavior [ RunTime:0.006525s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015628s ]
+NOTIC: [2048] Declaration of Onemla\ViewController::display() should be compatible with Think\Controller::display($templateFile = '', $charset = '', $contentType = '', $content = '', $prefix = '') D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\ViewController.class.php 第 13 行.
+NOTIC: [8] Undefined index: code D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 19 行.
+NOTIC: [8] Undefined index: openid D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 21 行.
+SQL: SELECT * FROM `tb_live_wc_member` WHERE ( open_id='' ) LIMIT 1   [ RunTime:0.0013s ]
+NOTIC: [8] Undefined index: openid D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 24 行.
+NOTIC: [8] Undefined index: tags D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 101 行.
+NOTIC: [8] Undefined variable: tagsWhere D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 120 行.
+SQL: SELECT COUNT(*) AS tp_count FROM tb_live_room a INNER JOIN tb_live_bsn as b on b.id=a.r_bsn_id INNER JOIN tb_user as u on u.id = b.user_id  WHERE ( `live_channel_id`=12 and `r_bsn_id`=11 and `lock`=1 and `audit_status`=2 and u.state = 1 ) LIMIT 1   [ RunTime:0.0017s ]
+NOTIC: [8] Undefined variable: tagsWhere D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 125 行.
+SQL: SELECT u.state,a.* FROM tb_live_room a INNER JOIN tb_live_bsn as b on b.id=a.r_bsn_id INNER JOIN tb_user as u on u.id = b.user_id  WHERE ( `live_channel_id`=12 and `r_bsn_id`=11 and `lock`=1 and `audit_status`=2 and u.state = 1 )  [ RunTime:0.0020s ]
+
+[ 2017-05-17T17:34:06+08:00 ] ::1 /live/server/Onemla/index.php?m=WechatIndex&c=Index&a=reloadMore
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001671s ]
+INFO: Run Onemla\Behaviors\OnemlaLangBehavior [ RunTime:0.005814s ]
+NOTIC: [2] Illegal string offset 'All' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'WechatIndex' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'Index' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'reloadMore' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] join(): Invalid arguments passed D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 27 行.
+NOTIC: [2] Illegal string offset 'replace' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 28 行.
+NOTIC: [2] Illegal string offset 'key' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 31 行.
+NOTIC: [2] Illegal string offset 'key' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 32 行.
+INFO: Run Onemla\Behaviors\OnemlaKeyWorldsBehavior [ RunTime:0.009090s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.018331s ]
+NOTIC: [2048] Declaration of Onemla\ViewController::display() should be compatible with Think\Controller::display($templateFile = '', $charset = '', $contentType = '', $content = '', $prefix = '') D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\ViewController.class.php 第 13 行.
+NOTIC: [8] Undefined index: code D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 19 行.
+NOTIC: [8] Undefined index: openid D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 21 行.
+SQL: SELECT * FROM `tb_live_wc_member` WHERE ( open_id='' ) LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: openid D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 24 行.
+NOTIC: [8] Undefined index: tags D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 101 行.
+NOTIC: [8] Undefined variable: tagsWhere D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 120 行.
+SQL: SELECT COUNT(*) AS tp_count FROM tb_live_room a INNER JOIN tb_live_bsn as b on b.id=a.r_bsn_id INNER JOIN tb_user as u on u.id = b.user_id  WHERE ( `live_channel_id`=12 and `r_bsn_id`=11 and `lock`=1 and `audit_status`=2 and u.state = 1 ) LIMIT 1   [ RunTime:0.0013s ]
+NOTIC: [8] Undefined variable: tagsWhere D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 125 行.
+SQL: SELECT u.state,a.* FROM tb_live_room a INNER JOIN tb_live_bsn as b on b.id=a.r_bsn_id INNER JOIN tb_user as u on u.id = b.user_id  WHERE ( `live_channel_id`=12 and `r_bsn_id`=11 and `lock`=1 and `audit_status`=2 and u.state = 1 )  [ RunTime:0.0016s ]
+
+[ 2017-05-17T17:34:39+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:34:47+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:35:18+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:35:54+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:36:06+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:36:11+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:36:16+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+
+[ 2017-05-17T17:36:22+08:00 ] ::1 /live/server/Onemla/index.php?m=WechatIndex&c=Index&a=reloadMore
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002167s ]
+INFO: Run Onemla\Behaviors\OnemlaLangBehavior [ RunTime:0.006219s ]
+NOTIC: [2] Illegal string offset 'All' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'WechatIndex' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'Index' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] Illegal string offset 'reloadMore' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\OnemlaHelper.class.php 第 126 行.
+NOTIC: [2] join(): Invalid arguments passed D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 27 行.
+NOTIC: [2] Illegal string offset 'replace' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 28 行.
+NOTIC: [2] Illegal string offset 'key' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 31 行.
+NOTIC: [2] Illegal string offset 'key' D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\Behaviors\OnemlaKeyWorldsBehavior.class.php 第 32 行.
+INFO: Run Onemla\Behaviors\OnemlaKeyWorldsBehavior [ RunTime:0.007175s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.017444s ]
+NOTIC: [2048] Declaration of Onemla\ViewController::display() should be compatible with Think\Controller::display($templateFile = '', $charset = '', $contentType = '', $content = '', $prefix = '') D:\phpstudy\WWW\live\server\Onemla\Libraries\Onemla\ViewController.class.php 第 13 行.
+NOTIC: [8] Undefined index: code D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 19 行.
+NOTIC: [8] Undefined index: openid D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 21 行.
+SQL: SELECT * FROM `tb_live_wc_member` WHERE ( open_id='' ) LIMIT 1   [ RunTime:0.0007s ]
+NOTIC: [8] Undefined index: openid D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 24 行.
+SQL: SELECT `liveroom_id` FROM `tb_live_rt_relation` WHERE `livetags_id` = '18'  [ RunTime:0.0008s ]
+NOTIC: [8] Undefined variable: roomId D:\phpstudy\WWW\live\server\Onemla\Components\WechatIndex\Controller\IndexController.class.php 第 105 行.
+SQL: SELECT COUNT(*) AS tp_count FROM tb_live_room a INNER JOIN tb_live_bsn as b on b.id=a.r_bsn_id INNER JOIN tb_user as u on u.id = b.user_id  WHERE ( `r_bsn_id`=11 and `lock`=1 and `audit_status`=2 and u.state = 1 and `room_id` IN (15,16,17,25,24,40,12) ) LIMIT 1   [ RunTime:0.0012s ]
+SQL: SELECT u.state,a.* FROM tb_live_room a INNER JOIN tb_live_bsn as b on b.id=a.r_bsn_id INNER JOIN tb_user as u on u.id = b.user_id  WHERE ( `r_bsn_id`=11 and `lock`=1 and `audit_status`=2 and u.state = 1 and `room_id` IN (15,16,17,25,24,40,12) )  [ RunTime:0.0021s ]
+
+[ 2017-05-17T17:38:25+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:39:16+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:39:19+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:39:58+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T17:42:37+08:00 ] ::1 /live/server/Onemla/administrator/index.php?m=MemberLive_bsn&c=Liveroom&a=index&tags_id=33
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') LIMIT 1' at line 1
+
+[ 2017-05-17T18:04:56+08:00 ] ::1 /live/server/Onemla/Res/wechat/bsn/css/vendor/swiper.min.css
+ERR: 无法加载控制器:Wechat
+

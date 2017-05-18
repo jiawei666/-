@@ -1,0 +1,72 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>直播家后台</title>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/jquery.min.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/bootstrap.min.js" ></script> 
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/js.cookie.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sub.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/css.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/style.css" />
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sweetalert.min.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/sweetalert.css" />
+
+        <?php echo \Onemla\OnemlaHelper::getDocument()->fetchHead();?>
+    
+
+
+</head>
+<body>
+
+
+    <div id="main">
+        <?php echo \Onemla\OnemlaHelper::W('Menu/Index');?>
+        <div id="box" class="flex">
+            <?php echo \Onemla\OnemlaHelper::W('Menu/Left_Menu');?>
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    用户管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">用户管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    基本信息
+                </div>
+                <form action="<?php echo U('Member/Index/editPassword');?>" method="post">
+                    <ul class="essential-box">
+                        <li class="essential-number">
+                            <span>原密码：</span>
+                            <input type="password" name="old_password" value="<?php echo ($info['id']); ?>" required="" />
+                        </li>
+                        <li class="essential-title">
+                            <span>新密码：</span>
+                            <input type="password" name="password" value="<?php echo ($info['user_name']); ?>" required="" />
+                        </li>
+                        <li class="essential-state">
+                            <span>再次输入密码：</span>
+                            <input type="password" name="ag_password" value="<?php echo ($info[phone]); ?>" required="" />
+                        </li>
+                        <li class="bt">
+                        </li>
+                    </ul>
+                    <input type="submit" id="info-submit" name="" value="提交" />
+
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+
+
+
+</body>
+</html>

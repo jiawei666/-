@@ -1,0 +1,132 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.config.js"></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.all.js"></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script src="__JAVASCRIPTS__regular.js"></script>
+
+    <script>
+        $(function () {
+            $('.date_input').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        })
+        function setImagePreview(doc,imgobj,fontobj) {
+	    var docObj = document.getElementById(doc);
+	    var imgObjPreview = document.getElementById(imgobj);
+	    if (docObj.files && docObj.files[0]) {
+	//火狐下，直接设img属性  
+	        imgObjPreview.style.display = 'block';
+	        imgObjPreview.style.width = '100%';
+	        imgObjPreview.style.height = '100%';
+	        imgObjPreview.style.zIndex = "0";
+	        $(fontobj).css({"color":"#fff"})
+	        //imgObjPreview.src = docObj.files[0].getAsDataURL();  
+	
+	        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式    
+	        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+	    } else {
+	//IE下，使用滤镜
+	        docObj.select();
+	        var imgSrc = document.selection.createRange().text;
+	        var localImagId = document.getElementById("localImag");
+	        //必须设置初始大小  
+	        localImagId.style.width = "100%";
+	        localImagId.style.height = "100%";
+	        //图片异常的捕捉，防止用户修改后缀来伪造图片  
+	        try {
+	            localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	        } catch (e) {
+	            alert("您上传的图片格式不正确，请重新选择!");
+	            return false;
+	        }
+	        imgObjPreview.style.display = 'none';
+	        document.selection.empty();
+	    }
+	    return true;
+	}
+    </script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    活动管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">活动管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    编辑信息
+                </div>
+                <form action="{:U('MemberRepair/Index/edit')}" method="post" enctype="multipart/form-data"  >
+                    <ul class="essential-box">
+
+                        <li class="essential-channel">
+                            <span>活动类型：<em>*</em></span>
+                            <select name="type">
+                                <option value="1">直播问题</option>
+                                <option value='2'>功能问题</option>
+                                <option value='3'>建议</option>
+                                <option value='4'>分发</option>
+                            </select>
+                        </li>
+                        <li class="essential-brief">
+                            <span>工单说明：<em>*</em></span>
+                            <textarea name="introduction" style="margin-left: 153px" rows="5" required="">{$info[introduction]}</textarea>
+                            {:textArea('introduction',array('height'=>'300','width'=>'800','resize_type'=>0))}
+                        </li>
+
+                        <if condition="$info['image']==''">
+                            <li class="essential-bg">
+                                <span>上传附件：</span>
+                                <input type="file" accept="image/jpg,image/png,image/jpeg,image/bmp,.txt,.doc,.docx"  name="image" value="{$info[image]}" style="border: 0px;" />
+                            </li>
+                        <else />
+                            <li class="essential-bg">
+                                <span style="margin-top: 0px">原附件：</span>
+                                <a target="_blank" href="__REPAIR__{$info[image]}" style="padding: 8px;border: 0px;text-decoration: underline">{$info[image]}</a>
+                                <input type="hidden" name="image_name">
+                            </li>
+                            <li class="essential-bg">
+                                <span>更改附件：</span>
+                                <input type="file" accept="image/jpg,image/png,image/jpeg,image/bmp,.txt,.doc,.docx"  name="image" value="{$info[image]}" style="border: 0px;" />
+                            </li>
+                        </if>
+
+                        <li class="essential-time">
+                            <span>联系人：<em>*</em></span>
+                            <input type="text" name="contact" value="{$info[contact]}" required="" />
+                        </li>
+                        <li class="essential-brief">
+                            <span>手机号码：<em>*</em></span>
+                            <input type="text" name="phone" value="{$info[phone]}" required="" />
+                        </li>
+                        <li class="essential-channel">
+                            <span>电子邮箱：<em>*</em></span>
+                            <input type="text" name="email" value="{$info[email]}" required="" />
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="{$info[id]}" />
+                    <input type="submit" onclick="return registercheck()" id="info-submit" value="提交" />
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+        <script>
+            $('form').submit(function(){
+                $('input[type="submit"]').attr('disabled','')
+            });
+            $('em').css('color','red');
+        </script>
+    </div>
+</block>

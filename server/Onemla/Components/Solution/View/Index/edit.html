@@ -1,0 +1,96 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.config.js"></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.all.js"></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script>
+        $(function () {
+            $('.date_input').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        })
+        function setImagePreview(doc,imgobj,fontobj) {
+	    var docObj = document.getElementById(doc);
+	    var imgObjPreview = document.getElementById(imgobj);
+	    if (docObj.files && docObj.files[0]) {
+	//火狐下，直接设img属性  
+	        imgObjPreview.style.display = 'block';
+	        imgObjPreview.style.width = '100%';
+	        imgObjPreview.style.height = '100%';
+	        imgObjPreview.style.zIndex = "0";
+	        $(fontobj).css({"color":"#fff"})
+	        //imgObjPreview.src = docObj.files[0].getAsDataURL();  
+	
+	        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式    
+	        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+	    } else {
+	//IE下，使用滤镜
+	        docObj.select();
+	        var imgSrc = document.selection.createRange().text;
+	        var localImagId = document.getElementById("localImag");
+	        //必须设置初始大小  
+	        localImagId.style.width = "100%";
+	        localImagId.style.height = "100%";
+	        //图片异常的捕捉，防止用户修改后缀来伪造图片  
+	        try {
+	            localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	        } catch (e) {
+	            alert("您上传的图片格式不正确，请重新选择!");
+	            return false;
+	        }
+	        imgObjPreview.style.display = 'none';
+	        document.selection.empty();
+	    }
+	    return true;
+	}
+    </script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    活动管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">活动管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    编辑信息
+                </div>
+                <form action="{:U('CaAndSo/Index/edit')}" method="post" enctype="multipart/form-data"  >
+                    <ul class="essential-box">
+                        <li class="essential-title">
+                            <span>案例标题：</span>
+                            <input type="text" name="title" value="{$info[title]}" required="" />
+                        </li>
+                        <li class="essential-time">
+                            <span>案例内容：</span>
+                            <textarea name="content" style="margin-left: 153px" rows="5" required="">{$info[content]}</textarea>
+                            {:textArea('content',array('height'=>'300','width'=>'800','resize_type'=>0))}
+                        </li>
+                        <li class="essential-logo">
+                            <span>案例图片：</span>
+                            <div>
+                                点击上传图片
+                                <img id="previews" src="{$info[image] == '' ? '' : '__CASE__'}{$info[image]}" >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="image" value="{$info[image]}" id="docs" onchange="javascript:setImagePreview('docs', 'previews', '.essential-logo div');" />
+                            </div>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="{$info[id]}" />
+                    <input type="submit" id="info-submit" value="提交" />
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

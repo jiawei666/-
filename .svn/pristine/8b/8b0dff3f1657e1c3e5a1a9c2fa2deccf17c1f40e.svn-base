@@ -1,0 +1,207 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>直播家后台</title>
+        <script type="text/javascript" src="/live/server/Onemla/administrator/Res/js/jquery.min.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/administrator/Res/js/bootstrap.min.js" ></script> 
+        <script type="text/javascript" src="/live/server/Onemla/administrator/Res/js/js.cookie.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/administrator/Res/js/sub.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/administrator/Res/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/administrator/Res/css/css.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/administrator/Res/css/style.css" />
+        <script type="text/javascript" src="/live/server/Onemla/administrator/Res/js/sweetalert.min.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/administrator/Res/css/sweetalert.css" />
+
+        <?php echo \Onemla\OnemlaHelper::getDocument()->fetchHead();?>
+    
+    <script>
+        $(function () {
+            $('.del').click(function () {
+                var id = $(this).siblings("#id").val();
+                swal({
+                    title: "您确定要删除吗？",
+                    text: "您确定要删除当前工单数据吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                    confirmButtonText: "是的，我要删除",
+                    confirmButtonColor: "#ec6c62"
+
+                }, function () {
+                    var url = "index.php?m=MemberRepair&c=Index&a=delete";
+                    $.post(url, {id: id}, function (data) {
+
+                    }, 'json').done(function (data) {
+                        if (data.flag == "1") {
+                            swal("操作成功!", "已成功删除当前工单数据！", "success");
+                            $('.confirm').click(function () {   //额外绑定一个事件，当确定执行之后返回成功的页面的确定按钮，点击之后刷新当前页面或者跳转其他页面
+                                location.reload();
+                            });
+                        } else {
+                            swal("OMG", "删除失败！", "error");
+                        }
+                    }).error(function (data) {
+                        swal("OMG", "删除操作失败了!", "error");
+                    });
+                });
+            })
+        })
+    </script>
+
+</head>
+<body>
+
+
+    <div id="main">
+        <?php echo \Onemla\OnemlaHelper::W('Menu/Index');?>
+        <div id="box" class="flex">
+            <?php echo \Onemla\OnemlaHelper::W('Menu/Left_Menu');?>
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    工单管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">工单列表</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="<?php echo U('MemberRepair/Index/index');?>" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="repair_number" value="<?php echo ($repair_number); ?>" placeholder="请输入搜索的工单编号" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="type" class='input_01'>
+                                    <option value="">请选择工单分类</option>
+                                    <option value="1" <?php echo ($type==1 ? 'selected=""' : ''); ?> >直播问题</option>
+                                    <option value='2' <?php echo ($type==2 ? 'selected=""' : ''); ?> >功能问题</option>
+                                    <option value='3' <?php echo ($type==3 ? 'selected=""' : ''); ?>>建议</option>
+                                    <option value='4' <?php echo ($type==4 ? 'selected=""' : ''); ?>>分发</option>
+                                </select>
+                                <!--<input type="text" name="user_name" value="<?php echo ($user_name); ?>" placeholder="请输入搜索的用户名" class="input_01" />-->
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="<?php echo U('MemberRepair/Index/editPage');?>" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="80">
+                                工单编号
+                            </th>
+                            <th width="80">
+                                工单分类
+                            </th>
+                            <th width="80">
+                                联系人
+                            </th>
+                            
+                            <th width="80">
+                                手机号码
+                            </th>
+                            <th width="80">
+                                邮箱
+                            </th>
+                            <th width="80">
+                                会员账号
+                            </th>
+                            <th width="500px">
+                                工单说明
+                            </th>
+                            <th width="80">
+                                工单状态
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+                                <td>
+                                    <?php echo ($vo["repair_number"]); ?>
+                                </td>
+                                <td>
+                            <?php if($vo[type]==1): ?>直播问题
+                                <?php elseif($vo[type]==2): ?>
+                                功能问题
+                                <?php elseif($vo[type]==3): ?>
+                                建议
+                                <?php else: ?>
+                                分发<?php endif; ?>
+                            </td>
+                            <td>
+                                <?php echo ($vo["contact"]); ?>
+                            </td>
+                            <td><?php echo ($vo["phone"]); ?></td>
+                            <td><?php echo ($vo["email"]); ?></td>
+                            <td><?php echo ($vo["user_name"]); ?></td>
+                            <td><?php echo ($vo["introduction"]); ?></td>
+                            <td>
+                            <?php if($vo[status]==1): ?>待回复
+                                <?php elseif($vo[status]==2): ?>
+                                <?php echo ($vo["reply"]); ?>
+                                <?php else: ?>
+                                不通过<?php endif; ?>
+                            </td>
+                            <td class="bt" width="250px">
+                                <a href="<?php echo U('MemberRepair/Index/detail',array('id'=>$vo[id]));?>" class="">详情</a>
+                                <a href="<?php echo U('MemberRepair/Index/editPage',array('id'=>$vo[id]));?>" class="">编辑</a>
+                                <a href="#" class="del">删除</a>
+                                <input type="hidden" value="<?php echo ($vo["id"]); ?>" id='id'>
+                            </td>
+                            </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            <?php echo ($page_show); ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+    <!--    <div class="layerBox">
+            <div class="hintBox infoBox withdrawBox">
+                <h3 class="title skin_bg flex">
+                    退款详情
+                    <a href="#" class="close_bt"></a>
+                </h3>
+                <div class="con">
+                    <dl class="infoBox_text flex">
+                        <dd>
+                            <span class="name">订单号：</span>20122205013
+                        </dd>
+                        <dd>
+                            <span class="name">申请日期：</span>申请日期
+                        </dd>
+                    </dl>
+                    <div class="infoBox_menu">
+    
+                        <dl class="flex2">
+                            <dd>
+                                退款方：ABC
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+
+
+
+</body>
+</html>

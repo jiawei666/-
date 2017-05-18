@@ -1,0 +1,115 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script>
+        $(function () {
+            $('.date_input').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d'
+            });
+        })
+        function setImagePreview(doc,imgobj,fontobj) {
+	    var docObj = document.getElementById(doc);
+	    var imgObjPreview = document.getElementById(imgobj);
+	    if (docObj.files && docObj.files[0]) {
+	//火狐下，直接设img属性  
+	        imgObjPreview.style.display = 'block';
+	        imgObjPreview.style.width = '100%';
+	        imgObjPreview.style.height = '100%';
+	        imgObjPreview.style.zIndex = "0";
+	        $(fontobj).css({"color":"#fff"})
+	        //imgObjPreview.src = docObj.files[0].getAsDataURL();  
+	
+	        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式    
+	        imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+	    } else {
+	//IE下，使用滤镜
+	        docObj.select();
+	        var imgSrc = document.selection.createRange().text;
+	        var localImagId = document.getElementById("localImag");
+	        //必须设置初始大小  
+	        localImagId.style.width = "100%";
+	        localImagId.style.height = "100%";
+	        //图片异常的捕捉，防止用户修改后缀来伪造图片  
+	        try {
+	            localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+	            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+	        } catch (e) {
+	            alert("您上传的图片格式不正确，请重新选择!");
+	            return false;
+	        }
+	        imgObjPreview.style.display = 'none';
+	        document.selection.empty();
+	    }
+	    return true;
+	}
+    </script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    活动管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">活动管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    编辑信息
+                </div>
+                <form action="{:U('Activity/Index/edit')}" method="post" enctype="multipart/form-data"  >
+                    <ul class="essential-box">
+                        <li class="essential-title">
+                            <span>活动标题：</span>
+                            <input type="text" name="title" value="{$info[title]}" required="" />
+                        </li>
+                        <li class="essential-time">
+                            <span>活动时间：</span>
+                            <!--<input type="text" />-->
+                            <input type="text" name="time" value="{$info[time]}" placeholder="活动时间" class="input_01 date_input date_start" required="" style="background-color: white" />
+                        </li>
+                        <li class="essential-brief">
+                            <span>活动简介：</span>
+                            <textarea name="introduction" required="">{$info[introduction]}</textarea>
+                        </li>
+                        <li class="essential-channel">
+                            <span>所属频道：</span>
+                            <select name="channel_id" required="">
+                                <volist name="channel_info" id="c_vo">
+                                    <option value="{$c_vo.id}">{$c_vo.channel_name}</option>
+                                </volist>
+                                <!--从tb_channel数据库获取频道信息-->
+                            </select>
+                        </li>
+                        <li class="essential-bg">
+                            <span>活动背景图：</span>
+                            <div>
+                                点击上传图片
+                                <img id="preview" src="{$info[bg_image] == '' ? '' : '__ACTIVITY__/'}{$info[bg_image]}" >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="bg_image" value="{$bg_image}" id="doc" onchange="javascript:setImagePreview('doc', 'preview', '.essential-bg div');"/>
+                            </div>
+                        </li>
+                        <li class="essential-logo">
+                            <span>活动logo：</span>
+                            <div>
+                                点击上传图片
+                                <img id="preview" src="{$info[logo] == '' ? '' : '__ACTIVITY__/'}{$info[logo]}" >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="logo" value="{$logo}" id="docs" onchange="javascript:setImagePreview('docs', 'previews', '.essential-logo div');" />
+                            </div>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="{$info[id]}" />
+                    <input type="submit" id="info-submit" value="提交" />
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

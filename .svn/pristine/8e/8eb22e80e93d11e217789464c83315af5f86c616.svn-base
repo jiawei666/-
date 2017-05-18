@@ -1,0 +1,20 @@
+<?php
+namespace Components\User\Controller;
+use Onemla\OnemlaHelper;
+use Onemla\OnemlaRequest;
+use Onemla\ServeViewController;
+use Org\Page\Page;
+
+/**
+ * 员工管理
+ **/
+class IndexController extends ServeViewController {
+
+    /*
+     * 员工列表
+     */
+    public function index() {
+
+        $this -> display('index');
+    }
+}

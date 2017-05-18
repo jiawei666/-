@@ -1,0 +1,66 @@
+<!--<extend name="Public/base"/>-->
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">直播商管理</span>
+                </p>
+                <div class="essential skin_bg">
+                   直播商详情
+                </div>
+
+                <ul class="essential-box">
+                    <li class="essential-number">
+                        <span>名称：</span>
+                        <input type="text" name="repair_number" value="{$bsnInfo[live_name]}" disabled="" />
+                    </li>
+                    <li class="essential-number">
+                        <span>关注人数：</span>
+                        <input type="text" name="repair_number" value="{$bsnInfo[follow_count]}" disabled="" />
+                    </li>
+                    <li class="essential-bg">
+                        <span>公众号LOGO：</span>
+                        <div>
+                            <img  {$bsnInfo[type]==1 ? 'src="__UPLOAD__/certification/personal/':'src="__UPLOAD__/certification/company/'}{$bsnInfo[public_logo]}"  width="120px" height="120px">
+                        </div>
+                    </li>
+                    <li class="essential-bg">
+                        <span>二维码：</span>
+                        <div>
+                            <img {$bsnInfo[type]==1 ? 'src="__UPLOAD__/certification/personal/':'src="__UPLOAD__/certification/company/'}{$bsnInfo[qr_code]}" width="120px" height="120px" >
+                        </div>
+                    </li>
+
+                    <li class="essential-brief">
+                        <span>简介：</span>
+                        <textarea name="introduce" style="height: 150px;width: 730px;resize: none;" disabled="disabled" rows="5">{$bsnInfo[introduce]}</textarea>
+                    </li>
+                    <li class="essential-logo">
+                        <span>简介图片：</span>
+                        <div>
+                            <img  src="__UPLOAD__/live_bsn/{$bsnInfo[itd_image]}" width="120px" height="120px" >
+                        </div>
+                    </li>
+                </ul>
+                <a href="{:U('Live_room/Index/bsn')}"><input type="submit" id="info-submit" value="返回"></a>
+
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+        <script>
+
+        </script>
+    </div>
+</block>

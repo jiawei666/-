@@ -1,0 +1,245 @@
+<extend name="Public/base2"/>
+
+	<block name="head">
+		<link rel="stylesheet" href="__CSS__css.css" />
+		<link rel="stylesheet" href="__CSS__index.css" />
+		<script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+	</block>
+	<block name="menu">
+		{:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+	</block>
+
+	<block name="main">
+		<div class="banner">
+			<div class='banner-logo'>
+				<img src="__IMAGES__logo.png" alt="">
+			</div>
+			<div class="banner-title">
+				<img src="__IMAGES__index-banner-font.png">
+			</div>
+			<div class="banner-tel">
+				<p>
+					招商热线:13809706632 &nbsp;&nbsp; 服务热线：0757-85409905 &nbsp;&nbsp;  传    真：0757-85406528
+				</p>
+			</div>
+		</div>
+		<!--应用场景-->
+		<div class="index-scene">
+			<div class="index-scene-title">
+				链接世界每一个场景
+			</div>
+			<div class="index-scene-font">
+				直播是目前唯一让我感到激动的事，已经被直播迷住了。——扎克伯格
+			</div>
+			<ul class="index-scene-list">
+				<li class="active">
+					<a href="{:U('Caseinfo/Index/index')}&type_id=1">
+						<img src="__IMAGES__index-case-06.png"/>
+						<div class="index-scene-subtitle">
+							<span class="index-subtitle-chinese">教育培训</span>
+							<span class="index-subtitle-english">Education training</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Caseinfo/Index/index')}&type_id=2">
+						<img src="__IMAGES__index-case-05.png"/>
+						<div class="index-scene-subtitle">
+							<span class="index-subtitle-chinese">移动直播</span>
+							<span class="index-subtitle-english">Mobile broadcast</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Caseinfo/Index/index')}&type_id=3">
+						<img src="__IMAGES__index-case-04.png"/>
+						<div class="index-scene-subtitle">
+							<span class="index-subtitle-chinese">峰会论坛</span>
+							<span class="index-subtitle-english">Summit Forum</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Caseinfo/Index/index')}&type_id=4">
+						<img src="__IMAGES__index-case-03.png"/>
+						<div class="index-scene-subtitle">
+							<span class="index-subtitle-chinese">团体赛事 </span>
+							<span class="index-subtitle-english">Group events</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Caseinfo/Index/index')}&type_id=5">
+						<img src="__IMAGES__index-case-02.png"/>
+						<div class="index-scene-subtitle">
+							<span class="index-subtitle-chinese">新品发布 </span>
+							<span class="index-subtitle-english">New release</span>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="{:U('Caseinfo/Index/index')}&type_id=6">
+						<img src="__IMAGES__index-case-01.png"/>
+						<div class="index-scene-subtitle">
+							<span class="index-subtitle-chinese">商业巡演</span>
+							<span class="index-subtitle-english">Business tour</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="index-scence-more">
+				<a href="{:U('Caseinfo/Index/index')}">查看更多案例+</a>
+			</div>
+		</div>
+
+		<div class="index-brand">
+			<ul class="index-brand-container">
+				<!--手机端显示-->
+				<li class="index-brand-font index-phone-brand-font">
+					<p>他们都在用直播家</p>
+					<span>直播企业带给直播家活力和生机，陪伴一起成长</span>
+				</li>
+				<!--end-->
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-01.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-02.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-03.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-04.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-05.png"/>
+					</div>
+				</li>
+				<!--pc端显示-->
+				<li class="index-brand-font">
+					<p>他们都在用直播家</p>
+					<span>直播企业带给直播家活力和生机，陪伴一起成长</span>
+				</li>
+				<!--end-->
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-06.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-07.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-08.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-09.png"/>
+					</div>
+				</li>
+				<li>
+					<div class="index-brand-img">
+						<img src="__IMAGES__index-brand-10.png"/>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="index-logo">
+			<div class="index-logo-title">
+				多平台同步直播
+			</div>
+			<div class="index-logo-font">
+				多平台直播，多设备适用，多终端观看
+			</div>
+			<ul class="index-logo-list">
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-01.png"/>
+					</div>
+					<p>全民直播</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-02.png"/>
+					</div>
+					<p>哔哩哔哩动画</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-03.png"/>
+					</div>
+					<p>斗鱼TV</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-04.png"/>
+					</div>
+					<p>虎牙直播</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-05.png"/>
+					</div>
+					<p>战旗TV</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-06.png"/>
+					</div>
+					<p>熊猫TV</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-07.png"/>
+					</div>
+					<p>章鱼TV</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-08.png"/>
+					</div>
+					<p>龙珠直播</p>
+				</li>
+				<li>
+					<div class="index-logo-img">
+						<img src="__IMAGES__index-logo-09.png"/>
+					</div>
+					<p>YYTV</p>
+				</li>
+			</ul>
+		</div>
+		<div class="index-process">
+			<div class="index-process-title">
+				直播流程九部曲
+			</div>
+			<div class="index-process-container">
+				<img src="__IMAGES__process.jpg"/>
+			</div>
+		</div>
+	</block>
+
+	<block name="footer">
+		{:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+		<script type="text/javascript" src="__JAVASCRIPTS__js.js" ></script>
+		<script>
+			$(".index-scene-list li").on("mouseover",function(){
+				$(this).addClass("active").siblings().removeClass("active");
+			});
+		</script>
+	</block>
+

@@ -1,0 +1,88 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__live_channel.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播商管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">频道列表</span>
+                </p>
+                <div class="searchBox flex">
+                    <a href="{:U('MemberLive_bsn/Channel/editpage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="90">
+                                编号
+                            </th>
+                            <th >
+                                频道
+                            </th>
+                            <th>
+                                频道图片
+                            </th>
+                            <th>
+                                简介
+                            </th>
+                            <th>
+                                简介图片
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.channel}
+                                </td>
+                                <td>
+                                    <if condition="$vo[image]!=''">
+                                        <img src="__UPLOAD__/live_channel/{$vo.image}" width="120px">
+                                    </if>
+
+                                </td>
+                                <td>
+                                    {$vo.introduce}
+                                </td>
+                                <td>
+                                    <if condition="$vo[itd_image] != ''">
+                                        <img src="__UPLOAD__/live_channel/{$vo.itd_image}" width="120px">
+                                    </if>
+                                </td>
+                                <td class="bt">
+                                    <a href="{:U('MemberLive_bsn/Channel/editpage',array('id'=>$vo[id]))}" class="edit_bt" title="修改"><button class="handle_bt">修改</button></a>
+                                    <input type="hidden" value="{$vo.id}" name='id' id="id">
+                                    <a href="#" class="del_bt" title="删除"><button class="handle_bt">删除</button></a>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+</block>

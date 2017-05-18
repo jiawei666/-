@@ -1,0 +1,552 @@
+<?php
+
+/**
+ * 添加富文本框控件js文件
+ */
+function addUeditorScript() {
+    \Onemla\OnemlaHelper::addScript('upload/ajaxfileupload.js');
+    \Onemla\OnemlaHelper::addScript('ueditor/ueditor.config.js');
+    \Onemla\OnemlaHelper::addScript('ueditor/ueditor.all.js');
+}
+
+/**
+ * 生成富文本框函数
+ * $name : textarea name值
+ * $config : 配置 格式：array('height'=>'400','width'=>'620','resize_type'=>1)
+ */
+function textArea($name, $config) {
+    $resizeType = $config['resize_type'] ? 'true' : 'false';
+    echo '<script type="text/javascript">
+	$(\'textarea[name="' . $name . '"]\').attr("id", "editor_id_' . $name . '");
+	window.UEDITOR_HOME_URL = "' . __ROOT__ . '/Res/js/ueditor/";
+	window.UEDITOR_CONFIG.initialFrameHeight = parseInt("' . $config['height'] . '");
+	window.UEDITOR_CONFIG.initialFrameWidth = parseInt("' . $config['width'] . '");
+	window.UEDITOR_CONFIG.scaleEnabled = ' . $resizeType . ';
+	window.UEDITOR_CONFIG.imageUrl = "' . U("File/File/ue_upimg", '', false, true) . '";
+	window.UEDITOR_CONFIG.imagePath = "";
+	window.UEDITOR_CONFIG.imageFieldName = "imgFile";
+
+	//在这里扫描图片
+	window.UEDITOR_CONFIG.imageManagerUrl="' . U("File/File/ue_mgimg", '', false, true) . '"; //图片在线管理的处理地址
+	window.UEDITOR_CONFIG.imageManagerPath="";
+
+	var imageEditor = UE.getEditor("editor_id_' . $name . '");</script>';
+}
+
+function upload($data = array()) {
+    $data = array_merge(
+            array(
+        'file' => null,
+        'maxSize' => C('upload.maxSize', null, 1),
+        'exts' => C('upload.exts', null, array()),
+        'rootPath' => C('upload.rootPath'),
+        'savePath' => C('upload.savePath', null, '/temp/'),
+        'saveName' => array('uniqid', array('', true)),
+        'saveExt' => '',
+        'replace' => false,
+        'mimes' => array(),
+        'autoSub' => true,
+        'subName' => array('date', 'Y-m-d'),
+        'subName' => '',
+        'hash' => true,
+        'callback' => false,
+        'driver' => '',
+        'driverConfig' => array(),
+            ), $data
+    );
+
+    $upload = new \Think\Upload($data);
+    if (empty($data['file'])) {
+        $info = $upload->upload();
+    } else {
+        $info = $upload->upload($data['file']);
+    }
+    if ($info) {
+        foreach ($info as $k => $v) {
+            $savePath = strpos($v['savepath'], '/') === 0 ? $v['savepath'] : '/' . $v['savepath'];
+            $info[$k]['url'] = C("TMPL_PARSE_STRING.__UPLOAD__") . $savePath . $v['savename'];
+            $info[$k]['file'] = $v['savepath'] . $v['savename'];
+        }
+    }
+    return array('info' => $info, 'error' => $upload->getError());
+}
+
+function upload_img($data = array(), $rootPath) {
+    $data = array_merge(
+            array(
+        'file' => null,
+        'maxSize' => C('upload.maxSize', null, 1),
+        'exts' => C('upload.exts', null, array()),
+        'rootPath' => $rootPath,
+        'savePath' => C('upload.savePath', null, '/temp/'),
+        'saveName' => array('uniqid', array('', true)),
+        'saveExt' => '',
+        'replace' => false,
+        'mimes' => array(),
+        'autoSub' => true,
+        'subName' => array('date', 'Y-m-d'),
+        'subName' => '',
+        'hash' => true,
+        'callback' => false,
+        'driver' => '',
+        'driverConfig' => array(),
+            ), $data
+    );
+
+    $upload = new \Think\Upload($data);
+    if (empty($data['file'])) {
+        $info = $upload->upload();
+    } else {
+        $info = $upload->upload($data['file']);
+    }
+    if ($info) {
+        foreach ($info as $k => $v) {
+            $savePath = strpos($v['savepath'], '/') === 0 ? $v['savepath'] : '/' . $v['savepath'];
+            $info[$k]['url'] = C("TMPL_PARSE_STRING.__UPLOAD__") . $savePath . $v['savename'];
+            $info[$k]['file'] = $v['savepath'] . $v['savename'];
+        }
+    }
+    return array('info' => $info, 'error' => $upload->getError());
+}
+
+/**
+ * URL组装 支持不同URL模式
+ * @param string $url URL表达式，格式：'[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...'
+ * @param string|array $vars 传入的参数，支持数组和字符串
+ * @param string|boolean $suffix 伪静态后缀，默认为true表示获取配置值
+ * @param boolean $domain 是否显示域名
+ * @return string
+ */
+function Url($url = '', $vars = '', $suffix = true, $domain = false) {
+    if ($url) {
+        $array = explode('/', $url);
+        $count = count($array);
+        if ($count == 1) {
+            $url = COMPONENTS_INPUT . '/' . CONTROLLER_NAME . '/' . $url;
+        } elseif ($count == 2) {
+            $url = COMPONENTS_INPUT . '/' . join('/', $array);
+        }
+    }
+    return U($url, $vars, $suffix, $domain);
+}
+
+/**
+ * 组合 javascript Url
+ */
+function JsUrl($var, $url, $param, $suffix = true, $domain = false) {
+    $iCount = 0;
+    $pReplace = array();
+    foreach ($param as $key => $value) {
+        $rep = "S" . $iCount;
+        $param[$key] = $rep;
+        $pReplace[$rep] = $value;
+        $iCount ++;
+    }
+    $url = Url($url, $param, $suffix, $domain);
+    $pStr = "var $var='$url';\n";
+    foreach ($pReplace as $key => $value) {
+        $pStr .= "$var = $var.replace('$key', $value);\n";
+    }
+    return $pStr;
+}
+
+//获取model验证错误信息
+function getModelError($model) {
+    $arr = $model->getError();
+    $str = '';
+    foreach ($arr as $v) {
+        $str .= $v . PHP_EOL;
+    }
+    return $str;
+}
+
+/* * 判断是否闰年* */
+
+function isLeap($year) {
+    $leap = false;
+    if ($year % 4 == 0) {
+        if ($year % 100 == 0) {
+            if ($year % 400 == 0) { //能被400整除的,是闰年
+                $leap = true;
+            } else { //能被100整除,但不能被400整除的,不是闰年
+                $leap = false;
+            }
+        } else { //能被4整除,但不能被100整除的,不是闰年
+            $leap = true;
+        }
+    } else { //不能被4整除的,不是闰年
+        $leap = false;
+    }
+
+    return $leap;
+}
+
+function get_order_sn() {
+    /* 选择一个随机的方案 */
+    mt_srand((double) microtime() * 1000000);
+
+    return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+}
+
+function getDayConfig() {
+    return $config = array(
+        1 => 31,
+        2 => 28,
+        3 => 31,
+        4 => 30,
+        5 => 31,
+        6 => 30,
+        7 => 31,
+        8 => 31,
+        9 => 30,
+        10 => 31,
+        11 => 30,
+        12 => 31
+    );
+}
+
+/* * 获取天数  字符串 2015-08-01* */
+
+function getDays($minTime, $maxTime) {
+    $config = getDayConfig();
+
+    $min = explode('-', $minTime);
+    $max = explode('-', $maxTime);
+
+    $minYear = (int) $min[0];
+    $maxYear = (int) $max[0];
+    $minMonth = (int) $min[1];
+    $maxMonth = (int) $max[1];
+    $minDay = (int) $min[2];
+    $maxDay = (int) $max[2];
+
+    $day_count = 0;
+
+    for ($i = $minYear; $i <= $maxYear; $i++) {
+        $config[2] = isLeap($i) ? 29 : 28;
+        for ($m = 1; $m <= 12; $m++) {
+            for ($d = 1; $d <= 31; $d++) {
+                if ($d > $config[$m])
+                    continue;
+
+                if ($minYear == $maxYear) {
+                    if ($m >= $minMonth && $m <= $maxMonth) {
+                        if ($minMonth == $maxMonth) {
+
+                            if ($d >= $minDay && $d < $maxDay)
+                                $day_count += 1;
+                        }else if ($m == $minMonth && $d >= $minDay || $m > $minMonth && $m < $maxMonth || $m == $maxMonth && $d < $maxDay) {
+                            $day_count += 1;
+                        }
+                    }
+                } else {
+                    if ($i == $minYear) {
+                        if ($m >= $minMonth) {
+                            if ($m == $minMonth && $d >= $minDay || $m > $minMonth) {
+                                $day_count += 1;
+                            }
+                        }
+                    } else if ($i == $maxYear) {
+                        if ($m <= $maxMonth) {
+                            if ($m == $maxMonth && $d < $maxDay || $m < $maxMonth) {
+                                $day_count += 1;
+                            }
+                        }
+                    } else {
+                        $day_count += 1;
+                    }
+                }
+            }
+        }
+    }
+
+    return $day_count;
+}
+
+//$cut_str 要裁剪的字符
+function parseStr1($str, $cut_str) {
+    return str_repeat($cut_str, '', $str);
+}
+
+//过滤[ ]字符
+function parseStr2($str) {
+    $str = str_replace('[', '', $str);
+    return str_replace(']', '', $str);
+}
+
+//将数组转换成[ ]，字符的格式
+function conversionStr2($list) {
+    $str = '';
+    foreach ($list as $item) {
+        $str = $str . '[' . $item . '],';
+    }
+
+    if ($str != '')
+        $str = substr($str, 0, strlen($str) - 1);
+
+    return $str;
+}
+
+//生成 短信4位数 验证码
+function generate_code($length = 4) {
+    return str_pad(mt_rand(0, pow(10, $length) - 1), $length, '0', STR_PAD_LEFT);
+}
+
+/**
+ * 获取国家配置
+ */
+function getCfgCountry() {
+    static $pCountryCfg = NULL;
+    if (!empty($pCountryCfg)) {
+        return $pCountryCfg;
+    }
+
+    $pCfgKey = "region:getCfgCountry";
+    $pCfgValue = \Onemla\OnemlaHelper::cache($pCfgKey);
+
+    if (empty($pCfgValue)) {
+        $pRegionModel = M("regions");
+        $pSelectData = $pRegionModel->where(array(
+                    "type" => 0,
+                ))->field(array(
+                    "id", "pid", "name"
+                ))->select();
+
+        foreach ($pSelectData as $item) {
+            $id = $item['id'];
+            $pCountryCfg[$id] = $item;
+        }
+
+        //$pCountryCfg = $pSelectData;
+
+        \Onemla\OnemlaHelper::cache($pCfgKey, json_encode($pCountryCfg));
+    } else {
+        if (is_array($pCfgValue)) {
+            return $pCfgValue;
+        }
+        $pCountryCfg = json_decode($pCfgValue, true);
+    }
+    return $pCountryCfg;
+}
+
+function getCfgCountryMap() {
+    $pCfgCountry = getCfgCountry();
+    foreach ($pCfgCountry as $value) {
+        $pCountryMap[$value['id']] = $value['name'];
+    }
+    return $pCountryMap;
+}
+
+/**
+ * 获取省配置
+ */
+function getCfgProvince() {
+    static $pProvinceCfg = NULL;
+    if (!empty($pProvinceCfg)) {
+        return $pProvinceCfg;
+    }
+
+    $pCfgKey = "region:getCfgProvince";
+    $pCfgValue = \Onemla\OnemlaHelper::cache($pCfgKey);
+
+    if (empty($pCfgValue)) {
+        $pRegionModel = M("regions");
+        $pSelectData = $pRegionModel->where(array(
+                    "type" => 1,
+                ))->field(array(
+                    "id", "pid", "name"
+                ))->select();
+
+        foreach ($pSelectData as $item) {
+            $id = $item['id'];
+            $pProvinceCfg[$id] = $item;
+        }
+
+        //$pProvinceCfg = $pSelectData;
+        \Onemla\OnemlaHelper::cache($pCfgKey, json_encode($pProvinceCfg));
+    } else {
+        if (is_array($pCfgValue)) {
+            return $pCfgValue;
+        }
+        $pProvinceCfg = json_decode($pCfgValue, true);
+    }
+    return $pProvinceCfg;
+}
+
+function getCfgProvinceMap() {
+    $pProvinceCfg = getCfgProvince();
+    foreach ($pProvinceCfg as $value) {
+        $pProvinceMap[$value['pid']][$value['id']] = $value['name'];
+    }
+    return $pProvinceMap;
+}
+
+function getCfgProvinceByCountry($CountryId = 1) {
+    $pProvinceCfg = getCfgProvince();
+    $pProvinceMap = array();
+    foreach ($pProvinceCfg as $value) {
+        if ($CountryId != $value['pid'])
+            continue;
+        $pProvinceMap[$value['id']] = $value;
+    }
+
+    return $pProvinceMap;
+}
+
+/**
+ * 获取城市配置
+ */
+function getCfgCity() {
+    static $pCityCfg = NULL;
+    if (!empty($pCityCfg)) {
+        return $pCityCfg;
+    }
+
+    $pCfgKey = "region:getCfgCity";
+    $pCfgValue = \Onemla\OnemlaHelper::cache($pCfgKey);
+
+    if (empty($pCfgValue)) {
+        $pRegionModel = M("regions");
+        $pSelectData = $pRegionModel->where(array(
+                    "type" => 2,
+                ))->field(array(
+                    "id", "pid", "name"
+                ))->select();
+
+        foreach ($pSelectData as $item) {
+            $id = $item['id'];
+            $pCityCfg[$id] = $item;
+        }
+
+        //$pCityCfg = $pSelectData;
+        \Onemla\OnemlaHelper::cache($pCfgKey, json_encode($pCityCfg));
+    } else {
+        if (is_array($pCfgValue)) {
+            return $pCfgValue;
+        }
+        $pCityCfg = json_decode($pCfgValue, true);
+    }
+    return $pCityCfg;
+}
+
+function getCfgCityMap() {
+    $pCityCfg = getCfgCity();
+    foreach ($pCityCfg as $value) {
+        $pCityMap[$value['pid']][$value['id']] = $value['name'];
+    }
+    return $pCityMap;
+}
+
+/*
+ * 获取国家名字
+ * */
+
+function getCountryName($cid) {
+    $data = getCfgCountry();
+    return $data[$cid]['name'];
+}
+
+/*
+ * 获取省名字
+ * */
+
+function getProvinceName($pid) {
+    $data = getCfgProvince();
+    return $data[$pid]['name'];
+}
+
+/*
+ * 获取市区名字
+ * */
+
+function getCityName($cid) {
+    $data = getCfgCity();
+    return $data[$cid]['name'];
+}
+
+function setSelectJS($id, $selectId) {
+    $pCode = JS_BUILDER_DIVISION . "$(document).ready(function() {" . JS_BUILDER_DIVISION;
+    $pCode .= "$('#" . $id . "').find(\"option[value='" . $selectId . "']\").attr(\"selected\",true); " . JS_BUILDER_DIVISION;
+    $pCode .= "$('#" . $id . "').change(); " . JS_BUILDER_DIVISION;
+    $pCode .= "});" . JS_BUILDER_DIVISION;
+    return $pCode;
+}
+
+/**
+ * 生成国 省 市 联动js
+ * 分别传入对应ID
+ * */
+function getBuildSelectJS($country_id, $province_id, $city_id, $coid = 0, $pid = 0, $cid = 0) {
+    $pProvinceCfg = getCfgProvince();
+    $pCityCfg = getCfgCity();
+
+    $pProvinceMap = array();
+    $pCityMap = array();
+
+
+    foreach ($pProvinceCfg as $value) {
+        $pProvinceMap[$value['pid']][$value['id']] = $value['name'];
+    }
+    foreach ($pCityCfg as $value) {
+        $pCityMap[$value['pid']][$value['id']] = $value['name'];
+    }
+
+    $pSelectCode = buildSelectToOther($country_id, $province_id, $pProvinceMap, "");
+    $pSelectCode .= JS_BUILDER_DIVISION;
+    $pSelectCode .= buildSelectToOther($province_id, $city_id, $pCityMap, "");
+
+    if ($coid > 0)
+        $pSelectCode .= setSelectJS($country_id, $coid);
+    if ($pid > 0)
+        $pSelectCode .= setSelectJS($province_id, $pid);
+    if ($cid > 0)
+        $pSelectCode .= setSelectJS($city_id, $cid);
+
+    return $pSelectCode;
+}
+
+function convert_date($date) {
+    return date('Y-m-d H:i:s', $date);
+}
+
+function getPCitySelectJs($province_id, $city_id, $pid = 0, $cid = 0) {
+
+    $pCityCfg = getCfgCity();
+    $pCityMap = array();
+    foreach ($pCityCfg as $value) {
+        $pCityMap[$value['pid']][$value['id']] = $value['name'];
+    }
+
+    $pSelectCode = buildSelectToOther($province_id, $city_id, $pCityMap, "");
+
+    if ($pid > 0)
+        $pSelectCode .= setSelectJS($province_id, $pid);
+    if ($cid > 0)
+        $pSelectCode .= setSelectJS($city_id, $cid);
+
+    return $pSelectCode;
+}
+
+function get_company_nature($key) {
+    $company_nature = C('company_nature');
+
+    $name = $company_nature[$key];
+
+    if (empty($name))
+        return '';
+    else
+        return $name;
+}
+
+
+/**
+ * 
+ * @param type $file_name 文件名称
+ * @param type $url  文件存放路径
+ * @return string
+ */
+function delAdminFile($file_name,$pathUrl) {
+    $php_self = substr($_SERVER['PHP_SELF'], 0, -9);
+    $file = $_SERVER['DOCUMENT_ROOT'] . $php_self .$pathUrl . $file_name;
+    return $file;
+}

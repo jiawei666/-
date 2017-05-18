@@ -1,0 +1,77 @@
+body{
+	background: url(../images/login_bg.png);
+	background-size: cover;
+}
+.loginBox{
+	background: url(../images/login_box_bg.png) no-repeat;
+	width: 1008px;
+	height: 596px;
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding-left: 234px;
+	padding-top: 36px;
+	padding-bottom: 70px;
+	padding-right: 236px;
+}
+.loginBox h3.title{
+	text-align: center;
+	padding-top: 55px;
+	margin-bottom: 60px;
+	font-size: 32px;
+}
+.loginBox .form_list{
+	padding: 0 62px;
+}
+.loginBox .form_list dl{
+	margin-top: 30px;
+}
+.loginBox .form_list dl:first-child{
+	margin-top: 0;
+}
+.loginBox .form_list dl dd.icon{
+	width: calc(100% - 360px);
+}
+.loginBox .form_list dl dd.icon span{
+	display: block;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.loginBox .form_list dl dd.icon span.user_icon{
+	background-image: url(../images/user_icon_01.png);
+	width: 34px;
+	height: 36px;
+}
+.loginBox .form_list dl dd.icon span.pword_icon{
+	background-image: url(../images/pword_icon_01.png);
+	width: 30px;
+	height: 37px;
+}
+.loginBox .form_list dl dd.inputTxt{
+	width: 360px;
+}
+.loginBox .form_list dl dd.inputTxt input{
+	width: 100%;
+	height: 50px;
+	border-radius: 8px;
+	font-size: 16px;
+}
+.loginBox .form_list dl dd.bt button{
+	width: 100%;
+	height: 56px;
+	font-size: 20px;
+}
+.loginBox .form_list p.text{
+	font-size: 15px;
+	margin-top: 20px;
+}
+.loginBox .form_list p.text a{
+	color: #0e98d1;
+}
+.loginBox .form_list p.forget_text{
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}

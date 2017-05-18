@@ -1,0 +1,90 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="format-detection" content="telephone=no" />
+        <title>直播家后台</title>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/jquery.min.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/bootstrap.min.js" ></script> 
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/js.cookie.js" ></script>
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sub.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/css.css" />
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/style.css" />
+        <script type="text/javascript" src="/live/server/Onemla/Res/js/sweetalert.min.js" ></script>
+        <link rel="stylesheet" href="/live/server/Onemla/Res/css/sweetalert.css" />
+
+        <?php echo \Onemla\OnemlaHelper::getDocument()->fetchHead();?>
+    
+
+
+</head>
+<body>
+
+
+    <div id="main">
+        <?php echo \Onemla\OnemlaHelper::W('Menu/Index');?>
+        <div id="box" class="flex">
+            <?php echo \Onemla\OnemlaHelper::W('Menu/Left_Menu');?>
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    用户管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">用户管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    基本信息
+                </div>
+                <!--<form action="">-->
+                <ul class="essential-box">
+                    <li class="essential-number">
+                        <span>编号：</span>
+                        <input type="text" value="<?php echo ($info['id']); ?>" disabled="" />
+                    </li>
+                    <li class="essential-title">
+                        <span>账号：</span>
+                        <input type="text" value="<?php echo ($info['user_name']); ?>" disabled="" />
+                    </li>
+                    <li class="essential-state">
+                        <span>手机号：</span>
+                        <input type="text" value="<?php echo ($info[phone]); ?>" disabled="" />
+                    </li>
+                    <li class="essential-time">
+                        <span>微信号：</span>
+                        <input type="text" value="<?php echo ($info[wechat]); ?>" disabled="" />
+                    </li>
+                    <li class="essential-brief">
+                        <span>注册时间：</span>
+                        <input type="text" value="<?php echo ($info[create_time]); ?>" disabled="" />
+                    </li>
+                    <li class="essential-brief">
+                        <span>QQ：</span>
+                        <input type="text" value="<?php echo ($info[qq]); ?>" disabled="" />
+                    </li>
+                    <li class="essential-channel">
+                        <span>状态：</span>
+                        <input type="text" value="<?php echo ($info[state]==1 ? '正常' : '锁定'); ?>" disabled="" />
+                    </li>
+                    <li class="bt">
+                        <dd>
+                            <button type="button" class="btn_01" onclick="history.go(-1)">返回</button>
+                        </dd>
+                    </li>
+                </ul>
+
+                <!--</form>-->
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+
+
+
+</body>
+</html>

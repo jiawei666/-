@@ -1,0 +1,68 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    用户管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">用户管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    基本信息
+                </div>
+                <!--<form action="">-->
+                <ul class="essential-box">
+                    <li class="essential-number">
+                        <span>编号：</span>
+                        <input type="text" value="{$info['id']}" disabled="" />
+                    </li>
+                    <li class="essential-title">
+                        <span>账号：</span>
+                        <input type="text" value="{$info['user_name']}" disabled="" />
+                    </li>
+                    <li class="essential-state">
+                        <span>手机号：</span>
+                        <input type="text" value="{$info[phone]}" disabled="" />
+                    </li>
+                    <li class="essential-time">
+                        <span>邮箱：</span>
+                        <input type="text" value="{$info[email]}" disabled="" />
+                    </li>
+                    <li class="essential-time">
+                        <span>微信号：</span>
+                        <input type="text" value="{$info[wechat]}" disabled="" />
+                    </li>
+                    <li class="essential-brief">
+                        <span>注册时间：</span>
+                        <input type="text" value="{$info[create_time]}" disabled="" />
+                    </li>
+                    <li class="essential-brief">
+                        <span>QQ：</span>
+                        <input type="text" value="{$info[qq]}" disabled="" />
+                    </li>
+                    <li class="essential-channel">
+                        <span>状态：</span>
+                        <input type="text" value="{$info[state]==1 ? '正常' : '锁定'}" disabled="" />
+                    </li>
+                    <li class="essential-channel">
+                        <button type="button" class="btn_01" style="margin-left: 155px" onclick="history.go(-1)">返回</button>
+                    </li>
+
+                </ul>
+
+                <!--</form>-->
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

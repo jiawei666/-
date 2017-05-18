@@ -1,0 +1,112 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__solution.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    案例管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">解决方案</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('CaAndSo/Solution/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="{$title}" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <input type="text" name="content" value="{$content}" placeholder="请输入搜索的内容" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="show" class="input_01" >
+                                    <option value="" {$show=='' ? 'selected=""':''}>请选择是否显示</option>
+                                    <option value="1" {$show==1 ? 'selected=""':''}>显示</option>
+                                    <option value="0" {$show==0 && $show!='' ? 'selected=""':''}>不显示</option>
+                                </select>
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="{:U('CaAndSo/Solution/editPage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>新解决方案
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="130">
+                                编号
+                            </th>
+                            <th width="200">
+                                标题
+                            </th>
+                            <th width="300">
+                                解决方案
+                            </th>
+                            <th width="200">
+                                状态
+                            </th>
+                            <th width="200">
+                                时间
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.title}
+                                </td>
+                                <td>
+                                    {$vo.content}
+                                </td>
+                                <td>
+                                    <if condition="$vo[show]==1">
+                                        显示
+                                        <else/>
+                                        不显示
+                                    </if>
+
+                                </td>
+                                <td>{$vo.create_time}</td>
+                                <td class="bt">
+                                    <a href="{:U('CaAndSo/Solution/editPage',array('id'=>$vo[id]))}" class="edit_bt"><button class="handle_bt">修改</button></a>
+                                    <a href="#" class="del_bt"><button class="handle_bt">删除</button></a>
+                                    <input type="hidden" value="{$vo.id}" id='id'>
+                                    <input type="hidden" value="" id='state'>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <!--                        <div class="bt_list">
+                                                    <a href="#" class="btn_01">锁定</a>
+                                                    <a href="#" class="sel_del_bt btn_01">删除</a>
+                                                </div>-->
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

@@ -1,0 +1,13 @@
+<?php
+return array(
+	//'配置项'=>'配置值'
+	'DB_TYPE'   => 'mysql',
+	'DB_HOST'   => '121.40.50.83:800',
+	'DB_NAME'   => 'storybetter',
+	'DB_USER'   => 'storybetter',
+	'DB_PWD'    => 'storybetter',
+	'DB_PORT'   => 3306,
+	'DB_PREFIX' => 'tb_',
+	'__IMAGES__'         => __ROOT__ . '/Res/images/', // images路径
+	
+);

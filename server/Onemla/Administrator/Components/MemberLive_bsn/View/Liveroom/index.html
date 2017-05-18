@@ -1,0 +1,218 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__live_room.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播商管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">直播间</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('MemberLive_bsn/Liveroom/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="{$title}" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <!--<dd class="inputTxt">-->
+                                <!--<select name="status" class='input_01'>-->
+                                    <!--<option value="">请选择直播状态</option>-->
+                                    <!--<option value="1" {$status==1 ? 'selected=""':''}>正在直播</option>-->
+                                    <!--<option value="2" {$status==2 ? 'selected=""':''}>未开始</option>-->
+                                    <!--<option value="3" {$status==3 ? 'selected=""':''}>回放</option>-->
+                                <!--</select>-->
+                            <!--</dd>-->
+                            <dd class="inputTxt">
+                                <select name="channel_id" class='input_01'>
+                                    <option value="">请选择频道</option>
+                                    <volist name="channel" id="cn_vo">
+                                        <option value="{$cn_vo.id}" {$channel_id==$cn_vo["id"] ?'selected=""':''}>{$cn_vo.channel}</option>
+                                    </volist>
+                                </select>
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="tags_id" class='input_01'>
+                                    <option value="">请选择话题</option>
+                                    <volist name="tags" id="t_vo">
+                                        <option value="{$t_vo.id}" {$tags_id==$t_vo["id"] ? 'selected=""':''}>{$t_vo.tags}</option>
+                                    </volist>
+                                </select>
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="character_id" class='input_01'>
+                                    <option value="">请选择性质</option>
+                                    <volist name="character" id="ca_vo">
+                                        <option value="{$ca_vo.id}" {$character_id==$ca_vo["id"] ? 'selected=""':''}>{$ca_vo.character}</option>
+                                    </volist>
+
+                                </select>
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="audit_status" class='input_01'>
+                                    <option value="">请选择审核状态</option>
+                                    <option value="1" {$audit_status==1 ? 'selected=""':''}>待审核</option>
+                                    <option value="2" {$audit_status==2 ? 'selected=""':''}>审核通过</option>
+                                    <option value="3" {$audit_status==3 ? 'selected=""':''}>不通过</option>
+                                </select>
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="{:U('MemberLive_bsn/liveroom/editPage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="45">
+                                编号
+                            </th>
+                            <th width="90">
+                                直播标题
+                            </th>
+                            <th width="130">
+                                简介
+                            </th>
+                            <th width="130">
+                                直播图片
+                            </th>
+                            <th width="130">
+                                背景图片
+                            </th>
+                            <th width="130">
+                                logo
+                            </th>
+                            <th width="90">
+                                频道
+                            </th>
+                            <th width="120">
+                                话题
+                            </th>
+                            <th width="45">
+                                性质
+                            </th>
+                            <th width="55">
+                                城市
+                            </th>
+                            <!--<th width="90">-->
+                                <!--活动状态-->
+                            <!--</th>-->
+                            <!--<th width="90">-->
+                                <!--观看数量-->
+                            <!--</th>-->
+                            <th width="90">
+                                审核状态
+                            </th>
+                            <th width="150">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td width="133">
+                                    {$vo.serial_number}
+                                </td>
+                                <td>
+                                    {$vo.title}
+                                </td>
+                                <td>
+                                    {:msubstr($vo[introduction],0,40,'utf-8',true)}
+                                </td>
+                                <td>
+                                    <if condition="$vo[image]!=''">
+                                        <img src="__UPLOAD__/live_room/{$vo.image}" width="120px">
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo[bg_image]!=''">
+                                        <img src="__UPLOAD__/live_room/{$vo.bg_image}" width="120px">
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo[logo]!=''">
+                                        <img src="__UPLOAD__/live_room/{$vo.logo}" width="120px">
+                                    </if>
+                                </td>
+                                <td>
+                                    {$vo.channel}
+                                </td>
+                                <td>
+                                    {$vo.tags}
+                                </td>
+                                <td>
+                                    {$vo.character}
+                                </td>
+                                <td>
+                                    {$vo.city_id|getCityName}
+                                </td>
+                                <!--<td>-->
+                                    <!--<//if condition='getLiveInfo($vo[live_id])[status]==2'>-->
+                                        <!--直播中-->
+                                        <!--<//elseif condition='getLiveInfo($vo[live_id])[status]==1'/>-->
+                                        <!--预告-->
+                                        <!--<//else/>-->
+                                        <!--回放-->
+                                    <!--</if>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--{//:getLiveInfo($vo[live_id])[view_count]}-->
+                                <!--</td>-->
+                                <td>
+                                    <if condition='$vo[audit_status]==1'>
+                                        待审核
+                                        <elseif condition='$vo[audit_status]==2'/>
+                                        审核通过
+                                        <else/>
+                                        不通过
+                                    </if>
+                                </td>
+                                <td class="bt">
+                                    <!--<a href="{:U('MemberLive_bsn/Liveroom/detail',array('id'=>$vo[room_id]))}" class="view_bt" title="详情"><button class="handle_bt">详情</button></a>-->
+                                    <!--<a href="{:U('MemberLive_bsn/Liveroom/editpage',array('id'=>$vo[room_id]))}" class="edit_bt" title="修改"><button class="handle_bt">修改</button></a>-->
+                                    <!--<input type="hidden" value="{$vo.room_id}" name='id' id="id">-->
+                                    <!--<input type="hidden" value="{$vo.status}" name='status'>-->
+                                    <!--<a href="#" class="del_bt" title="删除"><button class="handle_bt">删除</button></a>-->
+                                    <div class="bt-more">
+                                        <span style="width: 64px;">更多></span>
+                                        <div class="bt-more-choice">
+                                            <a href="{:U('MemberLive_bsn/Liveroom/detail',array('id'=>$vo[room_id]))}" class="view_bt" title="详情"><button>详情</button></a>
+                                            <a href="{:U('MemberLive_bsn/Liveroom/editpage',array('id'=>$vo[room_id]))}" class="edit_bt" title="修改"><button>修改</button></a>
+                                            <input type="hidden" value="{$vo.room_id}" name='id' id="id">
+                                            <input type="hidden" value="{$vo.status}" name='status'>
+                                            <a href="#" class="del_bt" title="删除"><button>删除</button></a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <script type="text/javascript">
+                        $('.bt').find('a').css('margin-left','0px');
+                        $(".bt-more").on("click",function(){
+                            $(this).find('.bt-more-choice').slideToggle();
+
+                        })
+                    </script>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

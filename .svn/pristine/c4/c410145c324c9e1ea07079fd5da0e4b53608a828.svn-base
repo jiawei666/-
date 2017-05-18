@@ -1,0 +1,53 @@
+<?php
+
+namespace Components\Admin\Controller;
+use Onemla\OnemlaHelper;
+use Onemla\OnemlaRequest;
+use Onemla\ViewController;
+use Services\User\UserService;
+
+class IndexController extends ViewController {
+
+    public function index() {
+
+        $user_name = cookie('user_name');
+        $pwd = cookie('password');
+
+        $this -> assign('user_name',$user_name);
+        $this -> assign('password',$pwd);
+        $this -> display("index");
+    }
+
+    public function login(){
+
+        $user_name = OnemlaRequest::getString('user_name');
+        $pwd = OnemlaRequest::getString('password');
+        $isSave = OnemlaRequest::getString('checkbox') == 'on' ? true : false;
+        if($isSave){
+            cookie('user_name',$user_name);
+            cookie('password',$pwd);
+        }
+        $userService = new UserService();
+
+        $rst = $userService -> verifyAccount($user_name,$pwd,UserService::USER_TYPE_SUPER_ADMIN);
+
+        if($rst == UserService::CODE_SUCCESS){
+            $this -> redirect(U('Home/Index/index'));
+        }else{
+            $this -> error($userService -> getErrorMessage($rst));
+        }
+    }
+
+    public function logout(){
+        $userService = new UserService();
+        $userService-> logout();
+
+        $user_name = cookie('user_name');
+        $pwd = cookie('password');
+
+        $this -> assign('user_name',$user_name);
+        $this -> assign('password',$pwd);
+        $this -> display("index");
+    }
+
+}

@@ -1,0 +1,255 @@
+
+/*视频展示banner图*/
+.video_banner{
+	width: 100%;
+	height: 162px;
+	background: url(../images/bg.png) no-repeat 50% 50%;
+	background-size: cover!important;
+	font-family: '方正正粗黑简体';
+	font-size: 30px;
+	text-align: center;
+	line-height: 162px;
+	color: #fff;
+}
+
+/*视频展示内容区域*/
+.video_container{	
+	max-width: 1100px;
+	height: auto;
+	margin: 0 auto;
+}
+
+/*视频搜索框*/
+.video_search{
+	width: 100%;
+	height: 107px;
+}
+
+.search_area{
+	position: relative;
+	width: 68%;
+	height: 107px;
+	left: 0;
+	right: 0;
+	margin:  0 auto;
+}
+
+.search_area input{
+	display: block;
+	width:calc(100% - 44px);
+	height: 40px;
+	line-height: 40px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+   -ms-transform: translate(-50%, -50%);
+   -o-transform: translate(-50%, -50%);
+   -moz-transform: translate(-50%, -50%);
+   -webkit-transform: translate(-50%, -50%);
+   border-radius: 30px;
+   -ms-border-radius: 30px;
+   -o-border-radius: 30px;
+   -moz-border-radius: 30px;
+   -webkit-border-radius: 30px;
+   border: none;
+   border: 1px solid #dc1914;
+   padding: 0 22px;
+   color: #b4b4b4;
+   outline: none;
+   font-family: "微软雅黑";
+}
+
+.search_area .search_button{
+	outline: none;
+	height: 22px;
+	width: 27px;
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	transform: translate(-10%, -50%);
+   -ms-transform: translate(-10%, -50%);
+   -o-transform: translate(-10%, -50%);
+   -moz-transform: translate(-10%, -50%);
+   -webkit-transform: translate(-10%, -50%);
+   border: none;
+   background-color: white;
+   background: url(../images/icon/search.png) no-repeat 50% 50%;
+   background-size: 90%;
+}
+
+.search_area .search_button:hover{
+	cursor: pointer;
+}
+
+/*视频内容列表*/
+.video_line{
+	width: 100%;
+	height: auto;
+}
+
+.video_line ul{
+	width: calc(100% - 10px);
+	height: auto;
+	overflow: hidden;
+	padding:0 0 0 10px;
+}
+
+.video_line ul li{
+	width: 22%;
+	height: auto;
+	border: 1px solid #b5b5b5;
+	float: left;
+	margin-bottom: 24px;
+}
+
+.video_line ul li:hover{
+	border-color: #ff2c00;
+}
+
+.video_line ul li:hover .video_href{
+	color: #dc1914;
+	border-color: #ff4614;
+}
+
+.video_line ul li{
+	margin: 0px 20px 22px 0;
+}
+
+.video_line ul li .video_content{
+	width: 100%;
+	height: auto;
+}
+
+.video_content:hover{
+	cursor: pointer;	
+}
+
+.video_content .video_bg{
+	width: 100%;
+	height: 177px;	
+	background-size: cover!important;
+}
+
+.video_content .video_mes{
+	padding: 15px 20px;
+	color: #505050;
+}
+
+.video_mes{
+	position: relative;
+}
+
+.video_mes h3{
+	display: block;
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom: 16px;
+}
+
+.video_mes p{
+	font-size: 12px;
+	margin-bottom: 10px;
+	height: 16px;
+}
+
+.video_mes p:nth-last-child(2){
+	margin-bottom: 2px;
+}
+
+.video_mes .video_text{
+	height: 17px;
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;	
+}
+
+.video_mes .video_href{
+	border: 1px solid #b5b5b5;
+	line-height: 24px;
+	padding: 0 8px;
+	text-decoration: none;
+	color: #b5b5b5;
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
+	font-size: 12px;
+}
+
+/*分页*/
+.page{
+	width: 100%;
+	text-align: center;
+	margin: 30px 0 60px;
+}
+
+.page-content{
+	display: inline-block;
+	width: 100%;
+	margin-left: 21.5%;
+}
+
+
+.page a{
+	font-size: 12px;
+	color: #646464;
+	height: 26px;
+	line-height: 26px;
+	display: inline-block;
+	padding: 0 10px;
+	border: 1px solid #b4b4b4;
+	float: left;
+	margin-right: 10px;
+}
+/*.page a:last-child{*/
+	/*margin-right: 0;*/
+/*}*/
+
+.page a.active{
+	border: 1px solid #dc1914;
+	background: #dc1914;
+	color: #fff;
+}
+.page a:hover{
+	border: 1px solid #dc1914;
+	background: #dc1914;
+	color: #fff;
+}
+@media only screen and (max-width:1200px){
+	.video_container{
+		width: 100%;
+	}
+}
+
+@media only screen and (max-width:992px){
+	.video_line ul li{
+		width: 30%;
+	}
+}
+
+@media only screen and (max-width:768px){
+	.video_line ul li{
+		width: 46%;
+	}
+	.video_line ul{
+		width: calc(100% - 7%);
+		height: auto;
+		overflow: hidden;
+		padding: 0 2% 0 5%;
+	}
+}
+
+@media only screen and (max-width:480px){
+	.video_line ul li{
+		width: 80%;
+		margin-left: 9%;
+	}
+	.page a{
+		padding: 0 5px;
+		margin-right: 9px;
+	}
+	.video_banner{
+		font-size: 20px;
+	}
+}

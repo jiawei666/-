@@ -1,0 +1,172 @@
+.banner img{
+	width: 100%;
+	height: 100%;
+}
+.banner{
+	padding-bottom: 34%;
+	height: 0;
+	width: 100%;
+	background-size: cover!important;
+}
+.scene-title{
+	height: 70px;
+	width: 100%;
+	background: #626262;
+}
+.scene-title-box{
+	width: calc(100% - 20px);
+	margin: 0 auto;
+	padding: 8px 10px;
+	height: calc(100% - 16px);
+}
+.scene-title-box li{
+	width: 24.5%;
+	border-right: 1px solid #7d7d7d;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+.scene-title-box li:first-child{
+	border-left: 1px solid #7d7d7d;
+}
+.scene-title-box li a{
+	font-size: 14px;
+	color: #fff;
+	display:block;
+	position: absolute;
+	z-index: 1;
+	text-align: center;
+	width: 100%;
+}
+.scene-title-container{
+	display: inline-block;
+}
+.scene-title-box li.active::after{
+	content: "";
+	position: absolute;
+	top: -15px;
+	left: -10px;
+	width: 100%;
+	padding: 0 8px;
+	height: 84px;
+}
+.scene-title-box li.video-active::after{
+	background: url(../images/scene-video-background.png) 0 0 no-repeat;
+	background-size: 100% 100%;
+}
+.scene-title-box li.running-active::after{
+	background: url(../images/scene-running-background.png) 0 0 no-repeat;
+	background-size: 100% 100%;
+}
+.scene-title-box li.study-active::after{
+	background: url(../images/scene-graph-background.png) 0 0 no-repeat;
+	background-size: 100% 100%;
+}
+.scene-title-box li.school-active::after{
+	background: url(../images/scene-education-background.png) 0 0 no-repeat;
+	background-size: 100% 100%;
+}
+.scene-title-box li.active a{
+	font-size: 16px;
+}
+.scene-title-box li.active span{
+	padding: 15px 5px 0px 0;
+}
+.scene-title-box li span{
+	display: none;
+	float: left;
+	padding: 21px 5px 21px 0;
+}
+.scene-title-box li span img{
+	display: inline-block;
+}
+.scene-title-box li p{
+	display: inline-block;
+	line-height: 30px;
+}
+
+.scene-container{
+	padding: 65px 0;
+}
+.scene-container-brief{
+	margin: 0 auto;
+	border: 1px solid #be1914;
+	position: relative;
+	font-size: 12px;
+	color: #757575;
+	padding: 20px;
+	line-height: 25px;
+}
+.scene-container-brief::before{
+	position: absolute;
+	font-size: 20px;
+	color: #4e4e4e;
+	padding: 0 10px;
+	display: block;
+	left: 35px;
+	top: -15px;
+	background: #fff;
+}
+.video-container-brief::before{
+	content: "活动直播平台";
+}
+.running-container-brief::before{
+	content: "体育直播平台";
+}
+.study-container-brief::before{
+	content: "教育直播平台";
+}
+.school-container-brief::before{
+	content: "企校直播平台";
+}
+@media only screen and (min-width:410px){
+	.scene-title-box li p {
+		line-height: 54px;
+	}
+}
+@media only screen and (min-width:768px){
+	.scene-title-box{
+		width: calc(100% - 20px);
+		padding: 8px 10px;
+	}
+	.scene-title-box li.active::after{
+		top: -18px;
+		padding: 0 10px;
+		height: 120px;
+	}
+	.scene-container-brief{
+		padding: 40px 30px 40px 50px;
+		font-size: 14px;
+		line-height: 30px;
+	}
+	.scene-title-box li span{
+		display: inline-block;
+	}
+	.scene-title-box li p{
+		line-height: 84px;
+	}
+	.scene-title-box li.active a{
+		font-size: 20px;
+	}
+	.scene-title-box li a{
+		font-size: 16px;
+	}
+	.scene-title{
+		height: 100px;
+	}
+}
+
+@media only screen and (min-width:992px){
+	.scene-title-box{
+		width: 990px;
+		padding: 8px 55px;
+	}
+	.scene-title-box li.active::after{
+		width: 265px;
+		padding: 0;
+	}
+	.scene-container-brief{
+		width: 870px;
+		padding: 40px 50px;
+	}
+}

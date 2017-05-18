@@ -1,0 +1,64 @@
+<extend name="public/wechatBase2"/>
+<block name="banner">
+	{:\\Onemla\\OnemlaHelper::W('Menu/wechatbanner')}
+</block>
+<block name="main">
+	<script src="__WECHAT__js/more_channel.js"></script>
+	<!--分类栏-->
+	<div class="channel-details-nav">
+		<a  href="{:U('WechatIndex/LiveBsn/channel_brief')}&channel_id={$channel_id}&bsn_id={$bsn_id}">
+			<span>简介</span>
+		</a>
+		<a class="active" href="{:U('WechatIndex/LiveBsn/channel_activity')}&channel_id={$channel_id}&bsn_id={$bsn_id}">
+			<span>活动</span>
+		</a>
+	</div>
+	<!--活动列表-->
+	<div class="channel-details-container" name="roomList">
+		<volist name="roomList" id="vo">
+			<div class="home-list">
+				<a href="{$vo.alink}" name="view_count">
+					<input type="hidden" value="{$vo[room_id]}">
+					<img class="home-list-img" src="__ROOT__/Administrator/Res/Uploads/live_room/{$vo.image}"/>
+					<div class="home-list-container">
+						<h4 class="home-list-title">
+							{$vo.title}
+						</h4>
+						<p class="home-list-time">
+							{$vo.start_time}
+						</p>
+						<p class="home-list-number">
+							{$vo.view_count}
+						</p>
+						<if condition="$vo[status]==2">
+							<p class="home-list-href underway" href="javascript:void(0)">
+								直播中
+							</p>
+							<elseif condition="$vo[status]==1" />
+							<p class="home-list-href trailer" href="javascript:void(0)">
+								预告
+							</p>
+							<else/>
+							<p class="home-list-href playback" href="javascript:void(0)">
+								回放
+							</p>
+						</if>
+					</div>
+				</a>
+			</div>
+		</volist>
+	</div>
+	<input type="hidden" name="bsn_id" value="{$bsn_id}">
+	<input type="hidden" name="channel_id" value="{$channel_id}">
+	<!--<button value="2" name="more" style="position: relative;bottom: 1rem;left: 3.2rem;color: white;background-color: #c81914;border: 1px solid #adadad;">加载更多</button>-->
+	<if condition="$isempty==1">
+		<div class="loading_done" name="more" >
+			<p>暂时没有数据</p>
+		</div>
+		<else/>
+		<div class="loading" name="more" >
+			<input type="hidden" value="2" name="number">
+			<p>点击加载更多</p>
+		</div>
+	</if>
+</block>

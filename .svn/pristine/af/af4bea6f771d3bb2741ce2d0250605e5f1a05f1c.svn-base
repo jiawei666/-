@@ -1,0 +1,110 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__case.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    案例管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">案例管理</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('CaAndSo/Index/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="{$title}" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <input type="text" name="content" value="{$content}" placeholder="请输入搜索的内容" class="input_01" />
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="{:U('CaAndSo/Index/editPage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加新案例
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <!--                            <th width="78">
+                                                            <label class="checkBox">
+                                                                <input type="checkbox" />
+                                                                <span class="icon"></span>
+                                                            </label>
+                                                        </th>-->
+                            <th width="80">
+                                案例编号
+                            </th>
+                            <th>
+                                案例标题
+                            </th>
+                            <th>
+                                案例内容
+                            </th>
+                            <th>
+                                案例图片
+                            </th>
+                            <th>
+                                修改时间
+                            </th>
+                            <th>
+                                创建时间
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.title}
+                                </td>
+                                <td>
+                                    {$vo.content}
+                                </td>
+                                <td>
+                                    <img src="__CASE__{$vo.image}" width="120px">
+                                </td>
+                                <td>{$vo.update_time}</td>
+                                <td>{$vo.create_time}</td>
+                                <td class="bt">
+                                    <a href="{:U('CaAndSo/Index/editPage',array('id'=>$vo[id]))}" class="edit_bt"></a>
+                                    <a href="#" class="del_bt"></a>
+                                    <input type="hidden" value="{$vo.id}" id='id'>
+                                    <input type="hidden" value="" id='state'>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <!--                        <div class="bt_list">
+                                                    <a href="#" class="btn_01">锁定</a>
+                                                    <a href="#" class="sel_del_bt btn_01">删除</a>
+                                                </div>-->
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

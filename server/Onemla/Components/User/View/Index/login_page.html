@@ -1,0 +1,57 @@
+<extend name="Public/base2"/>
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__css.css" />
+    <link rel="stylesheet" href="__CSS__case.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+</block>
+
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+
+    <!--登录-->
+    <div class="login" style="display: block;">
+        <div class="login-container" style="height: 300px">
+            <div class="login-title">
+                <img src="__IMAGES__login-logo.png"/>
+            </div>
+            <form action="{:U('User/Index/login')}" method="post">
+                <div class="login-brief">
+                    <div class="login-brief-user">
+                        <input type="text" name="user_name" placeholder="用户名或邮箱" />
+                    </div>
+                    <div class="login-brief-password">
+                        <input type="password" name="password" placeholder="密码" />
+                    </div>
+                    <a class="jump-reset" href="{:U('User/Findpsd/entryphone_num')}">忘记密码</a>
+                </div>
+                <input class="login-submit" type="submit" value="登录"/>
+            </form>
+            <a class="jump-register" href="{:U('User/Index/register_page')}">还没有账户？立即注册</a>
+            <div class="login-other" style="display: none">
+                <span>可使用以下方式登录</span>
+                <div class="login-other-img" >
+                    <a href="#">
+                        <img src="__IMAGES__icon/login-wx.png"/>
+                    </a>
+                    <a href="#">
+                        <img src="__IMAGES__icon/login-qq.png"/>
+                    </a>
+                    <a href="#">
+                        <img src="__IMAGES__icon/login-wb.png"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('form').submit(function(){
+            $('input[type="submit"]').attr('disabled','')
+        });
+    </script>
+
+</block>
+

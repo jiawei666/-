@@ -1,0 +1,2 @@
+<?php die('forbidden'); ?>
+{"appid":"1651651616","appkey":"4654656156","callback":"example/oauth/callback.php","scope":"get_user_info,get_repost_list","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}

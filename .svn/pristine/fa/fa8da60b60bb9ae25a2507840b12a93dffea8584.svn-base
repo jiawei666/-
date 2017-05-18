@@ -1,0 +1,133 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__repair.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    工单管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">工单列表</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('Repair/Index/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="repair_number" value="{$repair_number}" placeholder="请输入搜索的工单编号" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="type" class='input_01'>
+                                    <option value="">请选择工单分类</option>
+                                    <option value="1" {$type==1 ? 'selected=""' : ''} >直播问题</option>
+                                    <option value='2' {$type==2 ? 'selected=""' : ''} >功能问题</option>
+                                    <option value='3' {$type==3 ? 'selected=""' : ''}>建议</option>
+                                    <option value='4' {$type==4 ? 'selected=""' : ''}>分发</option>
+                                </select>
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="{:U('Repair/Index/editPage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="80">
+                                工单编号
+                            </th>
+                            <th>
+                                工单分类
+                            </th>
+                            <th>
+                                联系人
+                            </th>
+                            <th>
+                                发送时间
+                            </th>
+                            <th>
+                                手机号码
+                            </th>
+                            <th>
+                                邮箱
+                            </th>
+                            <th>
+                                会员账号
+                            </th>
+                            <th>
+                                工单说明
+                            </th>
+                            <th>
+                                工单状态
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.repair_number}
+                                </td>
+                                <td>
+                            <if condition='$vo[type]==1'>
+                                直播问题
+                                <elseif condition='$vo[type]==2'/>
+                                功能问题
+                                <elseif condition='$vo[type]==3'/>
+                                建议
+                                <else/>
+                                分发
+                            </if>
+                            </td>
+                            <td>
+                                {$vo.contact}
+                            </td>
+                            <td>
+                                <!--{$vo.channel}-->
+                            </td>
+                            <td>{$vo.phone}</td>
+                            <td>{$vo.email}</td>
+                            <td>{$vo.user_name}</td>
+                            <td width="250px">{$vo.introduction}</td>
+                            <td>
+                            <if condition='$vo[status]==1'>
+                                待回复
+                                <elseif condition='$vo[status]==2'/>
+                                已回复
+                                <else/>
+                                不通过
+                            </if>
+                            </td>
+                            <td class="bt">
+                                <a href="{:U('Activity/Index/detail',array('id'=>$vo[id]))}" class="">详情</a>
+                                <a href="#" class="reply">回复</a>
+                                <a href="#" class="del">删除</a>
+                                <input type="hidden" value="{$vo.id}" id='id'>
+                                <!--<input type="hidden" value="{$vo.status}" id='status'>-->
+                            </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

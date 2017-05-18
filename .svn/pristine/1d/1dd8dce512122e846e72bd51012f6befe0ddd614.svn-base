@@ -1,0 +1,82 @@
+<!--<extend name="Public/base"/>-->
+<block name="head">
+    <link rel="stylesheet" href="__CSS__message.css" />
+</block>
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Menu2')}
+</block>
+<block name="main">
+
+    <div id="main">
+        <div class="message">
+            <ul class="message_nav clear">
+                <li class="active">
+                    <a href="{:U('User/UserInfo/messageUnread')}">
+                        未读消息(<span class="red">{$count_unread}</span>)
+                    </a>
+                </li>
+                <li>
+                    <a href="{:U('User/UserInfo/messageReaded')}">
+                        已读消息(<span class="red">{$count_readed}</span>)
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="message_unread">
+                    <if condition='empty($list)'>
+                        <div class="record_list_null">
+                            已经没有未读消息了喔
+                        </div>
+                    </if>
+                    <div class="message_list">
+                        <volist name='list' id='vo'>
+                            <dl>
+                                <dd class="title">
+                                    {$vo.title}
+                                    <span class="time">
+                                        {$vo.create_time|convert_date}
+                                    </span>
+                                </dd>
+                                <dd class="text_con">
+                                    <p class="text">
+                                        {$vo.content}
+                                    </p>
+                                    <a href="#" src='{$vo.id}' class="message_close" id='message_close{$vo.id}'></a>
+                                </dd>
+                            </dl>
+                            <script>
+                                $(function () {
+                                    $('#message_close{$vo.id}').click(function () {
+                                        if (confirm("是否标记为已读？")) {
+                                            var id = $("#message_close{$vo.id}").attr("src");
+                                            var url = "{:U('User/UserInfo/updateReaded')}";
+                                            $.post(url, {id: id}, function (data) {
+                                                if (data.result == "success") {
+                                                    location.reload();
+                                                } else {
+                                                    alert('标记失败！')
+                                                    location.reload();
+                                                }
+                                                console.log(data)
+                                            }, 'json')
+                                        }
+                                    })
+                                })
+                            </script>
+                        </volist>
+                        <div class="page_list">
+                            {$page_show}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</block>
+
+<block name="footer">
+
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+
+</block>

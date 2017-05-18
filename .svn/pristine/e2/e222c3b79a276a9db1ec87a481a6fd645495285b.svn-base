@@ -1,0 +1,144 @@
+@charset "utf-8";
+html,body,div,ul,li,input,img,button,span,a,form,dl,dt,dd,table,tr,select,hr,b,p,i{margin:0;padding:0;}
+li,ul{list-style:none}
+body{font-family:"Microsoft YaHei",Verdana,Arial;font-size:12px;}
+a{text-decoration:none;border:none;outline:none;-webkit-appearance:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+body,html{width:100%;}
+
+
+/**section 部分 start***/
+.section{
+	width:100%;
+	float:left;
+	height:800px;
+	background-color:#F2F2F2;
+}
+.section_container{
+	width:92%;
+	margin:0 auto;
+}
+.section_pink{
+	height:60px;
+	line-height:60px;
+	font-size:30px;
+	font-weight:600px;
+	background-color:#EFEFEF;
+}
+.tables{
+	margin-top:10px;
+	border-top:1px solid #DDD
+}
+.btns{
+	margin:10px 0;
+}
+
+.green_btn{
+  height:35px;
+  width:60px;
+  color:#fff;
+  background-color:#44c767;
+  border:none;
+  outline:none;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  -moz-box-shadow: inset 0px 0px 0px 0px #ffffff;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #ffffff;
+  box-shadow: inset 0px 0px 0px 0px #ffffff;
+  font-size:14px;
+  letter-spacing:2px;
+  cursor:pointer;
+}
+.green_btn:hover{
+  background-color:#5cbf2a;
+}
+.btns_right{
+	float:right;
+	margin-right:6px;
+}
+.text_input{
+	height:28px;
+	outline:none;
+	width:220px;
+	padding-left:3px;
+	color:#333;
+	margin-right:3px;
+}
+
+table{
+	width:100%;
+	border-collapse:collapse;
+	table-layout:fixed;
+	border-left:1px solid #DDD;
+	border-right:1px solid #DDD;
+}
+table thead{
+	background-color:#2DAFCA;
+}
+table thead th{
+	height:40px;
+	font-weight:normal;
+	font-size:16px;
+	color:#fff;
+}
+table thead th input{
+	float:left;width:18px;height:18px;margin-left:6px;margin-top:3px;
+}
+table tbody tr td{
+	font-size:14px;
+	color:#444;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-wrap:break-word;
+	border:1px solid #DDD;
+}
+table tbody tr td input{
+	float:left;width:15px;height:15px;margin-left:6px;
+	margin-top:7px;
+}
+table tbody tr td:last-child{
+	color:#2DAFCA;
+}
+table tbody tr td a{
+	font-size:14px;
+	color:#2DAFCA;
+	cursor:pointer;
+}
+table tbody tr td a:hover{
+	text-decoration:underline;
+}
+table tbody tr{
+	height:35px;
+	line-height:35px;
+	text-align:center;
+}
+
+table tr th:nth-child(1),table tr td:nth-child(1){
+	width:15%;
+}
+table tr th:nth-child(2),table tr td:nth-child(2){
+	width:70%;
+	
+}
+table tr th:nth-child(3),table tr td:nth-child(3){
+	width:15%;
+	
+}
+.bumen{
+	width:50%;
+	height:33px;
+	margin-top:1px;
+	margin:0 auto;
+	margin-left:25%;
+	font-size:14px;
+	color:#444;
+	outline:none;
+	border:none;
+	text-align:center;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+}
+
+/***section 部分 end***/

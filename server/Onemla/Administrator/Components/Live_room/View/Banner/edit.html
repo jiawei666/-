@@ -1,0 +1,122 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script>
+        $(function () {
+            $('.date_input').datetimepicker({
+                timepicker: false,
+                format: 'Y-m-d H:i:s'
+            });
+        });
+        function setImagePreview(doc,imgobj,fontobj) {
+            var docObj = document.getElementById(doc);
+            var imgObjPreview = document.getElementById(imgobj);
+            if (docObj.files && docObj.files[0]) {
+                //火狐下，直接设img属性
+                imgObjPreview.style.display = 'block';
+                imgObjPreview.style.width = '100%';
+                imgObjPreview.style.height = '100%';
+                imgObjPreview.style.zIndex = "0";
+                $(fontobj).css({"color":"#fff"})
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            } else {
+                //IE下，使用滤镜
+                docObj.select();
+                var imgSrc = document.selection.createRange().text;
+                var localImagId = document.getElementById("localImag");
+                //必须设置初始大小
+                localImagId.style.width = "100%";
+                localImagId.style.height = "100%";
+                //图片异常的捕捉，防止用户修改后缀来伪造图片
+                try {
+                    localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                } catch (e) {
+                    alert("您上传的图片格式不正确，请重新选择!");
+                    return false;
+                }
+                imgObjPreview.style.display = 'none';
+                document.selection.empty();
+            }
+            return true;
+        }
+    </script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">Banner管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    编辑信息
+                </div>
+                <form action="{:U('Live_room/Banner/edit')}" method="post" enctype="multipart/form-data"  >
+                    <ul class="essential-box">
+                        <li class="essential-title">
+                            <span>标题：</span>
+                            <input type="text" name="title" value="{$info[title]}" required="" />
+                        </li>
+                        <li class="essential-bg">
+                            <span>广告图：</span>
+                            <div>
+                                <a>点击上传图片</a>
+                                <img id="preview" src="{$info[image] == '' ? '' : '__UPLOAD__/live_banner/'}{$info[image]}" >
+                                <input type="file" accept="image/jpg,image/png,image/jpeg" name="image" value="{$image}" id="doc" required="required" onchange="javascript:setImagePreview('doc', 'preview', '.essential-bg div');"/>
+                            </div>
+                        </li>
+                        <li class="essential-brief">
+                            <span>外链：</span>
+                            <input type="text" name="alink" value="{$info[alink]}" />
+                        </li>
+                        <li class="essential-time">
+                            <span>开始时间：</span>
+                            <input type="text" name="start_time" value="{$info[start_time]}" placeholder="开始时间" class="input_01 date_input date_start" required="" style="background-color: white" />
+                        </li>
+                        <li class="essential-time">
+                            <span>失效时间：</span>
+                            <input type="text" name="end_time" value="{$info[end_time]}" placeholder="失效时间" class="input_01 date_input date_start" required="" style="background-color: white" />
+                        </li>
+                        <li class="essential-brief">
+                            <span>优先级：</span>
+                            <input type="number" name="first" value="{$info[first]}" required="" />　　//1显示在前面,以此类推
+                        </li>
+                        <li class="inputTxt">
+                            <span>状态：</span>
+                            <select name="show" required="" class="input_01">
+                                <option value="1" {$info[show]==1 ? 'selected=""':''}>显示</option>
+                                <option value="0" {$info[show]==='0' ? 'selected=""':''}>不显示</option>
+                            </select>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="{$info[id]}"/>
+                    <input type="submit" id="info-submit" value="提交" />
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+        <script>
+            $('form').submit(function(){
+                $('.submit_load').show();
+                $('input[type="submit"]').attr('disabled','')
+            });
+            if($('#preview').attr('src') !=''){
+                $('input[name="image"]').removeAttr('required');
+                $('#preview').prev().text('');
+            }
+        </script>
+    </div>
+</block>

@@ -1,0 +1,83 @@
+<extend name="Public/base2"/>
+<block name="head">
+	<script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+	<link rel="stylesheet" href="__CSS__css.css" />
+	<link rel="stylesheet" href="__CSS__scene.css" />
+</block>
+
+<block name="menu">
+	{:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+	<div class="banner" style="background: url(__IMAGES__scene-banner.jpg) no-repeat 50% 50%;">
+	</div>
+
+	<div class="scene-title">
+		<ul class="scene-title-box">
+			<li class="active video-active">
+				<a href="{:U('Scene/Index/video')}">
+					<div class="scene-title-container">
+								<span>
+									<img src="__IMAGES__icon/scene-video.png"/>
+								</span>
+						<p>活动直播平台</p>
+					</div>
+
+				</a>
+			</li>
+			<li>
+				<a href="{:U('Scene/Index/running')}">
+					<div class="scene-title-container">
+								<span>
+									<img src="__IMAGES__icon/scene-running.png"/>
+								</span>
+						<p>体育直播平台</p>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="{:U('Scene/Index/study')}">
+					<div class="scene-title-container">
+								<span>
+									<img src="__IMAGES__icon/scene-graph.png"/>
+								</span>
+						<p>教育直播平台</p>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="{:U('Scene/Index/school')}">
+					<div class="scene-title-container">
+								<span>
+									<img src="__IMAGES__icon/scene-education.png"/>
+								</span>
+						<p>校企直播平台</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="scene-container">
+		<div class="scene-container-brief video-container-brief">
+			<p>直播家目前已经为会议会展，峰会论坛，产品发布，商演比赛，营销推广、婚礼现场等活动现场提供了最专业的直播服务。</p>
+			<p>阿麦直播操作简单，可通过专业设备，电脑，手机等多种直播；微信直接观看，全球同步。直播链接，通过微信好友、朋友圈一键转发分享；</p>
+			<p>一传十，十传百，裂变式传播效应，0成本让活动效果推广到极致；评论、投票、打赏，抢红包，摇一摇…多种互动，让你自由掌控；同时可以提供加密观看，收费直播，真正实现让你的现场你做主。</p>
+		</div>
+	</div>
+</block>
+
+<block name="footer">
+	{:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+	<script type="text/javascript" src="__JAVASCRIPTS__js.js" ></script>
+	<script>
+		var imgsrc= $(".scene-title-box li.active img")[0].src;
+		var n=imgsrc.replace(/.png/, "-active.png")
+		$(".scene-title-box li.active img").attr('src',n);
+
+		$('.nav li').attr('class','');
+		$('.nav li').eq(1).attr('class','active');
+	</script>
+</block>
+
+

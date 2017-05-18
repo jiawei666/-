@@ -1,0 +1,98 @@
+<extend name="public/wechatBase"/>
+<block name="head">
+	<link rel="stylesheet" href="__WECHAT__css/vendor/swiper.min.css" />
+	<link rel="stylesheet" href="__WECHAT__css/css.css" />
+	<link rel="stylesheet" href="__WECHAT__css/index.css" />
+	<script src="__WECHAT__js/more_character.js"></script>
+</block>
+<block name="main">
+	<!--分类-->
+	<ul class="category-list">
+		<li {$characterId== '' ? 'class="active"' : '' } >
+			<a name="" href="{:U('WechatIndex/Index/character')}">所有活动</a>
+		</li>
+		<volist name="character" id="ca_vo">
+			<li {$characterId== $ca_vo["id"] ? 'class="active"' : '' }>
+			<a name="{$ca_vo.id}" href="{:U('WechatIndex/Index/character')}&character_id={$ca_vo.id}">{$ca_vo.character}</a>
+			</li>
+		</volist>
+	</ul>
+
+	<!--直播列表-->
+	<div class="index-list-container" name="roomList">
+		<volist name="room" id="rm_vo">
+
+				<div class="index-list" >
+					<a href="{$rm_vo.alink}" name="view_count" style="display: block;">
+						<input type="hidden" value="{$rm_vo[room_id]}">
+						<img src="__ROOT__/Administrator/Res/Uploads/live_room/{$rm_vo.bg_image}"/>
+					</a>
+					<p class="index-list-time">
+						{$rm_vo.start_time}
+					</p>
+					<div class="index-list-href">
+
+							<p class="index-list-brief">{$rm_vo.title}</p>
+
+						<if condition="$rm_vo[status]==2">
+							<a class="underway" href="javascript:void(0)">
+								直播中
+							</a>
+							<elseif condition="$rm_vo[status]==1" />
+							<a class="trailer" href="javascript:void(0)">
+								预告
+							</a>
+							<else/>
+							<a class="playback" href="javascript:void(0)">
+								回放
+							</a>
+						</if>
+						<p class="index-list-eye">
+							{$rm_vo.view_count}
+						</p>
+					</div>
+				</div>
+
+		</volist>
+	</div>
+	<!--<button value="2" name="more" style="position: relative;bottom: 0.8rem;;left: 3.2rem;color: white;background-color: #c81914;border: 1px solid #adadad;">加载更多</button>-->
+	<if condition="$isempty==1">
+		<div class="loading_done" name="more" >
+			<p>暂时没有数据</p>
+		</div>
+		<else/>
+		<div class="loading" name="more" >
+			<input type="hidden" value="2" name="number">
+			<p>点击加载更多</p>
+		</div>
+	</if>
+</block>
+<block name="bottom">
+	{:\\Onemla\\OnemlaHelper::W('Footer/wechatIndex')}
+
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+			slidesPerView: 5,//横
+			slidesPerColumn: 2,//纵
+//      spaceBetween: 10
+		});
+		$(".swiper-slide").on("click",function(){
+			var slideIndex=$(".swiper-slide").index(this);
+		});
+		$(".category-list li").on("click",function(){
+			var slideIndex=$(".category-list li").index(this);
+			$(".category-list li").eq(slideIndex).addClass('active').siblings().removeClass("active");
+		});
+		$(function(){
+			$('footer').find('a').eq(0).attr('class','footer-nav-home');
+			$('footer').find('a').eq(1).attr('class','footer-nav-nature active');
+			$('footer').find('a').eq(2).attr('class','footer-nav-region');
+			$('footer').find('a').eq(3).attr('class','footer-nav-liveRoom');
+
+			$('footer').find('img').eq(0).attr('src','__WECHAT__images/icon/home.png');
+			$('footer').find('img').eq(1).attr('src','__WECHAT__images/icon/nature-active.png');
+			$('footer').find('img').eq(2).attr('src','__WECHAT__images/icon/region.png');
+			$('footer').find('img').eq(3).attr('src','__WECHAT__images/icon/Live-room.png');
+		});
+	</script>
+</block>

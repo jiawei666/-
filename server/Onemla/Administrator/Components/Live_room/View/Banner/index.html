@@ -1,0 +1,128 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__live_banner.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播商管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">直播间</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('Live_room/Banner/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="{$search[title]}" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="show" class='input_01'>
+                                    <option value="">请选择显示状态</option>
+                                    <option value="1" {$search[show]==1 ? 'selected=""':''}>显示</option>
+                                    <option value="0" {$search[show]==='0' ? 'selected=""':''}>未显示</option>
+                                </select>
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="{:U('Live_room/Banner/editPage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="90">
+                                编号
+                            </th>
+                            <th width="90">
+                                标题
+                            </th>
+                            <th width="130">
+                                图片
+                            </th>
+                            <th width="250">
+                                外链
+                            </th>
+                            <th width="90">
+                                开始时间
+                            </th>
+                            <th width="90">
+                                失效时间
+                            </th>
+                            <th width="90">
+                                状态
+                            </th>
+                            <th width="90">
+                                优先级
+                            </th>
+                            <th width="90">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='bannerList' id='vo'>
+                            <tr>
+                                <td >
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.title}
+                                </td>
+                                <td>
+                                    <if condition="$vo[image]!=''">
+                                        <img src="__UPLOAD__/live_banner/{$vo.image}" width="120px">
+                                    </if>
+                                </td>
+                                <td width="250" style="word-break: break-all">
+                                    {$vo.alink}
+                                </td>
+                                <td>
+                                    {$vo.start_time}
+                                </td>
+                                <td>
+                                    {$vo.end_time}
+                                </td>
+                                <td>
+                                    <if condition="$vo[start_time] gt $now">
+                                        未开始
+                                        <elseif condition="$vo[end_time] gt $now && $now gt $vo[start_time] && $vo[show]==1" />
+                                        正在轮播
+                                        <elseif condition="$vo[end_time] gt $now && $now gt $vo[start_time] && $vo[show]!=1" />
+                                        不显示
+                                        <elseif condition="$vo[end_time] lt $now" />
+                                        已过期
+                                    </if>
+                                </td>
+                                <td>
+                                    {$vo.first}
+                                </td>
+                                <td class="bt">
+                                    <a href="{:U('Live_room/Banner/editPage')}&id={$vo.id}" title="编辑" class="edit_bt"><button class="handle_bt">编辑</button></a>
+                                    <input type="hidden" value="{$vo.id}" id='id'>
+                                    <a href="#" class="del_bt" title="删除"><button class="handle_bt">删除</button></a>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

@@ -1,0 +1,19 @@
+<?php
+
+namespace Components\Home\Controller;
+use Onemla\OnemlaHelper;
+use Onemla\OnemlaRequest;
+use Onemla\ServeViewController;
+use Onemla\ViewController;
+use Services\SMS\SMSService;
+use Services\User\UserService;
+use Think\View;
+
+class IndexController extends ServeViewController {
+
+    public function index() {
+
+        $this -> display('index');
+    }
+
+}

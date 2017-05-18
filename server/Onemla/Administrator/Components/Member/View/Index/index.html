@@ -1,0 +1,89 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script src="__JAVASCRIPTS__edit_info_sendSMS.js"></script>
+    <script src="__JAVASCRIPTS__regular.js"></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    会员信息
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">会员信息</span>
+                </p>
+                <div class="essential skin_bg">
+                    基本信息
+                </div>
+                <form method="post" action="{:U('Member/Index/edit')}">
+                <ul class="essential-box">
+                    <li class="essential-title">
+                        <span>账号：</span>
+                        <input type="text" value="{$info['user_name']}" disabled="" />
+                    </li>
+                    <li class="essential-state">
+                        <span>手机号：</span>
+                        <input type="text" name="phone" value="{$info[phone]}" oninput="checkphone($('#btn'))" disabled=""/>
+                        <input type="button" name="button" style="width: 50px;margin-left: 15px;background-color: #f8b551;color: white" id="edit" value="修改"/>
+                    </li>
+                    <li class="essential-state"  id="entry_verify" style="display: none">
+                        <input type="text" name="verify" id="verify" style="width: 150px;margin-left: 153px" placeholder="请输入验证码" />
+                        <input type="button" id="btn" name="button"  value="免费获取验证码"  style="width: 130px;color: white;background-color: #9e9e9a"/>
+                    </li>
+                    <li class="essential-state">
+                        <span>邮箱：</span>
+                        <input type="text" name="email" value="{$info[email]}" required=""  />
+                    </li>
+                    <li class="essential-time">
+                        <span>微信号：</span>
+                        <input type="text" name="wechat" value="{$info[wechat]}" required=""  />
+                    </li>
+                    <li class="essential-brief">
+                        <span>QQ：</span>
+                        <input type="text" name="qq" value="{$info[qq]}" required=""  />
+                    </li>
+                    <li class="bt">
+                    </li>
+                </ul>
+                <input type="submit" id="info-submit" name="" onclick="return registercheck()" value="提交" />
+                </form>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+        <script>
+            $('form').submit(function(){
+                $('.submit_load').show();
+                $('input[type="submit"]').attr('disabled','')
+            });
+
+            $('#edit').click(function(){
+                if($('#edit').val()=='修改'){
+                    $('input[name="phone"]').val('');
+                    $('#edit').val('取消')
+                }else {
+                    $('#edit').val('修改')
+                }
+
+                $('#entry_verify').toggle();
+
+                if($('input[name="phone"]').attr('disabled') == 'disabled'){
+                    $('input[name="phone"]').removeAttr('disabled');
+                }else {
+                    var ee={$info["phone"]};
+                    $('input[name="phone"]').attr('disabled','disabled');
+                    $('input[name="phone"]').val(ee);
+                    $('#btn').css('background-color','#9e9e9a');
+                    $('#btn').css('border','1px solid #e0e0e0');
+                    $('#btn').attr('disabled','disabled');
+                }
+
+            });
+        </script>
+    </div>
+</block>

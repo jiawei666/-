@@ -1,0 +1,17 @@
+$this->display()跟$this->show()区别:
+模板定义后就可以通过display和show方法来渲染输出。其中display方法需要我们有定义模板文件，而show方法则是直接渲染内容输出。  
+最常用的是display方法，调用格式：  
+  
+    第一种： display('[主题:][模块:][操作]'[,'字符编码'][,'输出类型'])  
+  	   $this->display();  
+ 	   $this->display('edit');   
+	     表示调用当前模块下面的edit模板   
+ 	   $this->display('Member:read'); 
+	     表示调用Member模块下面的read模板。
+    第二种： display('完整的模板文件名'[,'字符编码'][,'输出类型'])   
+	   $this->display('./Public/menu.html'); 
+
+
+             show('渲染内容'[,'字符编码'][,'输出类型'])   
+  	  $this->show($content, 'utf-8', 'text/xml');  
+ 

@@ -1,0 +1,70 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.config.js"></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.all.js"></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    活动管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">活动管理</span>
+                </p>
+                <div class="essential skin_bg">
+                    详细信息
+                </div>
+                <!--<form action="{:U('MemberRepair/Index/edit')}" method="post" enctype="multipart/form-data"  >-->
+                    <ul class="essential-box">
+                        <li class="essential-number">
+                            <span>工单编号：</span>
+                            <input type="text" name="repair_number" value="{$info[repair_number]}" required="" disabled="" />
+                        </li>
+                        <li class="essential-channel">
+                            <span>活动类型：</span>
+                            <input type="text" name="type" value="{$info[type]}" required="" disabled="" />
+                        </li>
+                        <li class="essential-brief">
+                            <span>工单说明：</span>
+                            <textarea name="introduction" style="margin-left: 153px" rows="5" required="" >{$info[introduction]}</textarea>
+                            {:textArea('introduction',array('height'=>'300','width'=>'800','resize_type'=>0))}
+                            <script>
+                                UE.getEditor('editor_id_'+'introduction').ready(function(){
+                                    UE.getEditor('editor_id_'+'introduction').setDisabled('fullscreen');
+                                });
+                            </script>
+
+                        </li>
+                        <li class="essential-bg">
+                            <span style="margin-top: 0px">附件：</span>
+                            <a target="_blank" href="__REPAIR__{$info[image]}" style="padding: 8px;border: 0px;text-decoration: underline">{$info[image]}</a>
+                        </li>
+                        <li class="essential-time">
+                            <span>联系人：</span>
+                            <input type="text" name="contact" value="{$info[contact]}" required="" disabled="" />
+                        </li>
+                        <li class="essential-brief">
+                            <span>手机号码：</span>
+                            <input type="text" name="phone" value="{$info[phone]}" disabled="" />
+                        </li>
+                        <li class="essential-channel">
+                            <span>电子邮箱：</span>
+                            <input type="text" name="email" value="{$info[email]}" disabled="" />
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="{$info[id]}" />
+                    <input type="button" id="info-submit" value="返回" onclick="history.go(-1)" />
+                <!--</form>-->
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

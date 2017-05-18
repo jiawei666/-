@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>台账后台管理系统</title>
+
+    <link href="__CSS__htnav.css" type="text/css" rel="stylesheet"/>
+    <script src="__JAVASCRIPTS__jQuery-2.1.4.min.js"></script>
+
+    {:\\Onemla\\OnemlaHelper::getDocument()->fetchHead()}
+    <block name="head"></block>
+
+
+</head>
+<body style="overflow-y:hidden;">
+<block name="menu"></block>
+<block name="main"></block>
+<block name="footer"></block>
+
+<block name="bottom"></block>
+</body>
+<script>
+    $(".set_parement_find div").click(function(){
+        $("iframe").attr("src",$(this).attr("class")+".html");
+        $(".article div,.article a,.add").css({
+            "color":'#AAA'
+        });
+        $(this).css({
+            "color":"#FFF"
+        });
+    });
+    $(".add").click(function(){
+        $("iframe").attr("src",$(this).attr("class")+".html");
+        $(".article div,.article a,.add").css({
+            "color":'#AAA'
+        });
+        $(this).css({
+            "color":"#FFF"
+        });
+    });
+    $(".set_parement").click(function(){
+        $("iframe").attr("src",$(this).parent().attr("id")+".html");
+        $(".article div,.article a,.add").css({
+            "color":'#AAA'
+        });
+    });
+    //求出article的高度
+    $(".article,iframe").css({
+        "height":$(window).height()-50+'px'
+    });
+    $(window).resize(function(){
+        $(".article,iframe").css({
+            "height":$(window).height()-50+'px'
+        });
+    });
+
+
+    /**树形菜单部分样式 start**/
+    for(var i=0;i<$(".ztree").length;i++){
+        getChild($(".ztree").eq(i));
+        findLi($(".ztree").eq(i));
+        change($(".ztree").eq(i));
+    }
+    $(document).on("click",".ztree .has_ul",function(){
+        hideshow($(this));
+    })
+    function hideshow(obj){
+        obj.parent().children("ul").toggle(100,function(){
+            if(obj.hasClass("has_one_ul")){
+
+                if(obj.parent().children("ul").is(":visible")){
+                    obj.css({
+                        "backgroundPosition":"-92px -54px"
+
+                    });
+
+                }else{
+                    obj.css({
+                        "backgroundPosition":"-74px -54px"
+                    });
+
+                }
+            }else if(obj.hasClass("has_first_ul")){
+
+                if(obj.parent().children("ul").is(":visible")){
+                    obj.css({
+                        "backgroundPosition":"-92px 0",
+
+                    });
+                }else{
+                    obj.css({
+                        "backgroundPosition":"-74px 0",
+
+                    });
+                }
+            }else if(obj.hasClass("has_middle_ul")){
+
+                if(obj.children("ul").is(":visible")){
+                    obj.css({
+                        "backgroundPosition":"-92px -18px"
+
+                    });
+                }else{
+                    obj.css({
+                        "backgroundPosition":"-74px -18px"
+
+                    });
+                }
+            }else if(obj.hasClass("has_last_ul")){
+
+                if(obj.parent().children("ul").is(":visible")){
+
+                    obj.css({
+                        "backgroundPosition":"-92px -36px"
+
+                    });
+                }else{
+
+                    obj.css({
+                        "backgroundPosition":"-74px -36px"
+
+                    });
+                }
+            }
+        });
+    }
+    function findLi(ul){
+        var n=ul.children("li").length;
+        if(n==0){
+            return;
+        }else if(n>0){
+            for(var i=0;i<n-1;i++){
+                if(ul.children("li").eq(i).children("ul").length>0){
+                    ul.children("li").eq(n-1).children("ul").css({
+                        "backgroundImage":"url(images/line_conn.gif)"
+                    });
+                }
+            }
+            if(ul.children("li").eq(n-1).children("ul").length>0){
+                ul.children("li").eq(n-1).children("ul").css({
+                    "backgroundImage":"none"
+                });
+            }
+        }
+    }
+    function getChild(ul){
+        var n=ul.children("li").length;
+        if(n>0){
+            for(var i=0;i<n;i++){
+                var m=ul.children("li").eq(i).children("ul").length;
+                if(m>0){
+                    var l=ul.children("li").eq(i).children("ul").children("li").length;
+                    if(ul.children("li").eq(i).children("ul").children("li").eq(l-1).children("ul").length>0){
+                        ul.children("li").eq(i).children("ul").children("li").eq(l-1).children("ul").css({
+                            "backgroundImage":"none"
+                        });
+                    }
+                    getChild(ul.children("li").eq(i).children("ul"));
+                }
+            }
+        }
+    }
+    function change(obj){
+        obj.children("li").eq(i).children("span").removeClass("has_ul,has_middle_ul,has_first_ul,has_one_ul,has_last_ul");
+        var n=obj.children("li").length;
+        for(var i=0;i<n;i++){
+            if(obj.children("li").eq(i).children("ul").length>0){
+                obj.children("li").eq(i).children("span").addClass("has_ul");
+                if(i!=0 && i!=n-1){
+                    obj.children("li").eq(i).children("span").addClass("has_middle_ul");
+                    if(obj.children("li").eq(i).children("ul").show()){
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-92px -18px",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }else{
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-74px -18px",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }
+                }else if(i==0 && i!=n-1){
+                    obj.children("li").eq(i).children("span").addClass("has_first_ul");
+                    if(obj.children("li").eq(i).children("ul").show()){
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-92px 0",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }else{
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-74px 0",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }
+                }else if(i==n-1 && i==0){
+                    obj.children("li").eq(i).children("span").addClass("has_one_ul");
+                    if(obj.children("li").eq(i).children("ul").show()){
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-92px -54px",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }else{
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-74px -54px",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }
+                }else if(i==n-1 && i!=0){
+                    obj.children("li").eq(i).children("span").addClass("has_last_ul");
+                    if(obj.children("li").eq(i).children("ul").show()){
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-92px -36px",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }else{
+                        obj.children("li").eq(i).children("span").css({
+                            "backgroundPosition":"-74px -36px",
+                            "backgroundImage":"url(images/zTreeStandard.png)"
+                        });
+                    }
+                }
+                change(obj.children("li").eq(i).children("ul"));
+            }else if(obj.children("li").eq(i).children("ul").length==0){
+                if(i!=0 && i!=n-1){
+                    obj.children("li").eq(i).children("span").css({
+                        "backgroundPosition":"-56px -18px",
+                        "backgroundImage":"url(images/zTreeStandard.png)"
+                    });
+                }else if(i==0 && i!=n-1){
+                    obj.children("li").eq(i).children("span").css({
+                        "backgroundPosition":"-56px 0",
+                        "backgroundImage":"url(images/zTreeStandard.png)"
+                    });
+                }else if(i==n-1 && i==0){
+                    obj.children("li").eq(i).children("span").css({
+                        "backgroundImage":"none"
+                    });
+                }else if(i==n-1 && i!=0){
+                    obj.children("li").eq(i).children("span").css({
+                        "backgroundPosition":"-56px -36px",
+                        "backgroundImage":"url(images/zTreeStandard.png)"
+                    });
+                }
+            }
+        }
+
+    }
+
+    /**树形菜单部分样式 end**/
+</script>
+</html>

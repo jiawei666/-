@@ -1,0 +1,216 @@
+
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__useraudit.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    用户管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">用户审核</span>
+                </p>
+                <a href="{:U('Home/Useraudit/personal')}" class="essential skin_bg">
+                    个人认证审核
+                </a>
+                <a href="{:U('Home/Useraudit/company')}" class="essential active">
+                    公司认证审核
+                </a>
+                <div class="searchBox flex">
+                    <form action="{:U('Home/Useraudit/personal')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="user_name" value="{$user_name}" placeholder="请输入搜索的用户名" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="status" class='input_01'>
+                                    <option value="">请选择审核状态</option>
+                                    <option value="1" {$status==1 ? 'selected=""':''}>待审核</option>
+                                    <option value="2" {$status==2 ? 'selected=""':''}>审核通过</option>
+                                    <option value="3" {$status==3 ? 'selected=""':''}>不通过</option>
+                                </select>
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="50">
+                                编号
+                            </th>
+                            <th width="70">
+                                用户名
+                            </th>
+                            <th width="70">
+                                省份
+                            </th>
+                            <th width="70">
+                                城市
+                            </th>
+                            <th width="150">
+                                详细地址
+                            </th>
+                            <th width="100">
+                                真实姓名
+                            </th>
+                            <th width="100">
+                                证件类型
+                            </th>
+                            <th width="100">
+                                证件号码
+                            </th>
+                            <th>
+                                证件照片
+                            </th>
+                            <th width="110">
+                                直播间名称
+                            </th>
+                            <th>
+                                公众号LOGO
+                            </th>
+                            <th>
+                                二维码
+                            </th>
+                            <th width="100">
+                                审核状态
+                            </th>
+                            <th width="90">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.user_name}
+                                </td>
+                                <td>
+                                    {$vo.province_id}
+                                </td>
+                                <td>
+                                    {$vo.city_id}
+                                </td>
+                                <td>
+                                    {$vo.address}
+                                </td>
+                                <td>
+                                    {$vo.real_name}
+                                </td>
+                                <td>
+                                    <if condition='$vo[document_type]==1'>
+                                        身份证
+                                        <elseif condition='$vo[document_type]==2'/>
+                                        港澳证
+                                        <elseif condition='$vo[document_type]==3'/>
+                                        军人证
+                                        <else />
+                                        老人证
+                                    </if>
+                                </td>
+                                <td>
+                                    {$vo.card_id}
+                                </td>
+                                <td>
+                                    <if condition="$vo[card_image]!=''">
+                                        <a title="证件照片" href="{:U('Home/Useraudit/pic_detail')}&username={$vo.user_name}&image={$vo.card_image}&type=personal" target="_blank"><img src="__CERTIFICATION__personal/{$vo.card_image}" width="120px"></a>
+                                    </if>
+                                </td>
+                                <td>
+                                    {$vo.live_name}
+                                </td>
+                                <td>
+                                    <if condition="$vo[public_logo]!=''">
+                                        <a title="公众号LOGO" href="{:U('Home/Useraudit/pic_detail')}&username={$vo.user_name}&image={$vo.public_logo}&type=personal" target="_blank"><img src="__CERTIFICATION__personal/{$vo.public_logo}" width="120px"></a>
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo[qr_code]!=''">
+                                        <a title="二维码" href="{:U('Home/Useraudit/pic_detail')}&username={$vo.user_name}&image={$vo.qr_code}&type=personal" target="_blank"><img src="__CERTIFICATION__personal/{$vo.qr_code}" width="120px"></a>
+                                    </if>
+
+                                </td>
+                                <td>
+                                    <if condition='$vo[status]==1'>
+                                        待审核
+                                        <elseif condition='$vo[status]==2'/>
+                                        审核通过
+                                        <elseif condition='$vo[status]==3'/>
+                                        不通过
+                                    </if>
+                                </td>
+                                <td class="bt">
+                                    <a href="#" class="audit_bt" title="审核"><button class="handle_bt">审核</button></a>
+                                    <input type="hidden" value="{$vo.id}" name='id'>
+                                    <input type="hidden" value="{$vo.status}" name='status'>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+    <div class="layerBox" id="layerBox1">
+        <div class="hintBox" style="height: 200px">
+            <h3 class="title skin_bg flex">
+                个人认证审核
+                <a href="#" class="close_bt"></a>
+            </h3>
+            <div class="con">
+                <dl class="bt_list" style="margin-top: 0px">
+                    <dd class="flex">
+                        <button type="submit" class="btn_01" id="audit_pass_bt" >审核通过</button>
+                        <button type="submit" class="btn_01 gray" id="audit_nopass_bt" >审核不通过</button>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="layerBox" id="layerBox2">
+        <div class="hintBox">
+            <h3 class="title skin_bg flex">
+                个人认证审核
+                <a href="#" class="close_bt"></a>
+            </h3>
+            <div class="con add_list">
+                <dl class="inputBox flex2">
+                    <dd class="text">
+                        理由：
+                    </dd>
+                    <dd class="inputTxt">
+                        <input type="text" class="input_01" name="reason" />
+                    </dd>
+                </dl>
+                <dl class="bt_list">
+                    <dd class="flex">
+                        <button type="submit" class="btn_01" id="nopass">确认</button>
+                        <button type="button" class="btn_01 gray close_bt">取消</button>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</block>

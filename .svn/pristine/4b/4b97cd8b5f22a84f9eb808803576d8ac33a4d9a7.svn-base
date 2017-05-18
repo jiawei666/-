@@ -1,0 +1,117 @@
+<?php if (!defined('THINK_PATH')) exit();?>
+<div id="nav" class="skin_bg">
+    <?php if(($user_type == 1) or ($user_type == 2)): ?><dl class="<?php echo ($menu_actived == 1 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="user_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    用户管理
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 11 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('Home/Index/index');?>">用户管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="<?php echo ($menu_actived == 2 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="order_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    活动管理
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 21 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('Activity/Index/index');?>">活动管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="<?php echo ($menu_actived == 3 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="price_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    工单管理
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 31 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('Repair/Index/index');?>">工单管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="<?php echo ($menu_actived == 7 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="price_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    案列管理
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 71 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('CaAndSo/Index/index');?>">案列管理</a>
+                </li>
+                <li class="<?php echo ($actived == 72 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('CaAndSo/Solution/index');?>">解决方案</a>
+                </li>
+            </ul>
+        </dl><?php endif; ?>
+    <?php if($user_type == 3): ?><dl class="<?php echo ($menu_actived == 4 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="admin_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员信息
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 41 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('Member/Index/index');?>">会员信息</a>
+                </li>
+                <li class="<?php echo ($actived == 42 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('Member/Index/setPassword');?>">密码设置</a>
+                </li>
+                <li class="<?php echo ($actived == 43 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('Member/Index/certificationPersonal');?>">认证信息</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="<?php echo ($menu_actived == 5 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="sales_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员活动管理
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 51 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('MemberActivity/Index/index');?>">活动列表</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="<?php echo ($menu_actived == 6 ? 'active' : ''); ?>">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="sales_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员工单管理
+                </dd>
+            </a>
+            <ul>
+                <li class="<?php echo ($actived == 61 ? 'active' : ''); ?>">
+                    <a href="<?php echo U('MemberRepair/Index/index');?>">工单列表</a>
+                </li>
+            </ul>
+        </dl><?php endif; ?>
+</div>

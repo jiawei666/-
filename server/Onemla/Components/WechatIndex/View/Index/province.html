@@ -1,0 +1,38 @@
+<extend name="public/wechatBase"/>
+<block name="head">
+	<link rel="stylesheet" href="__WECHAT__css/vendor/swiper.min.css" />
+	<link rel="stylesheet" href="__WECHAT__css/css.css" />
+	<link rel="stylesheet" href="__WECHAT__css/city.css" />
+</block>
+<block name="main">
+
+	<!--搜索城市-->
+	<div class="search city">
+		<form action="{:U('WechatIndex/Index/city')}" method="post">
+			<div class="search-area">
+				<input type="text" class="search-text" name="city_name" id="" value="" placeholder="请输入城市" />
+				<input type="submit" class="search-submit" value=""/>
+			</div>
+		</form>
+	</div>
+	<!--选择省份-->
+	<div class="choice-province">
+		<div class="position-city">
+			当前定位：<a href="{:U('WechatIndex/Index/region')}&city_id={$location_city_id}">{$location_city}</a>
+		</div>
+		<p>省份：</p>
+		<ul class="choice-province-list">
+			<volist name="provinceList" id="vo">
+				<li>
+					<a href="{:U('WechatIndex/Index/city')}&pid={$vo[id]}">
+						{$vo.name}
+					</a>
+				</li>
+			</volist>
+		</ul>
+	</div>
+</block>
+<block name="bottom">
+
+
+</block>

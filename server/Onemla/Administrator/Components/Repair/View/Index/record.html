@@ -1,0 +1,109 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <!-- <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" /> -->
+    <link rel="stylesheet" href="__CSS__record.css" />
+    <script src="__JAVASCRIPTS__ueditor/ueditor.config.js"></script>
+    <script src="__JAVASCRIPTS__ueditor/ueditor.all.js"></script>
+    <link rel="stylesheet" href="__JAVASCRIPTS__photoswipe/dist/photoswipe.css" />
+    <link rel="stylesheet" href="__JAVASCRIPTS__photoswipe/dist/default-skin/default-skin.css"> 
+    <script src="__JAVASCRIPTS__photoswipe/dist/photoswipe.min.js"></script>
+    <script src="__JAVASCRIPTS__photoswipe/dist/photoswipe-ui-default.min.js"></script>
+</block>
+
+<block name="main">
+    <div id="main">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+    <div id="box" class="flex">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+        <div id="content">
+		    <div class="chat_con">
+		        <div class="chat_box">
+		            <h3>工单编号:{$repair_detail.repair_number}</h3>
+					<if condition="$repair_detail.image != ''">
+						<a target="_blank" href="__REPAIR__{$repair_detail.image}"><img src="__IMAGES__attachment_icon.png" /></a>
+						<a target="_blank" href="__REPAIR__{$repair_detail.image}" style="text-decoration: underline">{$repair_detail.image}</a>
+					</if>
+
+		            <div class="chat_content">
+			            <div class="chat_page chat_left">
+			                <p><span>{$repair_detail.user_name}</span>{$repair_detail.create_time}</p>
+			                <div class="chat_page_con">
+			                    <div class="triangle-bottomleft"></div>
+			                    <div class="chat_infor receive">{$repair_detail.introduction|htmlspecialchars_decode|stripslashes}</div>
+			                </div>
+			            </div>
+			            <volist name="record_list" id="vo">
+			            <if condition='$vo[type]==1'>
+				            <div class="chat_page chat_left">
+				                <p><span>{$vo.user_name}</span>{$vo.ctime}</p>
+				                <div class="chat_page_con">
+				                    <div class="triangle-bottomleft"></div>
+				                    <div class="chat_infor receive">{$vo.content|htmlspecialchars_decode|stripslashes}</div>
+				                </div>
+				            </div>
+			            <else/>
+				            <div class="chat_page chat_right">
+			                   <p><span>{$vo.user_name}</span>{$vo.ctime}</p>
+			                   <div class="chat_page_con">
+			                       <div class="triangle-bottomright"></div>
+			                       <div class="chat_infor send">{$vo.content|htmlspecialchars_decode|stripslashes}</div>
+			                   </div>
+			                </div>
+			            </if>
+			            </volist>
+                    </div>
+		        </div>
+		        <form action="{:U('Repair/Index/record_add')}" method="POST" id="form">
+		            <input name="repair_order_id" type="hidden" value="{$repair_detail.id}">
+		            <div class="contentBottom">
+		                <!-- <div contenteditable="true" id="content" class="sendContent" data-stats="0" onclick="clear();"> -->
+
+		                <textarea name="content" rows="5" required="" class="sendContent"></textarea>
+		                {:textArea('content',array('height'=>'150','width'=>'1450','resize_type'=>0))}
+		                <!-- </div> -->
+		                <div class="contentBtn">
+		                    <a class="sendBtn" id="sendBtn" onclick="reply();">
+		                        <span class="b">Reply</span>
+		                    </a>
+		                </div>
+		            </div>
+		        </form>
+		    </div>
+		    <div class="chat_bigImg">
+		    	<div class="chat_bigImg_cover">
+		    		
+		    	</div>
+		    	<img src="">
+		    </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+
+    function reply(){
+    	$('#form').submit();
+    }
+
+	$('form').submit(function(){
+		$('#sendBtn').removeAttr('onclick');
+	});
+
+    $('.chat_content img').each(function(){
+    	$(this).attr({'onclick': 'openImg(this)'});
+    });
+
+    var openImg = function(_this){
+    	var src = $(_this).attr('src');
+    	$(".chat_bigImg").show();
+    	$(".chat_bigImg>img").attr({'src': src});
+    }
+    $(".chat_bigImg_cover").click(function(){
+    	$(".chat_bigImg").hide();
+    })
+    </script>
+</block>

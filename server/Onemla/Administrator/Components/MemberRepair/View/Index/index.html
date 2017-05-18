@@ -1,0 +1,201 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script>
+        $(function () {
+            $('.member_del_bt').click(function () {
+                var id = $(this).siblings("#id").val();
+                swal({
+                    title: "您确定要删除吗？",
+                    text: "您确定要删除当前工单数据吗？",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true,
+                    confirmButtonText: "是的，我要删除",
+                    confirmButtonColor: "#ec6c62"
+
+                }, function () {
+                    var url = "index.php?m=MemberRepair&c=Index&a=delete";
+                    $.post(url, {id: id}, function (data) {
+
+                    }, 'json').done(function (data) {
+                        if (data.flag == "1") {
+                            swal({title:"操作成功", text:"已删除当前工单！",type: "success", timer: 700});
+//                            $('.confirm').click(function () {   //额外绑定一个事件，当确定执行之后返回成功的页面的确定按钮，点击之后刷新当前页面或者跳转其他页面
+//
+//                            });
+                            location.reload();
+                        } else {
+                            swal({title:"OMG", text:"删除失败！",type: "error", timer: 700});
+                        }
+                    }).error(function (data) {
+                        swal({title:"OMG", text:"删除操作失败！",type: "error", timer: 700});
+                    });
+                });
+            })
+        })
+    </script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    工单管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">工单列表</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('MemberRepair/Index/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="repair_number" value="{$repair_number}" placeholder="请输入搜索的工单编号" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="type" class='input_01'>
+                                    <option value="">请选择工单分类</option>
+                                    <option value="1" {$type==1 ? 'selected=""' : ''} >直播问题</option>
+                                    <option value='2' {$type==2 ? 'selected=""' : ''} >功能问题</option>
+                                    <option value='3' {$type==3 ? 'selected=""' : ''}>建议</option>
+                                    <option value='4' {$type==4 ? 'selected=""' : ''}>分发</option>
+                                </select>
+                                <!--<input type="text" name="user_name" value="{$user_name}" placeholder="请输入搜索的用户名" class="input_01" />-->
+                            </dd>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="{:U('MemberRepair/Index/editPage')}" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="95">
+                                工单编号
+                            </th>
+                            <th width="80">
+                                工单分类
+                            </th>
+                            <th width="80">
+                                联系人
+                            </th>
+                            
+                            <th width="80">
+                                手机号码
+                            </th>
+                            <th width="150">
+                                邮箱
+                            </th>
+                            <th width="150">
+                                会员账号
+                            </th>
+                            <th width="80px">
+                                工单说明
+                            </th>
+                            <th >
+                                工单状态
+                            </th>
+                            <th width="150">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td>
+                                    {$vo.repair_number}
+                                </td>
+                                <td>
+                            <if condition='$vo[type]==1'>
+                                直播问题
+                                <elseif condition='$vo[type]==2'/>
+                                功能问题
+                                <elseif condition='$vo[type]==3'/>
+                                建议
+                                <else/>
+                                分发
+                            </if>
+                            </td>
+                            <td>
+                                {$vo.contact}
+                            </td>
+                            <td>{$vo.phone}</td>
+                            <td>{$vo.email}</td>
+                            <td>{$vo.user_name}</td>
+                            <td>{$vo.introduction}</td>
+                            <td width="80">
+                            <!-- <if condition='$vo[status]==1'>
+                                待回复
+                                <elseif condition='$vo[status]==2'/>
+                                {$vo.reply}
+                                <else/>
+                                不通过
+                            </if> -->
+                            
+                            <if condition='$vo[status]==3'>
+                                不通过
+                                <elseif condition='$vo[re_type]==1'/>
+                                待回复
+                                <elseif condition='$vo[re_type]==null'/>
+                                待回复
+                                <elseif condition='$vo[re_type]==2'/>
+                                已回复
+                                <else/>
+                                不通过
+                            </if>
+                            </td>
+                            <td class="bt" width="150px">
+                                <a href="{:U('MemberRepair/Index/detail',array('id'=>$vo[id]))}" class="view_bt" title="详情"><button class="handle_bt">详情</button></a>
+                                <a href="{:U('MemberRepair/Index/record',array('id'=>$vo[id]))}" class="record_bt" title="回复"><button class="handle_bt">回复</button></a>
+                                <a href="#" class="member_del_bt" title="删除"><button class="handle_bt">删除</button></a>
+                                <input type="hidden" value="{$vo.id}" id='id'>
+                            </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+    <!--    <div class="layerBox">
+            <div class="hintBox infoBox withdrawBox">
+                <h3 class="title skin_bg flex">
+                    退款详情
+                    <a href="#" class="close_bt"></a>
+                </h3>
+                <div class="con">
+                    <dl class="infoBox_text flex">
+                        <dd>
+                            <span class="name">订单号：</span>20122205013
+                        </dd>
+                        <dd>
+                            <span class="name">申请日期：</span>申请日期
+                        </dd>
+                    </dl>
+                    <div class="infoBox_menu">
+    
+                        <dl class="flex2">
+                            <dd>
+                                退款方：ABC
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+</block>

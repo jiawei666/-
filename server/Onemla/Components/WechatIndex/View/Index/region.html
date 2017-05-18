@@ -1,0 +1,169 @@
+<extend name="public/wechatBase"/>
+<block name="head">
+	<link rel="stylesheet" href="__WECHAT__css/vendor/swiper.min.css" />
+	<link rel="stylesheet" href="__WECHAT__css/vendor/cityPicker.css" />
+	<link rel="stylesheet" href="__WECHAT__css/css.css" />
+	<link rel="stylesheet" href="__WECHAT__css/index.css" />
+	<script src="__WECHAT__js/more_region.js"></script>
+	<script src="__WECHAT__js/cityPicker.js"></script>
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=f0711cdaf832a9452e5e68fb80ce33e7"></script>
+	<style>
+		.region .city-search{
+			background: url(__WECHAT__images/icon/spinner.png) right center no-repeat;
+			background-size: .22rem .12rem;
+		}
+		.region .search-submit{
+			background: url(__WECHAT__images/icon/search.png) no-repeat;
+			background-size: 100% 100%;
+		}
+	</style>
+	<script>
+		var session = "{:session('location')}";
+		if(session==''){
+
+			/***************************************
+			 由于Chrome、IOS10等已不再支持非安全域的浏览器定位请求，为保证定位成功率和精度，请尽快升级您的站点到HTTPS。
+			 ***************************************/
+			var map, geolocation;
+			//加载地图，调用浏览器定位服务
+			map = new AMap.Map('', {});
+			map.plugin('AMap.Geolocation', function() {
+				geolocation = new AMap.Geolocation({
+					enableHighAccuracy: true,//是否使用高精度定位，默认:true
+					timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+					buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+					buttonPosition:'RB'
+				});
+				map.addControl(geolocation);
+				geolocation.getCurrentPosition();
+				AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+				AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+			});
+			//解析定位结果
+			function onComplete(data) {
+				var lnglatXY = [data.position.getLng(),data.position.getLat()]; //通过坐标逆向解析定位
+				var geocoder = new AMap.Geocoder({
+					radius: 1000,
+					extensions: "all"
+				});
+				geocoder.getAddress(lnglatXY, function(status, result) {
+					if (status === 'complete' && result.info === 'OK') {
+						geocoder_CallBack(result);
+					}
+				});
+				function geocoder_CallBack(data2) {
+					var locationCity = data2.regeocode.addressComponent.city;
+					window.location.href = "index.php?m=WechatIndex&c=Index&a=region&locationCity="+locationCity;
+				}
+			}
+			//解析定位错误信息
+			function onError(data) {
+				$('.city').val('定位失败');
+			}
+		}
+
+
+	</script>
+
+</block>
+<block name="main">
+	<!--搜索-->
+	<div class="search region" >
+		<form action="{:U('WechatIndex/Index/region')}&city={$present_city=='' ? ($confirm=='' ? substr($location_city,0,6):''):$present_city}" method="post">
+			<div class="search-area">
+				<div class="city-search">
+					<div class="city-search-box"></div>
+					<input type="text" class="city" value="{$present_city=='' ? ($location_city==''? '定位中': ($confirm=='' ? $location_city:$confirm) ):($confirm=='' ?$present_city:$confirm)}" readonly>
+				</div>
+				<div class="city-text">
+					<input type="text" class="search-text" name="title" id="" value="{$title}" placeholder="请输入标题" />
+					<input type="submit" class="search-submit" value="" />
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!--<button onclick="showCityInfo()">测试</button>-->
+	<!--直播列表-->
+	<div class="index-list-container" name="roomList">
+		<volist name="room" id="vo">
+			<div class="index-list">
+				<a href="{$vo.alink}" name="view_count">
+					<input type="hidden" value="{$vo[room_id]}">
+					<img src="__ROOT__/Administrator/Res/Uploads/live_room/{$vo.bg_image}" >
+				</a>
+
+				<p class="index-list-time">
+					{$vo.start_time}
+				</p>
+				<div class="index-list-href">
+					<p class="index-list-brief">{$vo.title}</p>
+					<if condition="$vo[status]==2">
+						<a class="underway" href="javascript:void(0)">
+							直播中
+						</a>
+						<elseif condition="$vo[status]==1" />
+						<a class="trailer" href="javascript:void(0)">
+							预告
+						</a>
+						<else/>
+						<a class="playback" href="javascript:void(0)">
+							回放
+						</a>
+					</if>
+					<p class="index-list-eye">
+						{$vo.view_count}
+					</p>
+				</div>
+			</div>
+		</volist>
+	</div>
+	<input type="hidden" name="city_id" value="{$city_id}">
+	<!--<button value="2" name="more" style="position: relative;bottom: 0.8rem;;left: 3.2rem;color: white;background-color: #c81914;border: 1px solid #adadad;">加载更多</button>-->
+
+	<if condition="$isempty==1">
+		<div class="loading_done" name="more" >
+			<p>暂时没有数据</p>
+		</div>
+		<else/>
+		<div class="loading" name="more" >
+			<input type="hidden" value="2" name="number">
+			<p>点击加载更多</p>
+		</div>
+	</if>
+</block>
+<block name="bottom">
+	{:\\Onemla\\OnemlaHelper::W('Footer/wechatIndex')}
+	<script>
+		var cityWidth=$(".city-search").outerWidth(true)+10;
+		var textWidth=$(".search-area").width();
+		var textWidths=textWidth-cityWidth;
+		var htmlSize=parseInt($('html').css('font-size'))
+		$(".city-text").css({'width':textWidths/htmlSize+'rem'});
+		console.log(htmlSize)
+		$(".city").CityPicker();
+		var swiper = new Swiper('.swiper-container', {
+			slidesPerView: 5,//横
+			slidesPerColumn: 2,//纵
+//      spaceBetween: 10
+		});
+		$(function(){
+			$('footer').find('a').eq(0).attr('class','footer-nav-home');
+			$('footer').find('a').eq(1).attr('class','footer-nav-nature');
+			$('footer').find('a').eq(2).attr('class','footer-nav-region active');
+			$('footer').find('a').eq(3).attr('class','footer-nav-liveRoom');
+
+			$('footer').find('img').eq(0).attr('src','__WECHAT__images/icon/home.png');
+			$('footer').find('img').eq(1).attr('src','__WECHAT__images/icon/nature.png');
+			$('footer').find('img').eq(2).attr('src','__WECHAT__images/icon/region-active.png');
+			$('footer').find('img').eq(3).attr('src','__WECHAT__images/icon/Live-room.png');
+		});
+	</script>
+	<if condition="$confirmJudge==1">
+		<script>
+			if(confirm('当前地区没有直播,单击确定浏览更多')){
+					window.location.href=('index.php?m=WechatIndex&c=Index&a=region&confirm=confirm')
+				}
+		</script>
+	</if>
+</block>

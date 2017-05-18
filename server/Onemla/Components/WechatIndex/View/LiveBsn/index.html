@@ -1,0 +1,29 @@
+<extend name="public/wechatBase2"/>
+<block name="banner">
+	{:\\Onemla\\OnemlaHelper::W('Menu/wechatbanner')}
+
+</block>
+<block name="main">
+	<!--分类栏-->
+	<div class="home-nav">
+		<a href="{:U('WechatIndex/LiveBsn/tags')}&bsn_id={$bsnInfo[id]}">
+			<span>话题</span>
+		</a>
+		<a href="{:U('WechatIndex/LiveBsn/channel')}&bsn_id={$bsnInfo[id]}">
+			<span>频道</span>
+		</a>
+		<a class="active" href="{:U('WechatIndex/LiveBsn/index')}&bsn_id={$bsnInfo[id]}">
+			<span>介绍</span>
+		</a>
+	</div>
+	<!--介绍-->
+	<div class="introduce-home-container">
+		<h4 class="introduce-home-title">直播商简介</h4>
+		<p class="introduce-home-text">
+			{$bsnInfo[introduce]}
+		</p>
+		<if condition="$bsnInfo[itd_image]!=''">
+			<img class="introduce-home-img" {$bsnInfo[itd_image]=='' ? '':'src="__ROOT__/Administrator/Res/Uploads/live_bsn/'}{$bsnInfo[itd_image]}"/>
+		</if>
+	</div>
+</block>

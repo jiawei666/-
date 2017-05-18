@@ -1,0 +1,21 @@
+<?php
+/**
+ * Created by PhpStorm.
+ */
+namespace Widgets\Menu;
+use Onemla\OnemlaHelper;
+use Onemla\ViewController;
+class MenuWidget extends ViewController{
+    public function Index(){
+//        $user = OnemlaHelper::getUser();
+//        $info['user_name'] = $user -> user_name;
+//        $info['type_name'] = $user -> admin_type_name;
+//        $info['last_time'] = date('Y-m-d H:i:s',$user -> last_time);
+//        $this -> assign('user',$info);
+        $this -> display('Menu/Menu',  'Widgets');
+    }
+    public function Left_Menu(){
+
+        $this -> display('Menu/Left_Menu',  'Widgets');
+    }
+}

@@ -1,0 +1,65 @@
+<!--<extend name="Public/base"/>-->
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__register.css" />
+</block>
+
+<block name="main">
+
+    <div class="loginBox">
+        <form action="{:U('User/Index/register')}" method="post" class="login-form">
+            <div class="enroll-title">
+                <p>注册新用户</p>
+                <a href="{:U('User/Index/login_page')}">已有账号？去登录&gt;</a>
+            </div>
+            <ul class="enroll-info">
+                <li>
+                    <span>账号：</span>
+                    <input type="text" name="user_name" required="" />
+                </li>
+                <li>
+                    <span>密码：</span>
+                    <input type="password" name="password" required="" />
+                    <em>*</em>
+                </li>
+                <li>
+                    <span>确认密码：</span>
+                    <input type="password" name="pword_confirm" required=""/>
+                    <em>*</em>
+                    <div class="security">
+                        <span>弱</span>
+                        <span>中</span>
+                        <span>强</span>
+                    </div>
+                </li>
+                <li>
+                    <span>邮箱：</span>
+                    <input type="text" name="email" required=""/>
+                </li>
+                <li>
+                    <span>微信：</span>
+                    <input type="text" name="wechat" required=""/>
+                </li>
+                <li>
+                    <span>QQ：</span>
+                    <input type="number" name="qq" required=""/>
+                </li>
+                <li>
+                    <span>手机号：</span>
+                    <input type="number" name="phone" required=""/>
+                    <em>*</em>
+                </li>
+<!--                <li class="test-code">
+                    <input type="number" name="testCode"/>
+                    <input type="button" name="code" id="obtainCode" value="点击获取验证码" />
+                </li>-->
+                <li class="isCheckbox">
+<!--                    <input type="checkbox" name="isCheckbox" class="isCheckbox" checked="checked"/>
+                    <span>已阅读并同........</span>-->
+                    <input type="submit" name="" id="isSubmit" value="注册" />
+                </li>
+            </ul>
+        </form>
+    </div>
+
+</block>

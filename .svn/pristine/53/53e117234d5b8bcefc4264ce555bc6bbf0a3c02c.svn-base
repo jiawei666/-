@@ -1,0 +1,132 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery.datetimepicker.full.min.js" ></script>
+    <link rel="stylesheet" href="__CSS__jquery.datetimepicker.min.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__user.js" ></script>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    管理员管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">管理员列表</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('Home/Index/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="phone" value="{$phone}" placeholder="请输入搜索的手机号" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <input type="text" name="user_name" value="{$user_name}" placeholder="请输入搜索的用户名" class="input_01" />
+                            </dd>
+                            <dl class="date_list flex2">
+                                <dd class="inputTxt">
+                                    <input type="text" name="date_start" value="{$date_start}" placeholder="请选择开始日期" class="input_01 date_input date_start" />
+                                </dd>
+                                <dd class="date_list_text">
+                                    至
+                                </dd>
+                                <dd class="inputTxt">
+                                    <input type="text" name="date_end" value="{$date_end}" placeholder="请选择结束日期" class="input_01 date_input date_end" />
+                                </dd>
+                            </dl>
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                    <a href="#" class="add_bt flex btn_01">
+                        <span class="add_icon"></span>添加新管理员
+                    </a>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+<!--                            <th width="78">
+                                <label class="checkBox">
+                                    <input type="checkbox" />
+                                    <span class="icon"></span>
+                                </label>
+                            </th>-->
+                            <th width="80">
+                                编号
+                            </th>
+                            <th>
+                                手机号
+                            </th>
+                            <th>
+                                账号
+                            </th>
+                            <th>
+                                微信号
+                            </th>
+                            <th>
+                                QQ
+                            </th>
+                            <th>
+                                状态
+                            </th>
+                            <th>
+                                注册时间
+                            </th>
+                            <th width="165">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+<!--                                <td>
+                                    <label class="checkBox">
+                                        <input type="checkbox" />
+                                        <span class="icon"></span>
+                                    </label>
+                                </td>-->
+                                <td>
+                                    {$vo.id}
+                                </td>
+                                <td>
+                                    {$vo.phone}
+                                </td>
+                                <td>
+                                    {$vo.user_name}
+                                </td>
+                                <td>
+                                    {$vo.wechat}
+                                </td>
+                                <td>{$vo.qq}</td>
+                                <td>{$vo[state]==1 ? '正常' : '锁定'}</td>
+                                <td>{$vo.create_time}</td>
+                                <td class="bt">
+                                    <a href="{:U('Home/Index/userDetails',array('user_id'=>$vo[id]))}" class="edit_bt"></a>
+                                    <a href="#" class="{$vo[state]==1 ? 'lock_bt' : 'unlock_bt'}"></a>
+                                    <a href="#" class="del_bt"></a>
+                                    <input type="hidden" value="{$vo.id}" id='user_id'>
+                                    <input type="hidden" value="{$vo.state}" id='state'>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <div class="tableBox_bottom flex">
+<!--                        <div class="bt_list">
+                            <a href="#" class="btn_01">锁定</a>
+                            <a href="#" class="sel_del_bt btn_01">删除</a>
+                        </div>-->
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+</block>

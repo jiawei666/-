@@ -1,0 +1,56 @@
+<extend name="Public/base2"/>
+<block name="head">
+	<link rel="stylesheet" href="__CSS__css.css" />
+	<link rel="stylesheet" href="__CSS__help.css" />
+	<script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+</block>
+
+<block name="menu">
+	{:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+	<div class="help">
+		<div class="help-container">
+			<div class="help-title">
+				常见问题
+			</div>
+			<ul class="help-content">
+				<volist name="list" id="vo">
+					<li>
+						<div class="help-ask">
+							<h3>{$vo.title}</h3>
+								<span>
+									<img src="__IMAGES__icon/help-icon-2.png"/>
+								</span>
+						</div>
+						<div class="help-answer">
+							<p>{$vo.content}</p>
+						</div>
+					</li>
+				</volist>
+
+			</ul>
+		</div>
+	</div>
+</block>
+
+<block name="footer">
+	{:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+	<script type="text/javascript" src="__JAVASCRIPTS__js.js" ></script>
+	<script>
+		$(".help-ask").on("click",function(){
+			var n=$(".help-ask").index(this);
+			$(".help-answer").eq(n).slideToggle();
+			$(".help-ask span").eq(n).toggleClass("active"); return false;
+		})
+
+		$('.nav li').attr('class','');
+		$('.nav li').eq(4).attr('class','active');
+	</script>
+</block>
+
+
+
+
+

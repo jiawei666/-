@@ -1,0 +1,91 @@
+<?php
+
+namespace Components\Home\Controller;
+
+use Onemla\OnemlaHelper;
+use Onemla\OnemlaRequest;
+use Onemla\ViewController;
+use Components\User\Model\UserModel;
+use Components\User\Model\UserInfoModel;
+use Onemla\SessionViewController;
+
+class IndexController extends SessionViewController {
+
+    
+    /**
+     * 用户列表
+     */
+    public function index() {
+        OnemlaHelper::setMenuActived(OnemlaHelper::ACTIVED_ADMIN);
+        OnemlaHelper::setActived(OnemlaHelper::ACTIVED_ADMIN_ONE);
+
+        $model = new UserModel();
+        $info = $model->getList();
+        $this->assign('list', $info['list']);
+        $this->assign('page_show', $info['page_show']);
+        $this->assign('user_name', $info['user_name']);
+        $this->assign('phone', $info['phone']);
+        $this->assign('date_start', $info['date_start']);
+        $this->assign('date_end', $info['date_end']);
+        $this->display();
+    }
+    
+    /**
+     * 用户详情
+     */
+    public function userDetails() {
+        $model = new UserModel();
+        $user_id = OnemlaRequest::getVar("user_id");
+
+        $info = $model->where(array("id"=>$user_id))->find();
+        $this->assign('info',$info);
+        $this->display("user_details");
+    }
+
+    /**
+     * 锁定，解锁
+     */
+    public function freeze() {
+        $user_id = OnemlaRequest::getVar("user_id");
+        $state = OnemlaRequest::getVar("state");//1.正常  2.锁定
+        $model = new UserModel();
+        if ($state == "1") {
+            $data = array(
+                'state' => 2,
+            );
+        } elseif($state == "2") {
+            $data = array(
+                'state' => 1,
+            );
+        }
+
+        $msg = $model->where(array("id" => $user_id))->save($data);
+        if ($msg == "1") {
+            $this->httpReturn(1, $msg, 'success');
+        } else {
+            $this->httpReturn(2, $msg, 'error');
+        }
+    }
+    
+    
+    /**
+     * 删除
+     */
+    public function delete() {
+        $model = new UserModel();
+        $UserInfoModel = new UserInfoModel();
+        $id = OnemlaRequest::getVar("user_id");
+        $result = $model->where(array("id"=>$id))->delete();
+        if ($result) {
+            $UserInfoModel->where(array("user_id"=>$id))->delete();
+//            $log = new \Components\User\Model\LogModel();
+//            $user_id = OnemlaHelper::getAdminId();
+//            $content = "管理员：$user_id" . "删除了提现记录：$id";
+//            $log->log($content);
+            $this->httpReturn(1, $id, "删除成功");
+        } else {
+            $this->httpReturn(2, $id, "删除失败");
+        }
+    }
+
+}

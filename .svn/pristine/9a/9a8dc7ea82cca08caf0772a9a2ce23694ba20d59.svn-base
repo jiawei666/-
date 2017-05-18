@@ -1,0 +1,96 @@
+body{
+	background: url(../images/login_bg.png);
+	background-size: cover;
+}
+.loginBox{
+	background: url(../images/login_box_bg.png) no-repeat;
+	width: 1008px;
+	height: 770px;
+	position: absolute;
+	margin: auto;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding-left: 234px;
+	padding-top: 36px;
+	padding-bottom: 70px;
+	padding-right: 236px;
+	background-size: 100% 100%;
+}
+.enroll-title{
+	margin: 20px 20px 0;
+}
+.enroll-title p{
+	font-size: 32px;
+	display: inline-block;
+	margin-right: 20px;
+}
+.enroll-title a{
+	font-size: 14px;
+}
+.enroll-info li{
+	list-style: none;
+	font-size: 16px;
+}
+.enroll-info li input{
+	height: 35px;
+	width: 270px;
+	margin-top: 20px;
+	border-radius: 8px;
+	background: #f0f0f0;
+	border: 1px solid #e0e0e0;
+}
+.enroll-info li span{
+	width: 120px;
+	text-align: right;
+	display: inline-block;
+}
+.enroll-info li em{
+	color: #FE0804;
+	font-size: 20px;
+	text-align: right;
+	display: inline-block;
+}
+.enroll-info .security{
+	overflow: hidden;
+	margin-left: 125px;
+	margin-top: 10px;
+	border-radius: 5px;
+	display: inline-block;
+	border: 1px solid #e0e0e0;
+}
+.enroll-info .security span{
+	width: 90px;
+	border-right: 1px solid #e0e0e0;
+	float: left;
+	text-align: center;
+}
+.enroll-info .security span:last-child{
+	border-right: none;
+}
+.enroll-info .test-code input{
+	width: 130px;
+	margin-left: 130px;
+}
+#obtainCode{
+	height: 35px;
+	padding: 0 5px;
+	border-radius: 8px;
+	border: none;
+	margin-left: 0;
+}
+.enroll-info .isCheckbox input{
+	width: 16px;
+	height: 16px;
+	margin-left: 120px;
+}
+#isSubmit{
+	width: 150px;
+	height: 40px;
+	display: block;
+	margin: 20px auto 0;
+	background: #f8b551;
+	border: none;
+	color: #fff;
+}

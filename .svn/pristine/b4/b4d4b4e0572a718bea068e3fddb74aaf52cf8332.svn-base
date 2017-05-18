@@ -1,0 +1,47 @@
+<!--<extend name="Public/base"/>-->
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__login.css" />
+</block>
+
+<block name="main">
+
+    <div class="loginBox">
+        <form action="{:U('User/Index/login')}" method="post">
+            <h3 class="title">直播家后台管理系统</h3>
+            <div class="form_list">
+                <dl class="flex">
+                    <dd class="icon">
+                        <span class="user_icon"></span>
+                    </dd>
+                    <dd class="inputTxt">
+                        <input type="text" name="user_name" placeholder="请输入账号" class="input_01" required="" />
+                    </dd>
+                </dl>
+                <dl class="flex">
+                    <dd class="icon">
+                        <span class="pword_icon"></span>
+                    </dd>
+                    <dd class="inputTxt">
+                        <input type="password" name="password" placeholder="请输入密码" class="input_01" required="" />
+                    </dd>
+                </dl>
+                <dl>
+                    <dd class="bt">
+                        <button type="submit" class="btn_01">登录</button>
+                    </dd>
+                </dl>
+                <p class="text forget_text flex">
+                    <span>
+                        你还没有账号？<a href="{:U('User/Index/register_page')}">立即注册</a>
+                    </span>
+                    <a href="#">找回密码</a>
+                </p>
+                <p class="text">
+                    技术支持：珠海市朗捷软件科技有限公司
+                </p>
+            </div>
+        </form>
+    </div>
+
+</block>

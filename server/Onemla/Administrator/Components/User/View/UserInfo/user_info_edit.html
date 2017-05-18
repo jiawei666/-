@@ -1,0 +1,348 @@
+<!--<extend name="Public/base"/>-->
+<block name="head">
+    <link rel="stylesheet" href="__CSS__user_info.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__userinfo.js" ></script>
+</block>
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Menu2')}
+</block>
+<block name="main">
+    <div id="main">
+        <p class="location">
+            我的资料 > <span class="orange">修改资料</span>
+        </p>
+        <form action="{:U('User/UserInfo/editUserInfo')}" method="post" enctype="multipart/form-data">
+            <div class="user_info">
+
+                <div class="user_logo">
+                    <if condition="$info['logo']==''">
+                        <img id='preview' src="__IMAGES__def_logo.jpg">
+                        <elseif condition="$logo=='data'"/>
+                        <img id='preview' src="{$info['logo']}" width='36' height='36'>
+                        <else/>
+                        <img id='preview' src="__UPLOAD_LOGO__/{$info['logo']}" width='36' height='36'>
+                    </if>
+
+                </div>
+                <p class="text_href">
+                    <a href="javascript:void(0);"  onclick="$(this).siblings('input[type=file]').click()">修改头像</a>
+                    <input type="file"  name="pic_url" id="doc" onchange="javascript:setImagePreview();" style="display: none;" />
+                </p>
+                <div class="edit_list">
+                    <dl>
+                        <dd>
+                            <p class="icon">
+                                <span class="pword_icon"></span>
+                            </p>
+                            <p class="text">
+                                **********
+                            </p>
+                            <p class="text_href">
+                                <a href="#" id="pword_edit_bt">修改</a>
+                            </p>
+                        </dd>
+                        <dd>
+                            <p class="icon">
+                                <span class="phone_icon"></span>
+                            </p>
+                            <p class="text">
+                                {$info['phone']}
+                            </p>
+                            <p class="text_href">
+                                <!--<a href="#" id="phone_edit_bt">修改</a>-->
+                            </p>
+                        </dd>
+                        <dd>
+                            <p class="icon">
+                                <span class="email_icon"></span>
+                            </p>
+                            <p class="text">
+                                {$info['email']}
+                            </p>
+                            <p class="text_href">
+                                <a href="#" id="email_edit_bt">修改</a>
+                            </p>
+                        </dd>
+                        <dd>
+                            <p class="icon">
+                                <span class="pay_icon"></span>
+                            </p>
+                            <p class="text">
+                                ******
+                            </p>
+                            <p class="text_href">
+                                <a href="#" id="pay_pword_set_bt">设置</a>
+                                <a href="#" id="pay_pword_edit_bt">修改</a>
+                            </p>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="user_info_table clear">
+                    <dl class="clear">
+                        <dd class="left">用户名</dd>
+                        <dd class="right">
+                            <input type="text" name='user_name' value="{$info['user_name']}" class="input_text" readonly="" />
+                        </dd>
+                    </dl>
+                    <dl class="clear" style='display: none;'>
+                        <dd class="left">车牌</dd>
+                        <dd class="right">
+                            <select class="sel_01">
+                                <option>粤</option>
+                                <option>粤</option>
+                                <option>粤</option>
+                                <option>粤</option>
+                                <option>粤</option>
+                            </select>
+                            <select class="sel_01">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                            </select>
+                            <input type="text" value="226875" class="input_text_02" />
+                        </dd>
+                    </dl>
+                    <dl class="clear">
+                        <dd class="left">姓名</dd>
+                        <dd class="right">
+                            <input type="text" name='nick_name' value="{$info['nick_name']}" class="input_text" />
+                        </dd>
+                    </dl>
+                    <dl class="clear" style='display: none;'>
+                        <dd class="left">车辆品牌</dd>
+                        <dd class="right">
+                            <select class="sel_01">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                            </select>
+                            <select class="sel_02">
+                                <option>宝马</option>
+                                <option>宝马</option>
+                                <option>宝马</option>
+                                <option>宝马</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="clear">
+                        <dd class="left">年龄</dd>
+                        <dd class="right">
+                            <input type="text" name='age' value="{$info['age']}" class="input_text" />
+                        </dd>
+                    </dl>
+                    <dl class="clear" style='display: none;'>
+                        <dd class="left">购买年份</dd>
+                        <dd class="right">
+                            <select class="sel_03">
+                                <option>2014</option>
+                                <option>2015</option>
+                                <option>2016</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl class="bt clear">
+                        <dd>
+                            <button type="submit" class="orange">确认修改</button>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="popBox" id="pword_edit">
+        <div class="con pword_edit">
+            <h3 class="title">
+                <span class="pword_icon"></span>密码修改
+            </h3>
+            <form action="{:U('User/UserInfo/editPassword')}" method="post" enctype="multipart/form-data">
+                <div class="form_list">
+                    <p class="hint_text"></p>
+                    <dl>
+                        <dd class="left">
+                            旧密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" placeholder="请输入旧密码" name="pword" id='pword' />
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd class="left">
+                            新密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" placeholder="请输入9-16位密码" name="pword_new" />
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd class="left">
+                            确认新密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" placeholder="请输入9-16位密码" name="pword_confirm" />
+                        </dd>
+                    </dl>
+                    <div class="bt">
+                        <button type="submit" class="orange" id='password_edit'>确定</button>
+                        <button type="button" class="popBox_close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popBox" id="phone_edit">
+        <div class="con phone_edit">
+            <h3 class="title">
+                <span class="phone_icon"></span>手机修改
+            </h3>
+            <form>
+                <div class="form_list">
+                    <p class="hint_text"></p>
+                    <dl>
+                        <dd class="left">
+                            新手机
+                        </dd>
+                        <dd class="right">
+                            <input type="tel" placeholder="请输入手机号码" name="phone" />
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd class="left">
+                            输入验证码
+                        </dd>
+                        <dd class="right code">
+                            <input type="text" /><button type="button">获取验证码</button>
+                        </dd>
+                    </dl>
+                    <div class="bt">
+                        <button type="submit" class="orange">确定</button>
+                        <button type="button" class="popBox_close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popBox" id="email_edit">
+        <div class="con email_edit">
+            <h3 class="title">
+                <span class="email_icon"></span>邮箱修改
+            </h3>
+            <form action="{:U('User/UserInfo/editMail')}" method="post" enctype="multipart/form-data">
+                <div class="form_list">
+                    <p class="hint_text"></p>
+                    <dl class="email">
+                        <dd class="left">
+                            新邮箱
+                        </dd>
+                        <dd class="right">
+                            <input type="email" placeholder="请输入邮箱" name="email" />
+                            <button type="button" id='getMail'>获取验证邮件</button>
+                        </dd>
+                    </dl>
+                    <p class="text" style="text-align: center;">
+                        在邮箱中打开收到的验证邮件点击相关链接完成验证
+                    </p>
+                    <div class="bt">
+                        <!--<button type="submit" class="orange">确定</button>-->
+                        <button type="button" class="popBox_close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popBox" id="pay_pword_set">
+        <div class="con pay_pword_edit">
+            <h3 class="title">
+                <span class="pay_icon"></span>设置支付密码
+            </h3>
+            <form action="{:U('User/UserInfo/setPayPassword')}" method="post" enctype="multipart/form-data">
+                <div class="form_list">
+                    <p class="hint_text"></p>
+                    <dl>
+                        <dd class="left">
+                            支付密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" name="pay_pword" />
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd class="left">
+                            确认密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" name="pay_pword_confirm" />
+                        </dd>
+                    </dl>
+                    <dl style='display: none;'>
+                        <dd class="left">
+                            短信验证码
+                        </dd>
+                        <dd class="code">
+                            <input type="text" name="code" />
+                            <button type="button">获取验证码</button>
+                        </dd>
+                    </dl>
+                    <div class="bt">
+                        <button type="submit" class="orange" id='setPayPassword'>确定</button>
+                        <button type="button" class="popBox_close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="popBox" id="pay_pword_edit">
+        <div class="con pay_pword_edit">
+            <h3 class="title">
+                <span class="pay_icon"></span>支付密码修改
+            </h3>
+            <form action="{:U('User/UserInfo/editPayPassword')}" method="post" enctype="multipart/form-data">
+                <div class="form_list">
+                    <p class="hint_text"></p>
+                    <dl>
+                        <dd class="left">
+                            旧密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" name="pay_pword_old" />
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd class="left">
+                            新密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" name="pay_pword_edit" />
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dd class="left">
+                            确认新密码
+                        </dd>
+                        <dd class="right">
+                            <input type="password" name="pay_pword_confirm_edit" />
+                        </dd>
+                    </dl>
+                    <div class="bt">
+                        <button type="submit" class="orange" id='pay_password_edit'>确定</button>
+                        <button type="button" class="popBox_close">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</block>
+
+<block name="footer">
+
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+
+</block>

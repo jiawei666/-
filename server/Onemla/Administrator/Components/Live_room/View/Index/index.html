@@ -1,0 +1,312 @@
+<!--<extend name="Public/base"/>-->
+
+<block name='head'>
+    <script type="text/javascript" src="__JAVASCRIPTS__live_room.js" ></script>
+    <script>
+        $().ready(function () {
+            {$pCitySelectJs}
+            $('#click').click(function () {
+                //$('form').submit();
+                $('#submit').click();
+            })
+        });
+    </script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</block>
+
+<block name="main">
+    <div id="main">
+        {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+        <div id="box" class="flex">
+            {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+            <div id="content">
+                <p class="location flex">
+                    <span class="icon menu_icon"></span>
+                    直播商管理
+                    <i class="gt">&gt;</i>
+                    <span class="skin_color">直播间</span>
+                </p>
+                <div class="searchBox flex">
+                    <form action="{:U('Live_room/Index/index')}" method="post">
+                        <dl class="flex">
+                            <dd class="inputTxt">
+                                <input type="text" name="live_name" value="{$live_name}" placeholder="请输入搜索的直播商" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <input type="text" name="title" value="{$title}" placeholder="请输入搜索的标题" class="input_01" />
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="isshow" class='input_01'>
+                                    <option value="">请选择首页显示状态</option>
+                                    <option value="1" {$isshow==1 ? 'selected=""':''}>显示</option>
+                                    <option value="0" {$isshow === '0' ? 'selected=""':''}>未显示</option>
+                                </select>
+                            </dd>
+                            <dd class="inputTxt">
+                                <select id="province"  name="province_id" class="input_01" >
+                                    <option value="">请选择地区</option>
+                                    {$region}
+                                </select>
+                                <select id="city"  name="city_id" class="input_01" >
+                                    <option value="">请选择地区</option>
+                                </select>
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="character_id" class='input_01'>
+                                    <option value="">请选择性质</option>
+                                    <volist name="character" id="ca_vo">
+                                        <option value="{$ca_vo.id}" {$character_id==$ca_vo["id"] ? 'selected=""':''}>{$ca_vo.character}</option>
+                                    </volist>
+                                </select>
+                            </dd>
+                            <dd class="inputTxt">
+                                <select name="audit_status" class='input_01'>
+                                    <option value="">请选择审核状态</option>
+                                    <option value="1" {$audit_status==1 ? 'selected=""':''}>待审核</option>
+                                    <option value="2" {$audit_status==2 ? 'selected=""':''}>审核通过</option>
+                                    <option value="3" {$audit_status==3 ? 'selected=""':''}>不通过</option>
+                                </select>
+                            </dd>
+                            <!--<dd class="inputTxt">-->
+                                <!--<select name="sort" class='input_01'>-->
+                                    <!--<option value="">请选择排序方式</option>-->
+                                    <!--<option value="create_time" {$sort=='create_time' ? 'selected=""':''}>新增时间</option>-->
+                                    <!--<option value="view_count" {$sort=='view_count' ? 'selected=""':''}>观看数量</option>-->
+                                <!--</select>-->
+                            <!--</dd>-->
+                            <dd class="bt">
+                                <button type="submit" class="btn_01">搜索</button>
+                            </dd>
+                        </dl>
+                    </form>
+                </div>
+                <div class="tableBox table_skin">
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <th width="90">
+                                编号
+                            </th>
+                            <th width="90">
+                                直播商
+                            </th>
+                            <th width="150">
+                                直播标题
+                            </th>
+                            <th width="200">
+                                直播简介
+                            </th>
+                            <th width="130">
+                                直播图片
+                            </th>
+                            <th width="130">
+                                背景图片
+                            </th>
+                            <th width="130">
+                                logo
+                            </th>
+                            <th width="45">
+                                性质
+                            </th>
+                            <th width="55">
+                                城市
+                            </th>
+                            <!--<th width="90">-->
+                                <!--活动状态-->
+                            <!--</th>-->
+                            <!--<th width="90">-->
+                                <!--观看数量-->
+                            <!--</th>-->
+                            <th width="90">
+                                首页显示
+                            </th>
+                            <th width="90">
+                                冻结状态
+                            </th>
+                            <th width="90">
+                                审核状态
+                            </th>
+                            <th width="120">
+                                操作
+                            </th>
+                        </tr>
+                        <volist name='list' id='vo'>
+                            <tr>
+                                <td width="133">
+                                    {$vo.serial_number}
+                                </td>
+                                <td>
+                                    {$vo.live_name}
+                                </td>
+                                <td width="150">
+                                    {$vo.title}
+                                </td>
+                                <td width="200">
+                                    {:msubstr($vo[introduction],0,40,'utf-8',true)}
+                                </td>
+                                <td>
+                                    <if condition="$vo[image]!=''">
+                                        <img src="__UPLOAD__/live_room/{$vo.image}" width="120px">
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo[bg_image]!=''">
+                                        <img src="__UPLOAD__/live_room/{$vo.bg_image}" width="120px">
+                                    </if>
+
+                                </td>
+                                <td>
+                                    <if condition="$vo[logo]!=''">
+                                        <img src="__UPLOAD__/live_room/{$vo.logo}" width="120px">
+                                    </if>
+                                </td>
+                                <td>
+                                    {$vo.character}
+                                </td>
+                                <td>
+                                    {$vo.city_id|getCityName}
+                                </td>
+                                <!--<td>-->
+                                    <!--//<//if condition='getLiveInfo($vo[live_id])[status]==2'>-->
+                                        <!--直播中-->
+                                        <!--<//elseif condition='getLiveInfo($vo[live_id])[status]==1'/>-->
+                                        <!--预告-->
+                                        <!--<//else/>-->
+                                        <!--回放-->
+                                    <!--<///if>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--//{//:getLiveInfo($vo[live_id])[view_count]}-->
+                                <!--</td>-->
+                                <td>
+                                    <if condition='$vo[isshow]==1'>
+                                        显示
+                                        <else/>
+                                        未显示
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition='$vo[lock]==1'>
+                                        正常
+                                        <elseif condition='$vo[lock]==2'/>
+                                        冻结
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition='$vo[audit_status]==1'>
+                                        待审核
+                                        <elseif condition='$vo[audit_status]==2'/>
+                                        审核通过
+                                        <else/>
+                                        不通过
+                                    </if>
+                                </td>
+                                <td class="bt" width="120">
+                                    <!--<a  style="margin-left: 0px;" href="{:U('MemberLive_bsn/Liveroom/detail',array('id'=>$vo[room_id],'bsn_id'=>$vo[r_bsn_id]))}" class="view_bt" title="详情"><button class="handle_bt" style="padding: 1.7px">详情</button></a>-->
+                                    <!--<a  style="margin-left: 0px;" href="#" class="{$vo[isshow]==1 ? 'show_bt' : 'unshow_bt'}" title="{$vo[isshow]==1 ? '首页不显示' : '首页显示'}"><button class="handle_bt" style="width: 50px;padding: 1.7px">{$vo[isshow]==1 ? '不显示' : '显示'}</button></a>-->
+                                    <!--<a  style="margin-left: 0px;" href="#" class="{$vo[lock]==1 ? 'lock_bt' : 'unlock_bt'}" title="{$vo[lock]==1 ? '冻结' : '解冻'}"><button class="handle_bt" style="padding: 1.7px">{$vo[lock]==1 ? '冻结' : '解冻'}</button></a>-->
+                                    <!--<a  style="margin-left: 0px;" href="#" class="audit_bt"><button class="handle_bt" style="padding: 1.7px">审核</button></a>-->
+                                    <div class="bt-more">
+                                        <span style="width: 64px;">更多></span>
+                                        <div class="bt-more-choice">
+                                            <a href="{:U('MemberLive_bsn/Liveroom/detail',array('id'=>$vo[room_id],'bsn_id'=>$vo[r_bsn_id]))}" title="详情"><button>详情</button></a>
+                                            <a href="#" class="{$vo[isshow]==1 ? 'show_bt' : 'unshow_bt'}" title="{$vo[isshow]==1 ? '首页不显示' : '首页显示'}"><button>{$vo[isshow]==1 ? '不显示' : '显示'}</button></a>
+                                            <a href="#" class="{$vo[lock]==1 ? 'lock_bt' : 'unlock_bt'}" title="{$vo[lock]==1 ? '冻结' : '解冻'}"><button>{$vo[lock]==1 ? '冻结' : '解冻'}</button></a>
+                                            <a href="#" class="audit_bt"><button>审核</button></a>
+                                            <input type="hidden" value="{$vo.room_id}" name='id' id="id">
+                                            <input type="hidden" value="{$vo.audit_status}" name='status'>
+                                            <input type="hidden" value="{$vo.live_id}">
+                                            <input type="hidden" value="{$vo.alink}">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </volist>
+                    </table>
+                    <script type="text/javascript">
+                        $('.bt').find('a').css('margin-left','0px');
+                        $(".bt-more").on("click",function(){
+
+                            $(this).find('.bt-more-choice').slideToggle();
+
+                        })
+                    </script>
+                    <div class="tableBox_bottom flex">
+                        <ul class="page_list page_skin flex">
+                            {$page_show}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- box end -->
+        </div>
+        <!-- main end -->
+    </div>
+
+    <div class="layerBox" id="layerBox1">
+        <div class="hintBox" style="height: 200px">
+            <h3 class="title skin_bg flex">
+                活动审核
+                <a href="#" class="close_bt"></a>
+            </h3>
+            <div class="con">
+                <dl class="bt_list" style="margin-top: 0px">
+                    <dd class="flex">
+                        <button type="submit" class="btn_01" id="audit_pass_bt" >审核通过</button>
+                        <button type="submit" class="btn_01 gray" id="audit_nopass_bt" >审核不通过</button>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="layerBox" id="layerBox2">
+        <div class="hintBox">
+            <h3 class="title skin_bg flex">
+                活动审核
+                <a href="#" class="close_bt"></a>
+            </h3>
+            <div class="con add_list" style="padding-top: 40px;">
+                <dl class="inputBox flex2">
+                    <dd class="text">
+                    </dd>
+                    <dd class="inputTxt">
+                        <input type="text" class="input_01" name="alink" />
+                    </dd>
+                </dl>
+                <dl class="inputBox flex2">
+                    <dd class="text" style="display: none">
+                        liveId
+                    </dd>
+                    <dd class="inputTxt" style="display:none;" id="live_id">
+                        <input type="text" class="input_01" name="live_id" />
+                    </dd>
+                </dl>
+                <script>
+                    $(function(){
+                        $('#audit_pass_bt').click(function(){
+                            var r_id=$(this).attr('name');
+                            var live_id = $('input[value='+r_id+']').next().next().val();
+                            var alink = $('input[value='+r_id+']').next().next().next().val();
+
+                            if($('dd[class="text"]').eq(0).text()=='链接:'){
+                                $('input[name="alink"]').val(alink);
+                                $('input[name="live_id"]').val(live_id);
+                            }
+                        });
+                    });
+                </script>
+                <dl class="bt_list" style="margin-top: 35px;">
+                    <dd class="flex">
+                        <button type="submit" class="btn_01" name="confirm">确认</button>
+                        <button type="button" class="btn_01 gray close_bt">取消</button>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</block>

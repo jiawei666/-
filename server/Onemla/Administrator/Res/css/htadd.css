@@ -1,0 +1,147 @@
+@charset "utf-8";
+html,body,div,p,button,input,span,img,ul,li,a,form,dl,dd,dt,table,tr,td,select,option,hr,b,i{margin:0;padding:0;}
+ul,li{list-style:none;}
+body{font-size:12px;font-family:"Microsoft YaHei",Verdana,Arial;}
+body,html{width:100%;}
+a{text-decoration:none;-webkit-appearance:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+
+
+/**section 部分 start**/
+.section{
+	width:100%;
+	float:left;
+}
+.section_container{
+	width:92%;
+	margin:0 auto;
+}
+.section_pink{
+	height:60px;
+	line-height:60px;
+	font-size:30px;
+	font-weight:600px;
+	background-color:#EFEFEF;
+}
+.add_information{
+	width:100%;
+	font-size:20px;
+	background-color:#2CACC7;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	color:#fff;
+}
+.add_information_text{
+	border:1px solid #DDD;
+	border-top:none;
+}
+.taizhang_leibie,.kss,.shebeixinghao{
+	height:50px;
+	border-bottom:1px solid #DDD;
+	line-height:50px;
+}
+.taizhang_leibie div,.kss div,.shebeixinghao div{
+	display:inline-block;
+}
+.taizhang_leibie span,.kss span,.shebeixinghao span{
+	width:15%;
+	display:inline-block;
+	border-right:1px solid #DDD;
+	text-align:center;
+	font-size:14px;
+}
+.kss_shebei_name,.zhizaochangjia{
+	border-left:1px solid #DDD;
+}
+.taizhang_leibie div{
+	width:83%;
+}
+.taizhang_leibie select{
+	margin-right:20px;
+}
+.jizu{
+	margin-left:20px;
+}
+select{
+	height:30px;
+	outline:none;
+	font-size:13px;
+}
+select option{
+	height:30px;
+	font-size:13px;
+}
+.kss div,.shebeixinghao div{
+	width:33%;
+	text-align:center;
+}
+.kss div input,.shebeixinghao div input{
+	width:98%;
+	height:30px;
+	outline:none;
+	font-size:13px;
+}
+.word{
+	height:120px;
+	border-bottom:1px solid #DDD;
+}
+.word>span{
+	width:15%;
+	text-align:center;
+	display:inline-block;
+	height:80px;
+	padding-top:40px;
+	font-size:14px;
+	border-right:1px solid #DDD;
+}
+.word>div{
+	width:84%;
+	display:inline-block;
+	border:1px solid #DDD;
+}
+.word>div>div{
+	height:40px;
+	line-height:40px;
+	font-size:14px;
+	text-indent:20px;
+}
+.word>div>div:first-child{
+	border-bottom:1px solid #DDD;
+}
+.word>div>div:last-child input{
+	font-size:14px;
+	margin-left:10px;
+}
+.word>div a{
+	color:#2CACC7;
+	cursor:pointer;
+}
+.word>div a:hover{
+	text-decoration:underline;
+}
+.btn{
+	height:50px;
+}
+.green_btn{
+  height:35px;
+  width:60px;
+  color:#fff;
+  background-color:#44c767;
+  border:none;
+  outline:none;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  -moz-box-shadow: inset 0px 0px 0px 0px #ffffff;
+  -webkit-box-shadow: inset 0px 0px 0px 0px #ffffff;
+  box-shadow: inset 0px 0px 0px 0px #ffffff;
+  font-size:14px;
+  letter-spacing:2px;
+  cursor:pointer;
+  margin:0 15px;
+  margin-top:8px;
+}
+.green_btn:hover{
+  background-color:#5cbf2a;
+}
+/**section 部分 end***/

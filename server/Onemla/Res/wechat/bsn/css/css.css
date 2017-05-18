@@ -1,0 +1,253 @@
+body,h1,h2,h3,h4,h5,h6,div,p,dl,dt,dd,ol,ul,li,form,table,th,td,a,img,span,strong,var,em,input,textarea,select,option{margin: 0; padding: 0;}
+html,body{font-family:"微软雅黑","宋体",Arail,Tabhoma;text-align: left;overflow-x: hidden;}
+html{
+	 font-size: 100px;
+	 margin: 0 auto;
+}
+body{
+	position: relative;
+}
+ul,ol{list-style: none;}
+img{border: 0;}
+input,select,textarea{outline:0;}
+textarea{resize:none;}
+table{border-collapse: collapse; border-spacing: 0;}
+th,strong,var,em{font-weight: normal; font-style: normal;}
+a{text-decoration: none;}
+/*头部*/
+header{
+	padding: 0 .3rem 0 .25rem;
+	width: calc(100% - .55rem);
+	height: .8rem;
+	background: #1b1a20;
+	line-height: .8rem;
+	position: relative;
+}
+
+.header-left a{
+	font-size: .26rem;
+	color: #fff;
+	float: left;
+	cursor: pointer;
+}
+
+.header-return{
+	padding-left: .3rem;
+	background: url(../images/icon/return.png) left center no-repeat;
+	background-size: .25rem .35rem;
+	margin-right: .2rem;
+}
+
+.header-left{
+	position: absolute;
+	left: .25rem;
+	top: 0;
+}
+
+header h1{
+	font-size: .28rem;
+	font-weight: 400;
+	color: #fff;
+	text-align: center;
+}
+
+.header-toggle{
+	position: absolute;
+	right: .3rem;
+	top: 0;
+	padding: .34rem 0;
+	cursor: pointer;
+}
+
+.header-toggle span{
+	display: inline-block;
+	width: .12rem;
+	height: .12rem;
+	border-radius: 50%;
+	background: #fff;
+	float: left;
+	margin-right: .05rem;
+}
+
+/*底部导航栏*/
+footer{
+	height: .95rem;
+	width: 100%;
+	background: #c81914;
+	position: fixed;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	bottom: 0;
+	z-index: 10;
+}
+footer a{
+	float: left;
+	width: 25%;
+	text-align: center;
+	font-size: .2rem;
+	color: #730e0c;
+}
+
+footer a.active {
+	color:#fff;
+}
+.footer-nav-icon{
+	height: .42rem;
+	padding: .08rem 0;
+}
+.footer-nav-home img,
+.footer-nav-liveRoom img{
+	width: .42rem;
+	height: .42rem;
+}
+.footer-nav-nature img{
+	width: .42rem;
+	height: .29rem;
+}
+.footer-nav-region img{
+	width: .38rem;
+	height: .38rem;
+}
+@media screen and (min-width:750px) {
+	html{
+	 	font-size: 100px !important;
+	 	max-width: 750px;
+	}
+	footer{
+		max-width: 750px;
+	}
+}
+
+/*直播列表*/
+.index-list{
+	width: 100%;
+	height: 3.1rem;
+	margin-bottom: .1rem;
+	position: relative;
+	overflow: hidden;
+}
+.index-list-container .index-list:last-child{
+	margin-bottom: .95rem;
+}
+.index-list img{
+	width:100%;
+	height:100%;
+}
+.index-list-eye{
+	padding-left: .3rem;
+	background: url(../images/icon/eye-visible.png) left center no-repeat,rgba(0,0,0,.6);
+	background-size: .2rem .15rem;
+	position: absolute;
+	top: .12rem;
+	left: .24rem;
+	font-size: .18rem;
+	color: #fff;
+	border: 1px solid #9c9c9a;
+	z-index: 5;
+}
+.index-list-time{
+	font-size: .18rem;
+	color: #d8d8d8;
+	position: absolute;
+	top: .19rem;
+	right: .3rem;
+	z-index: 5;
+}
+.index-list-href{
+	position: absolute;
+	bottom: .15rem;
+	left: .2rem;
+	z-index: 5;
+	width: 100%;
+}
+.index-list-brief{
+	font-size: .3rem;
+	color: #fff;
+	float: left;
+	max-width: 80%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.index-list-href a{
+	font-size: .16rem;
+	color: #fff;
+	float: left;
+	padding: .05rem;
+	border-radius: .05rem;
+	margin: .05rem 0 0 .1rem;
+}
+.underway{
+	background: #fc7a2b;
+}
+.playback{
+	background: #aaaaaa;
+}
+.trailer{
+	background: #00a0e9;
+}
+
+/*加载*/
+.loading{
+	color: #b4b4b4;
+	font-size: .24rem;
+	font-family: "微软雅黑";
+	border: none;
+	float: left;
+	left: 0;
+	right: 0;
+	margin: 0 auto 1rem;
+	text-align: center;
+
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	height: .3rem;
+}
+.loading p{
+	background: #fff;
+	display: inline-block;
+}
+.loading::after{
+	width: 100%;
+	height: 0;
+	border: 2px solid #c81914;
+	content: "";
+	position: absolute;
+	top: .12rem;
+	left: 0;
+	z-index:-1;
+}
+
+/*加载完数据后**/
+.loading_done{
+	color: #b4b4b4;
+	font-size: .24rem;
+	font-family: "微软雅黑";
+	border: none;
+	float: left;
+	left: 0;
+	right: 0;
+	margin: 0 auto 1rem;
+	text-align: center;
+
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	height: .3rem;
+}
+.loading_done p{
+	background: #fff;
+	display: inline-block;
+}
+.loading_done::after{
+	width: 100%;
+	height: 0;
+	border: 2px solid #b8b8b8;
+	content: "";
+	position: absolute;
+	top: .12rem;
+	left: 0;
+	z-index:-1;
+}

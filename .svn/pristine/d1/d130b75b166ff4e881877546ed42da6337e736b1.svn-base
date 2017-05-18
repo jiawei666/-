@@ -1,0 +1,195 @@
+<extend name="Admin/base"/>
+
+<block name="head">
+
+    <link rel="stylesheet" href="__CSS__style.css">
+    <style>
+        A:link{text-decoration:none; color:#72afd2;}
+        A:visited{text-decoration:none; color:#72afd2;}
+    </style>
+    <script>
+        function leave($id){
+            if(window.confirm('确定该员工已离职？')){
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('User/Index/changeState')}",
+                    data: {id:$id,state:2},
+                    cache: false,
+                    success: function (data) {
+                        if(data.flag == 1){
+                            location.reload();
+                        }else {
+                            alert("参数错误");
+                        }
+                    },
+                    error: function () {
+                        alert("操作失败");
+                    }
+                });
+            }
+        }
+        function job($id){
+            if(window.confirm('确定恢复该员工在职状态？')){
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('User/Index/changeState')}",
+                    data: {id:$id},
+                    cache: false,
+                    success: function (data) {
+                        if(data.flag == 1){
+                            location.reload();
+                        }else {
+                            alert("参数错误");
+                        }
+                    },
+                    error: function () {
+                        alert("操作失败");
+                    }
+                });
+            }
+        }
+
+        function del($id){
+            if(window.confirm('是否确认删除?删除后无法恢复!')){
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('User/Index/del')}",
+                    data: {id:$id},
+                    cache: false,
+                    success: function (data){
+                        if (data.flag==1){
+                            location.reload();
+                        }else {
+                            alert(' 参数错误');
+                        }
+                    },
+                    error: function (){
+                        alert('操作失败');
+                    }
+                });
+            }
+        }
+    </script>
+</block>
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                员工列表
+                <small>Staff list</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{:U('Home/Index/index')}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li>员工管理</li>
+                <li class="active">员工列表</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <volist name="staff_state" id="vo">
+                        <li <if condition="$state eq $i">class='active'</if>><a href="{:U('User/Index/index', array('state'=>$i,'search' => $search))}">{$vo}员工</a></li>
+                    </volist>
+                    <div class="topbox">
+                        <a href="{:U('User/Index/modify')}" class="add">添加员工+</a>
+                    </div>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+
+                            </div>
+                            <div class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <form method="post" action="{:U('User/Index/index')}">
+                                            <label>搜索：<input type="search" class="form-control input-sm" value="{$search}" placeholder="搜索员工名称" name="search"></label>
+                                            <input type="hidden" name="state" value="{$state}">
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-6" style="text-align: right;">
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-bordered table-hover dataTable" role="grid">
+                                            <thead>
+                                            <tr role="row">
+                                                <th rowspan="1" colspan="1">员工编号</th>
+                                                <th rowspan="1" colspan="1">员工名称</th>
+                                                <th rowspan="1" colspan="1">所属部门</th>
+                                                <th rowspan="1" colspan="1">所属职位</th>
+                                                <th rowspan="1" colspan="1">联系方式</th>
+                                                <th rowspan="1" colspan="1">入职时间</th>
+                                                <th rowspan="1" colspan="1">操作</th>
+                                            </thead>
+                                            <tbody>
+                                            <empty name="list">
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1" colspan="7" style="text-align: center;">
+                                                        暂无员工数据
+                                                    </td>
+                                                </tr>
+                                            </empty>
+                                            <volist name="list" id="vo">
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1">
+                                                        {$vo.job_no}
+                                                    </td>
+                                                    <td class="sorting_1">
+                                                        {$vo.real_name}
+                                                    </td>
+                                                    <td class="sorting_1">
+                                                        {$vo.department_name}
+                                                    </td>
+                                                    <td class="sorting_1">
+                                                        {$vo.position}
+                                                    </td>
+                                                    <td class="sorting_1">
+                                                        {$vo.phone}
+                                                    </td>
+                                                    <td class="sorting_1">
+                                                        {:date('Y-m-d',$vo['entry_time'])}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{:U('User/Index/modify',array('id' => $vo['id']))}">编辑</a>
+                                                        <if condition="$state eq 1">
+                                                            <a href="javascript:;" onclick="leave({$vo['id']})">离职</a>
+                                                        <else/>
+                                                            <a href="javascript:;" onclick="job({$vo['id']})">恢复</a>
+                                                            <a href="javascript:;" onclick="del({$vo['id']})">删除</a>
+                                                        </if>
+                                                    </td>
+                                                </tr>
+                                            </volist>
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1" colspan="9">
+                                                    {$page_show}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</block>
+
+<block name="footer">
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+</block>

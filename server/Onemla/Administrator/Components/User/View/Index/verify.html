@@ -1,0 +1,18 @@
+<!--<extend name="Public/base"/>-->
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__register.css" />
+
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+
+</block>
+
+<block name="main">
+
+    <div class="loginBox">
+        <form action="{:U('User/Index/verify_psd')}" method="post" enctype="multipart/form-data" style="margin-top: 300px">
+            验证码：<input  type="text" id="verify" name="verify"/>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+</block>

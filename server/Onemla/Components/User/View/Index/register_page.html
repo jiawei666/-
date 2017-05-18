@@ -1,0 +1,66 @@
+<extend name="Public/base2"/>
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__css.css" />
+    <link rel="stylesheet" href="__CSS__case.css" />
+    <script type="text/javascript" src="__JAVASCRIPTS__jquery-3.0.0.min.js" ></script>
+    <script type="text/javascript" src="__JAVASCRIPTS__register.js"></script>
+    <script type="text/javascript" src="__JAVASCRIPTS__regular.js"></script>
+</block>
+
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+
+    <!--注册-->
+    <div class="register" style="display: block;">
+        <div class="register-container">
+            <div class="register-title">
+                <img src="__IMAGES__login-logo.png"/>
+                <p>注册账户</p>
+            </div>
+            <form action="{:U('User/Index/register')}" method="post">
+                <ul class="register-brief">
+                    <li>
+                        <span>用户名</span>
+                        <input type="text" name="register-user" id="register-user" value="" required=""/>
+                    </li>
+                    <li>
+                        <span>密码</span>
+                        <input type="password" name="register-password" id="register-password" value="" required="" />
+                    </li>
+                    <li>
+                        <span>确认密码</span>
+                        <input type="password" name="register-agpassword" id="register-agpassword" value="" required="" />
+                    </li>
+                    <li>
+                        <span>邮箱</span>
+                        <input type="email" name="register-email" id="register-email" value="" />
+                    </li>
+                    <li>
+                        <span>手机号</span>
+                        <input type="tel" name="register-tel" id="register-tel" value="" oninput="checkphone()" />
+                        <input type="button" id="btn" value="发送验证码" style="background-color:#9e9e9a"/>
+                    </li>
+                    <li>
+                        <span>验证码</span>
+                        <input type="text" name="register-code" id="register-code" value="" required="required" />
+                    </li>
+
+                </ul>
+                <input type="submit" class="register-submit" value="注册" onclick="return registercheck()" />
+            </form>
+            <a class="jump-login" href="{:U('User/Index/login_page')}">已有账户，马上登录</a>
+        </div>
+    </div>
+
+    <script>
+        $('form').submit(function(){
+            $('input[type="submit"]').attr('disabled','')
+        });
+    </script>
+
+</block>
+

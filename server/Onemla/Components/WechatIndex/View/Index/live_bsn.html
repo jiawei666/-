@@ -1,0 +1,95 @@
+<extend name="public/wechatBase"/>
+<block name="head">
+	<link rel="stylesheet" href="__WECHAT__css/vendor/swiper.min.css" />
+	<link rel="stylesheet" href="__WECHAT__css/css.css" />
+	<link rel="stylesheet" href="__WECHAT__css/index.css" />
+	<style>
+		.live-room .search-submit{
+			background: url(__WECHAT__images/icon/search.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		.live-room-add{
+			background: url(__WECHAT__images/icon/live-room-choice-1.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		.live-room-remove{
+			background: url(__WECHAT__images/icon/live-room-choice-2.png) no-repeat;
+			background-size: 100% 100%;
+		}
+	</style>
+</block>
+<block name="main">
+	<!--搜索-->
+	<div class="search live-room">
+		<form action="" method="post">
+			<div class="search-area">
+				<input type="text" class="search-text" value="{$live_name}" name="live_name" placeholder="请输入直播商名称" />
+				<input type="submit" class="search-submit" value=""/>
+			</div>
+		</form>
+	</div>
+	<!-- 直播商列表 -->
+	<ul class="live-room-list">
+		<volist name="list" id="vo">
+			<li>
+				<img class="live-room-img"  {$vo["type"] ==1 ? 'src="__ROOT__/Administrator/Res/Uploads/certification/personal/':'src="__ROOT__/Administrator/Res/Uploads/certification/company/'}{$vo.public_logo}" alt="">
+				<a href="{:U('WechatIndex/LiveBsn/Index')}&bsn_id={$vo[bsn_id]}">
+					<p class="live-room-title">{$vo.live_name}</p>
+				</a>
+				<p class="live-room-nubmer">
+					<em>{$vo.follow_count}</em>订阅
+				</p>
+				<if condition="$session_open_id!=''">
+					<span class="live-room-choice live-room-add" name="follow" {$vo[open_id]=='' ? '':'style="display:none"'}>
+					<input type="hidden" value="{$vo.bsn_id}">
+					</span>
+					<span class="live-room-choice live-room-remove" name="unfollow" {$vo[open_id]!='' ? '':'style="display:none"'}>
+					<input type="hidden" value="{$vo.bsn_id}">
+					</span>
+				</if>
+			</li>
+		</volist>
+	</ul>
+</block>
+<block name="bottom">
+	{:\\Onemla\\OnemlaHelper::W('Footer/wechatIndex')}
+
+	<script>
+		window.onload = function(){
+			//轮播
+			var mySwiper = new Swiper('.swiper-container.banner',{
+				pagination : '.swiper-pagination',
+				paginationClickable :true,
+				loop:true,
+				autoplay:2000
+			});
+			var swiper = new Swiper('.index-recommend.swiper-container', {
+				slidesPerView: 5,
+				spaceBetween: 50,
+				freeMode: true,
+				breakpoints: {
+					420: {
+						slidesPerView: 4,
+						spaceBetween: 40
+					},
+					320: {
+						slidesPerView: 3,
+						spaceBetween: 30
+					}
+				}
+			});
+		};
+		$(function(){
+			$('footer').find('a').eq(0).attr('class','footer-nav-home');
+			$('footer').find('a').eq(1).attr('class','footer-nav-nature');
+			$('footer').find('a').eq(2).attr('class','footer-nav-region');
+			$('footer').find('a').eq(3).attr('class','footer-nav-liveRoom active');
+
+			$('footer').find('img').eq(0).attr('src','__WECHAT__images/icon/home.png');
+			$('footer').find('img').eq(1).attr('src','__WECHAT__images/icon/nature.png');
+			$('footer').find('img').eq(2).attr('src','__WECHAT__images/icon/region.png');
+			$('footer').find('img').eq(3).attr('src','__WECHAT__images/icon/Live-room-active.png');
+		});
+	</script>
+
+</block>

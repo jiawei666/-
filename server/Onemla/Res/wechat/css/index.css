@@ -1,0 +1,339 @@
+/*轮播图*/
+.banner.swiper-container {
+ 	height: 3.05rem;
+    width:100%;
+    text-align:center;
+    margin:0 auto;
+    position:relative;
+    overflow:hidden;
+    z-index:1;
+}
+.banner .swiper-wrapper {
+    position: relative;
+    z-index:2;
+}
+.banner .swiper-slide {
+    position:relative;
+    text-align:center;
+    float:left;
+}
+.banner .swiper-slide a{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:block;
+    overflow:hidden;
+}
+.banner .swiper-slide img{
+    width:100%;
+   	height: 3.05rem;
+    vertical-align:middle;
+    position:relative;
+    cursor: default;
+}
+.swiper-pagination{
+    position:absolute;
+    height:0.16rem;
+   	margin: 0;
+    z-index:3;
+}
+.swiper-pagination-bullet{
+    display:inline-block;
+    width: .1rem;
+    height: .1rem;
+    background:#868482;
+    border-radius:50%;
+    cursor: pointer;
+    float: left;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+	bottom: 0.3rem;
+	display: inline-block;
+	width: auto;
+	right: .2rem;
+	left: auto;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{
+	margin: 0 0.14rem 0 0;
+}
+.swiper-pagination-bullet-active{
+    background:#fff;
+}
+
+.banner-href{
+	position: absolute;
+	z-index: 5;
+	bottom: .2rem;
+	text-align: left;
+}
+
+.banner-href-brief{
+	font-size: .3rem;
+	color: #fff;
+	display: inline-block;
+	width: 5.2rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float: left;
+}
+
+.banner .banner-href a{
+	font-size: .16rem;
+	color: #fff;
+	padding: .05rem 0;
+	border-radius: .05rem;
+	display: inline-block;
+	float: left;
+	width: .67rem;
+	text-align: center;
+	margin-left: .1rem;
+	margin-top: .05rem;
+}
+/*直播间推荐*/
+.index-recommend.swiper-container {
+        width: 100%;
+    }
+.index-recommend-container .swiper-slide{
+	margin: 0 .18rem !important;
+	font-size: .2rem;
+	text-align: center;
+}
+.index-recommend-container .swiper-slide img{
+	width: 1rem;
+	height: 1rem;
+}
+.index-recommend .swiper-slide .index-recommend-text{
+	line-height: .55rem;
+	color: #646464;
+}
+.index-recommend{
+	width: 100%;
+	padding: .2rem 0 .1rem;
+}
+
+
+/*性质分类*/
+.category.swiper-container {
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+.category .swiper-slide {
+    text-align: center;
+   font-size: .2rem;
+    height: .46rem;
+    margin-bottom: .14rem;
+}
+.category .swiper-wrapper{
+	padding: .18rem 0 .14rem;
+}
+.category .swiper-slide a{
+	display: inline-block;
+	font-size: .2rem;
+   	color: #787878;
+	 border: 1px solid #969696;
+	 width: 1.2rem;
+	 height: .44rem;
+	 line-height: .44rem;
+	 text-align: center;
+	 border-radius: .05rem;
+	 cursor: pointer;
+}
+.category .swiper-slide.active a{
+	background: #c81914;
+	color: #fff;
+	border-color: #c81914;
+}
+
+/*性质分类新*/
+.category-list{
+	overflow: hidden;
+	padding: .18rem 0 .14rem;
+}
+.category-list li{
+	float: left;
+	width: 20%;
+	text-align: center;
+	font-size: .2rem;
+	height: .46rem;
+	margin-bottom: .14rem;
+}
+.category-list li a{
+	display: inline-block;
+	font-size: .2rem;
+	color: #787878;
+	border: 1px solid #969696;
+	width: 1.2rem;
+	height: .44rem;
+	line-height: .44rem;
+	text-align: center;
+	border-radius: .05rem;
+	cursor: pointer;
+}
+.category-list li.active a{
+	background: #c81914;
+	color: #fff;
+	border-color: #c81914;
+}
+
+/*地区搜索*/
+.search.region{
+	padding: .2rem .27rem .17rem .1rem;
+}
+.region .city-search{
+	font-size: .24rem;
+	color:#c81914;
+	position: relative;
+	line-height: .5rem;
+	cursor: pointer;
+	padding-right:.3rem;
+	margin-right: .1rem;
+	height: 100%;
+	display: inline-block;
+	float: left;
+	background: url(../images/icon/spinner.png) right center no-repeat;
+	background-size: .22rem .12rem;
+	overflow: hidden;
+}
+.city{
+	height: 100%;
+	border: none;
+	color:#c81914;
+	text-align: center;
+	width: 1rem;
+	font-size: .24rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background:transparent;
+}
+.city-search-box{
+	width: 100%;
+	height: 100%;
+	color: transparent;
+	min-width: 1rem;
+}
+.region .search-area{
+	height: .5rem;
+	/*position: relative;*/
+}
+.navbar{
+	z-index: 12;
+	font-size: .26rem;
+	width: auto;
+}
+.pro-picker, .city-picker{
+	z-index: 11;
+	font-size: .3rem;
+	max-width: 750px;
+	right: 0;
+	margin: 0 auto;
+	border: 1px solid #dbdbdb;
+}
+.picker-box dt{
+	padding: .05rem .2rem;
+}
+.city-text{
+	position: relative;
+	height: 100%;
+	width: 100%;
+	float: right;
+}
+.region .search-text{
+	border: 1px solid #c81914;
+	width: calc(100% - .5rem);
+	height: 100%;
+	border-radius: .05rem;
+	float: right;
+	padding-left: .5rem;
+}
+.region .search-submit{
+	width:.32rem;
+	height: .26rem;
+	position: absolute;
+	border:none;
+	left: .1rem;
+	top: .12rem;
+	cursor: pointer;
+	background: url(../images/icon/search.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+/*直播间*/
+.live-room.search{
+	padding: .2rem .27rem .17rem;
+}
+.live-room .search-area{
+	height: .5rem;
+	position: relative;
+}
+.live-room .search-text{
+	border: 1px solid #c81914;
+	width: calc( 100% - .5rem);
+	height: 100%;
+	border-radius: .05rem;
+	float: right;
+	padding-left: .5rem;
+	font-size: .24rem;
+	color:#969696;
+}
+.live-room .search-submit{
+	width:.32rem;
+	height: .26rem;
+	position: absolute;
+	border:none;
+	left: .1rem;
+	top: .12rem;
+	cursor: pointer;
+	background: url(../images/icon/search.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+.live-room-list{
+	padding: 0 .27rem;
+}
+.live-room-list li{
+	position: relative;
+	border-bottom: 1px solid #dcdcdc;
+	padding: .25rem 0;
+}
+.live-room-list li:last-child{
+	margin-bottom: .95rem;
+}
+.live-room-nubmer{
+	font-size: .2rem;
+	color: #b4b4b4;
+}
+.live-room-title{
+	font-size: .28rem;
+	color: #646464;
+	margin-bottom: .35rem;
+}
+.live-room-img{
+	width: 1rem;
+	height: 1rem;
+	float: left;
+	margin-right: .25rem;
+}
+.live-room-choice{
+	width: .48rem;
+	height: .48rem;
+	display: inline-block;
+	position: absolute;
+	right: .05rem;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	cursor: pointer;
+	/*z-index: 1;*/
+}
+.live-room-add{
+	background: url(../images/icon/live-room-choice-1.png) no-repeat;
+	background-size: 100% 100%;
+}
+.live-room-remove{
+	background: url(../images/icon/live-room-choice-2.png) no-repeat;
+	background-size: 100% 100%;
+}	

@@ -1,0 +1,30 @@
+<!--<extend name="Public/base"/>-->
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__register.css" />
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="__JAVASCRIPTS__Findpsd_sendEamil.js"></script>
+</block>
+
+<block name="main">
+
+    <div class="loginBox" style="background: url(__IMAGES__findpsd_box_bg.png) no-repeat">
+
+        <form method="post" action="" enctype="multipart/form-data" style="margin-top: 190px">
+            <ul class="enroll-info">
+                <li class="isCheckbox">
+                   <a href="{:U('User/Findpsd/entryphone_num')}"> <input type="button" name="" id="isSubmit" value="1.通过手机找回" style="width: 60%;border-radius: 0px"/></a>
+                </li>
+                <li class="isCheckbox">
+                    <a href="{:U('User/Findpsd/entryEmail')}"> <input type="button" name="" id="isSubmit" value="2.通过邮箱找回" style="width: 60%;border-radius: 0px"/></a>
+                </li>
+            </ul>
+        </form>
+        <a href="{:U('User/Index/login_page')}" style="float: right;margin: 20px">已有账号？去登录&gt;</a>
+    </div>
+    <script>
+        $('form').submit(function(){
+            $('input[type="submit"]').attr('disabled','')
+        });
+    </script>
+</block>

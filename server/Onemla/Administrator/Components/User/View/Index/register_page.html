@@ -1,0 +1,71 @@
+<!--<extend name="Public/base"/>-->
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__register.css" />
+
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="__JAVASCRIPTS__regular.js"></script>
+    <script src="__JAVASCRIPTS__member_sendSMS.js"></script>
+</block>
+
+<block name="main">
+
+    <div class="loginBox" >
+        <form action="{:U('User/Index/register')}" method="post" class="login-form">
+            <div class="enroll-title">
+                <p>注册新用户</p>
+                <a href="{:U('User/Index/login_page')}">已有账号？去登录&gt;</a>
+            </div>
+            <ul class="enroll-info">
+                <li>
+                    <span>账号：</span>
+                    <input type="text" name="user_name" id="user_name" required="" />
+                    <em>*</em>
+                </li>
+                <li>
+                    <span>密码：</span>
+                    <input type="password" name="password" required="" />
+                    <em>*</em>
+                </li>
+                <li>
+                    <span>确认密码：</span>
+                    <input type="password" name="pword_confirm" required=""/>
+                    <em>*</em>
+
+                </li>
+                <li>
+                    <span>邮箱：</span>
+                    <input type="text" name="email" required=""/>
+                    <em>*</em>
+                </li>
+                <li>
+                    <span>微信：</span>
+                    <input type="text" name="wechat" required=""/><span style="margin: 0;font-size: 8px;font-style: italic">微信或QQ二选一</span>
+                </li>
+                <li>
+                    <span>QQ：</span>
+                    <input type="text" name="qq" required=""/>
+                </li>
+                <li>
+                    <span>手机号：</span>
+                    <input type="text" name="phone" required="" oninput="checkphone()"/>
+                    <em>*</em>
+                </li>
+                <li>
+                    <input type="text" name="verify" id="verify" required="" style="width:23%;margin-left: 23%;" placeholder="请输入验证码" />
+                    <input type="button" id="btn" value="免费获取验证码" disabled="disabled" style="width:23%;font-size: 12px;margin-left: 18px;background-color: #9e9e9a;color: white"/>
+                </li>
+                <li class="isCheckbox">
+<!--                    <input type="checkbox" name="isCheckbox" class="isCheckbox" checked="checked"/>
+                    <span>已阅读并同........</span>-->
+                    <input type="submit" onclick="return registercheck()" name="" id="isSubmit" value="注册" />
+                </li>
+            </ul>
+        </form>
+    </div>
+    <script>
+        $('form').submit(function(){
+            $('input[type="submit"]').attr('disabled','')
+        });
+    </script>
+</block>

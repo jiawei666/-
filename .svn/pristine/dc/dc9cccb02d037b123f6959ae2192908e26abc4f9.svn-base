@@ -1,0 +1,49 @@
+<?php if (!defined('THINK_PATH')) exit();?><div id="header" class="flex2">
+    <div class="logo flex">
+        <img src="/live/server/Onemla/Res/images/logo02.png" />
+    </div>
+    <div class="nav_switch flex">
+        <a href="#"></a>
+    </div>
+    <div class="header_menu">
+        <dl class="flex">
+            <dd class="menu_sel">
+                <a href="#" class="flex">
+                    <span class="user_icon"></span><?php echo ($user_name); ?>
+                </a>
+                <ul>
+                    <li>
+                        <a href="<?php echo U('User/Index/logout');?>" class="login_return">退出登录</a>
+                    </li>
+                </ul>
+            </dd>
+            <dd class="menu_sel">
+                <a href="#" class="flex">
+                    <span class="skin_icon"></span>更换皮肤
+                </a>
+                <ul class="skin_sel">
+                    <li>
+                        <a href="#" data-skin="purple">
+                            <span class="color_icon purple"></span>紫色
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#" data-skin="blue">
+                            <span class="color_icon blue"></span>蓝色
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-skin="green">
+                            <span class="color_icon green"></span>古绿色
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-skin="gray">
+                            <span class="color_icon gray"></span>黑灰色
+                        </a>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>

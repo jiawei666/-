@@ -1,0 +1,122 @@
+
+<div id="nav" class="skin_bg">
+    <if condition="($user_type == 1) or ($user_type == 2)">
+        <dl class="{$menu_actived == 1 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="user_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    用户管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 11 ? 'active' : ''}">
+                    <a href="{:U('Home/Index/index')}">用户管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 2 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="order_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    活动管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 21 ? 'active' : ''}">
+                    <a href="{:U('Activity/Index/index')}">活动管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 3 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="price_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    工单管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 31 ? 'active' : ''}">
+                    <a href="{:U('Repair/Index/index')}">工单管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 7 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="price_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    案列管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 71 ? 'active' : ''}">
+                    <a href="{:U('CaAndSo/Index/index')}">案列管理</a>
+                </li>
+                <li class="{$actived == 72 ? 'active' : ''}">
+                    <a href="{:U('CaAndSo/Solution/index')}">解决方案</a>
+                </li>
+            </ul>
+        </dl>
+
+    </if>
+    <if condition="$user_type == 3">
+        <dl class="{$menu_actived == 4 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="admin_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员信息
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 41 ? 'active' : ''}">
+                    <a href="{:U('Member/Index/index')}">会员信息</a>
+                </li>
+                <li class="{$actived == 42 ? 'active' : ''}">
+                    <a href="{:U('Member/Index/setPassword')}">密码设置</a>
+                </li>
+                <li class="{$actived == 43 ? 'active' : ''}">
+                    <a href="{:U('Member/Index/certificationPersonal')}">认证信息</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 5 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="sales_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员活动管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 51 ? 'active' : ''}">
+                    <a href="{:U('MemberActivity/Index/index')}">活动列表</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 6 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="sales_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员工单管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 61 ? 'active' : ''}">
+                    <a href="{:U('MemberRepair/Index/index')}">工单列表</a>
+                </li>
+            </ul>
+        </dl>
+    </if>
+</div>

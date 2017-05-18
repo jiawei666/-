@@ -1,0 +1,78 @@
+<?php
+    if(C('LAYOUT_ON')) {
+        echo '{__NOLAYOUT__}';
+    }
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+
+        h2{ margin:0px;}
+        .nf-main {
+            width: 438px;
+            height: 351px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -175px 0 0 -219px;
+        }.day-pop {position: fixed;    box-shadow: 1px 1px 25px #ccc;
+    display: none;
+    width: 400px;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    margin: -143px 0 0 -200px;
+    background: #fff;
+    _position: absolute;
+    _top: 190px;
+    _margin-top: 0;
+    z-index: 12;}.pop-pop h2 {
+             position: relative;
+             width: 100%;
+             height: 46px;
+             line-height: 46px;
+             text-align: center;
+             color: #fff;
+             font-weight: normal;
+             font-size: 16px;
+             background: #ef6262;
+         }.day-pop .main {
+              padding: 20px; text-align:center;
+          }
+    </style>
+
+    <script>
+        onload = (function(){
+            href = document.getElementById('href').value;
+            setTimeout(function(){
+                window.location.href = href;
+            }, ""||2000)
+        })
+    </script>
+</head>
+
+<body>
+<div class="pop-pop day-pop stu-home-pop pos-f" style="display: block;">
+    <h2>
+        <a href="javascript:dayClose();" class="close poa"></a>
+        跳转提示</h2>
+    <div class="main f-cb">
+
+        <?php if(isset($message)) {?>
+        <?php echo($message); ?>
+        <?php }else{?>
+        <?php echo($error); ?>
+        <?php }?>
+        <input type="hidden" id="href" value="<?php echo($jumpUrl); ?>"/>
+    </div>
+    <script>
+        function dayClose(){
+            $(".body-shadow").fadeOut();
+            $(".stu-home-pop").fadeOut().html("");
+        }
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<extend name="Admin/base"/>
+
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+
+    <!--<iframe  src="#" frameborder="0" height="100%" width="85%" style="float:left;"></iframe>-->
+</block>
+
+<block name="footer">
+
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+
+</block>

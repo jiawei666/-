@@ -1,0 +1,30 @@
+$(".jump-login,.header-login").on("click",function(){
+	$('.register,.reset').hide(function(){
+		$('body').css({"overflow-y":"auto"})
+	})
+	$('.login').show();
+});
+$(".jump-register,.header-register").on('click',function(){
+	$('.login,.reset').hide();
+	$('.register').show(function(){
+		$('body').css({"overflow-y":"hidden"})
+	});
+})
+$(".jump-reset").on("click",function(){
+	$('.login,.register').hide();
+	$(".reset").show(function(){
+		$('body').css({"overflow-y":"hidden"})
+	});
+});
+$(".nav-icon-phone").on("click",function(){
+	var zIndex=$(".container").css('z-index');
+	if(zIndex!=="1"){
+		$(".container").animate({"right":"280px","z-index":"1"});
+		$(".header-phone").animate({"right":"0"})
+		$(".header-phone").css({"display":"block"})
+	}else{
+		$(".container").animate({"right":"0px","z-index":"0"});
+		$(".header-phone").animate({"right":"-280px"})
+		$(".header-phone").css({"display":"none"})
+	}
+})

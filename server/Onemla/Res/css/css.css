@@ -1,0 +1,596 @@
+/********reset************/
+body,h1,h2,h3,h4,h5,h6,div,p,dl,dt,dd,ol,ul,li,form,table,th,td,a,img,span,strong,var,em,input,textarea,select,option{margin: 0; padding: 0;}
+html,body{font-family:"微软雅黑","宋体",Arail,Tabhoma; font-size: 12px; text-align: left;}
+ul,ol{list-style: none;}
+img{border: 0;}
+input,select,textarea{outline:0;}
+textarea{resize:none;}
+table{border-collapse: collapse; border-spacing: 0;}
+th,strong,var,em{font-weight: normal; font-style: normal;}
+a{text-decoration: none;} 
+/********************************/
+html{
+	position: relative;
+	overflow-x: hidden;
+}
+header{
+	width:100%;
+	background: url(../images/header.jpg) 0 0 no-repeat;
+	height: 65px;
+	overflow: hidden;
+	background-size:100% 100%;
+}
+.header-container{
+	width: 100%;
+	margin: 0 auto;
+}
+.header-logo{
+	margin:16px 0 0 5px;
+	width: 100px;
+}
+.nav li a{
+	font-size: 16px;
+	color: #323232;
+	display: inline-block;
+	text-align: center;
+	line-height: 63px;
+	border-bottom: 2px solid transparent;
+}
+.nav li.active a{
+	color: #c81914;
+	border-bottom: 2px solid #c81914;
+}
+.nav li:hover a{
+	color: #c81914;
+	border-bottom: 2px solid #c81914;
+}
+.nav li{
+	float: left;
+}
+.nav{
+	display: none;
+}
+.header-right{
+	float: right;
+	display: none;
+}
+.header-right a{
+	font-size: 14px;
+	color: #464646;
+	line-height: 65px;
+}
+.interval{
+	font-size: 14px;
+	color: #464646;
+}
+.header-right a span{
+	width: 19px;
+	height: 16px;
+	display: inline-block;
+}
+.header-right a:hover{
+	color: #c81914;
+}
+.login-wx{
+	background: url(../images/icon/index-icon_01.png) 0 0 no-repeat;
+}
+.login-qq{
+	background: url(../images/icon/index-icon_01.png) 0 -18px no-repeat;
+}
+.login-wb{
+	background: url(../images/icon/index-icon_01.png) 0 -37px no-repeat;
+}
+.header-login-urse{
+	line-height: 65px;
+	float: left;
+}
+.header-login-urse span{
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	margin: 20px 3px;
+	display: block;
+	float: left;
+	cursor: pointer;
+}
+.header-login-urse span img{
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.header-login-urse p{
+	color: #787878;
+	font-size: 12px;
+	text-decoration: underline;
+	display: inline-block;
+}
+.header-right .header-control{
+	font-size: 12px;
+	color: #c81914;
+	border: 1px solid #c81914;
+	display: inline-block;
+	float: left;
+	margin: 22px 5px;
+	line-height: 20px;
+	padding: 0 3px;
+}
+@media only screen and (min-width:768px){
+	.header-container{
+		width: 750px;
+	}
+	.nav li a{
+		width: 80px;
+	}
+	.nav{
+		margin-left: 0px;
+		display: inline-block;
+	}
+	.interval{
+		margin: 0 5px;
+	}
+	.header-right a:first-child{
+		margin-right: 0px;
+	}
+	.header-right{
+		display: inline-block;
+	}
+	.header-logo{
+		margin:0 0 18px 5px;
+		width: 135px;
+	}
+}
+
+@media only screen and (min-width:992px){
+	.header-container{
+		width: 970px;
+	}
+	.nav li a{
+		width: 95px;
+	}
+	.nav{
+		margin-left: 50px;
+	}
+	.interval{
+		margin: 0 15px;
+	}
+	.header-right a:first-child{
+		margin-right: 15px;
+	}
+	.header-login-urse p{
+		font-size: 14px;
+	}
+	.header-right .header-control{
+		font-size: 14px;
+		margin: 22px 10px;
+	}
+}
+
+@media only screen and (min-width:1200px){
+	.header-container{
+		width: 1100px;
+	}
+}
+/*手机端导航栏*/
+.header-phone{
+	width: 280px;
+	height: 100%;
+	background: url(../images/header.jpg) no-repeat;
+	background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    right: -280px;
+    display: none;
+}
+.header-right-phone{
+	float: right;
+	padding-right: 10px;
+	display: block;
+}
+.header-right-phone span{
+	padding: 21px 5px;
+	float: left;
+	display: inline-block;
+}
+.container{
+	position: relative;
+	right: 0;
+	top: 0;
+	z-index: 0;
+}
+.nav-phone li a{
+	font-size: 16px;
+	color: #323232;
+	text-align: left;
+	padding-left: 15px;
+	line-height: 35px;
+	border-bottom: 2px solid #b5b5b5;
+	display: block;
+}
+.nav-phone{
+	padding: 20px 0;
+}
+.nav-phone li.active a{
+	color: #c81914;
+	border-bottom: 2px solid #c81914;
+}
+@media only screen and (min-width:768px){
+	.header-right-phone{
+		display: none;
+	}
+}
+/*登录*/
+.login-container{
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: calc(100% - 40px);
+	height: 375px;
+	border-radius: 5px;
+	background: #fff;
+	z-index: 1;
+	padding: 0 20px;
+}
+.login-title{
+	text-align: center;
+}
+.login-title img{
+	margin-top: -34px;
+}
+.login{
+	position: fixed;
+	background: rgba(85,85,85,.5);
+	width: 100%;
+	height: 100%;
+	display: none;
+	z-index: 1;
+}
+.login-brief-user,
+.login-brief-password{
+	width: calc(100% - 7px);
+	height: 34px;
+	padding-left: 7px;
+	border: 1px solid #b5b5b5;
+	margin: 0 auto;
+}
+.login-brief-user input,
+.login-brief-password input{
+	width: calc( 100% - 28px);
+	height: 100%;
+	border: none;
+	padding-left: 28px;
+}
+.login-brief-user input{
+	background: url(../images/icon/login-user.png) center left no-repeat;
+}
+.login-brief-password input{
+	background: url(../images/icon/login-password.png) center left no-repeat;
+}
+.login-brief{
+	margin-top: 35px;
+}
+.login-brief-password{
+	margin-top: 25px;
+}
+.login-brief a{
+	color: #b5b5b5;
+	font-size: 12px;
+	text-decoration: underline;
+	line-height: 35px;
+	float: right;
+}
+.login-submit{
+	background: #c81914;
+	color: #fff;
+	font-size: 14px;
+	border: none;
+	width: 100%;
+	height: 34px;
+	text-align: center;
+	line-height: 34px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	font-family: "微软雅黑";
+	border-radius: 2px;
+}
+.jump-register{
+	font-size: 14px;
+	color: #c81914;
+	text-decoration: underline;
+}
+.login-other span{
+	position: relative;
+	font-size: 14px;
+	color: #505050;
+	display: block;
+	text-align: center;
+}
+.login-other span::after,
+.login-other span::before{
+	width: 80px;
+	height: 1px;
+	content: "";
+	display: inline-block;
+	position: absolute;
+	top: 10px;
+	background: #b5b5b5;
+}
+.login-other span::after{
+	left: 0;
+}
+.login-other span::before{
+	right: 0;
+}
+.login-other{
+	margin-top: 30px;
+}
+.login-other-img{
+	text-align: center;
+	margin-top: 25px;
+}
+.login-other-img a{
+	margin-right: 30px;
+}
+.login-other-img a:last-child{
+	margin-right: 0;
+}
+@media only screen and (min-width:768px){
+	.login-container{
+		width:310px;
+		padding: 0 40px;
+	}
+	.login-brief-user,
+	.login-brief-password{
+		width: 305px;
+	}
+	.login-submit{
+		width: 313px;
+	}
+	.login-other span::after,
+	.login-other span::before{
+		width: 90px;
+	}
+}
+
+/*注册*/
+.register{
+	background: #eaeaea;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	display: none;
+}
+.register-container{
+	width: calc(100% - 20px);
+	position: absolute;
+	top: 50px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	margin-top: 5%;
+	padding: 0 10px;
+	background: #fff;
+	height: 545px;
+}
+.register-title{
+	text-align: center;
+}
+.register-title img{
+	margin-top: -34px;
+}
+.register-title p{
+	font-size:18px;
+	color: #505050;
+	margin-top: 15px;
+}
+.register-brief li{
+	overflow: hidden;
+}
+.register-brief li span{
+	font-size: 14px;
+	color: #505050;
+	line-height: 20px;
+	display: block;
+}
+.register-brief li input{
+	width: calc(100% - 22px);
+	height: 34px;
+	padding: 0 10px;
+	border: 1px solid #b5b5b5;
+	font-family: "微软雅黑";
+}
+#register-tel{
+	width: calc( 100% - 110px);
+	float: left;
+}
+#btn{
+	width: 80px;
+	color: #505050;
+	font-size: 12px;
+	float: right;
+	cursor: pointer;
+	height: 36px;
+	font-family: "微软雅黑";
+}
+.register-submit{
+	width: 100%;
+	height: 34px;
+	text-align: center;
+	line-height: 34px;
+	background: #C81914;
+	color: #fff;
+	font-size: 14px;
+	border: none;
+	margin: 20px 0 15px;
+	font-family: "微软雅黑";
+	cursor: pointer;
+	border-radius: 2px;
+}
+.jump-login{
+	color: #dc1914;
+	font-size: 14px;
+	text-decoration: underline;
+}
+@media only screen and (min-width:768px){
+	.register-container{
+		width: 310px;
+		padding: 0 40px;
+	}
+	#register-tel{
+		width: 204px;
+	}
+	.register-brief li span{
+		line-height: 40px;
+	}
+}
+
+@media only screen and (min-width:992px){
+	.register-brief li span{
+		line-height: 30px;
+	}
+}
+
+@media only screen and (min-width:1200px){
+	.register-brief li span{
+		line-height: 40px;
+	}
+}
+/*重置密码*/
+.reset{
+	background: #eaeaea;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	display: none;
+}
+.reset-container{
+	width: calc(100% - 20px);
+	position: absolute;
+	top: 100px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	margin-top: 10%;
+	padding: 0 10px;
+	background: #fff;
+	height: 300px;
+}
+.reset-title{
+	text-align: center;
+}
+.reset-title img{
+	margin-top: -34px;
+}
+.reset-title p{
+	font-size:18px;
+	color: #505050;
+	margin-top: 15px;
+}
+.reset-email{
+	margin: 25px 0 24px;
+	overflow: hidden;
+}
+.reset-email span{
+	font-size: 14px;
+	color: #505050;
+	line-height: 34px;
+}
+.reset-email input{
+	width: calc(100% - 40px);
+	height: 34px;
+	/*float: right;*/
+	margin: 10px;
+	border:1px solid #b5b5b5;
+}
+.reset-submit{
+	color: #fff;
+	background: #c81914;
+	text-align: center;
+	line-height: 34px;
+	height: 34px;
+	width: 100%;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+	font-family: "微软雅黑";
+}
+@media only screen and (min-width:768px){
+	.reset-container{
+		width: 450px;
+		padding: 0 30px;
+	}
+	.reset-email input{
+		width: 410px;
+	}
+	.reset-submit{
+		width: 450px;
+	}
+}
+
+/*尾部*/
+.footer{
+	background: #e5e5e5;
+	width: 100%;
+}
+.footer-container{
+	margin: 0 auto;
+	height: 100%;
+	text-align: center;
+}
+.qr-code p{
+	padding: 20px 0 5px;
+	color: #646464;
+	font-size: 12px;
+}
+.footer-nav li a{
+	font-size: 14px;
+	color: #646464;
+	padding: 0 10px;
+}
+.footer-nav li{
+	float: left;
+}
+.footer-nav li a:hover{
+	color: #C81914;
+}
+.footer-nav{
+	display: inline-block;
+	padding: 15px 0 20px;
+}
+.footer-copyright{
+	font-size: 12px;
+	color: #969696;
+	padding-bottom: 12px;
+}
+.footer-copyright span:first-child{
+	padding-right: 0px;
+	display: inline-block;
+	width: 100%;
+}
+@media only screen and (min-width:768px){
+	.footer-container{
+		width: 750px;
+	}
+	.footer-copyright span:first-child{
+		width: auto;
+		padding-right: 35px;
+	}
+}
+
+@media only screen and (min-width:992px){
+	.footer-container{
+		width: 970px;
+	}
+}
+
+@media only screen and (min-width:1200px){
+	.footer-container{
+		width: 1100px;
+	}
+}

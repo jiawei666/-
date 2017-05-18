@@ -1,0 +1,198 @@
+
+<div id="nav" class="skin_bg">
+    <if condition="($user_type == 1) or ($user_type == 2)">
+        <dl class="{$menu_actived == 10 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="user_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    用户管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 101 ? 'active' : ''}">
+                    <a href="{:U('Home/Index/index')}">会员信息</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="{$actived == 102 ? 'active' : ''}">
+                    <a href="{:U('Home/Useraudit/personal')}">认证信息审核</a>
+                </li>
+            </ul>
+            <!--<ul>-->
+                <!--<li class="{$actived == 103 ? 'active' : ''}">-->
+                    <!--<a href="{:U('Home/Index/setPassword')}">密码设置</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        </dl>
+        <!--<dl class="{$menu_actived == 11 ? 'active' : ''}">-->
+            <!--<a href="#" class="flex">-->
+                <!--<dd class="icon flex">-->
+                    <!--<span class="order_icon"></span>-->
+                <!--</dd>-->
+                <!--<dd class="text nowrap">-->
+                    <!--活动管理-->
+                <!--</dd>-->
+            <!--</a>-->
+            <!--<ul>-->
+                <!--<li class="{$actived == 111 ? 'active' : ''}">-->
+                    <!--<a href="{:U('Activity/Index/index')}">活动管理</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</dl>-->
+        <dl class="{$menu_actived == 12 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="price_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    工单管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 121 ? 'active' : ''}">
+                    <a href="{:U('Repair/Index/index')}">工单管理</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 13 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="case_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    案例管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 131 ? 'active' : ''}">
+                    <a href="{:U('CaAndSo/Index/index')}">案例管理</a>
+                </li>
+                <li class="{$actived == 132 ? 'active' : ''}">
+                    <a href="{:U('CaAndSo/Solution/index')}">解决方案</a>
+                </li>
+            </ul>
+        </dl>
+        <dl class="{$menu_actived == 14 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="live_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    直播管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 140 ? 'active' : ''}">
+                    <a href="{:U('Live_room/Index/bsn')}">直播商管理</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="{$actived == 141 ? 'active' : ''}">
+                    <a href="{:U('Live_room/Index/index')}">直播间管理</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="{$actived == 143 ? 'active' : ''}">
+                    <a href="{:U('Live_room/Banner/index')}">Banner管理</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="{$actived == 142 ? 'active' : ''}">
+                    <a href="{:U('Live_room/Character/index')}">性质分类管理</a>
+                </li>
+            </ul>
+        </dl>
+
+    </if>
+    <if condition="$user_type == 3">
+        <dl class="{$menu_actived == 20 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="admin_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员信息
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 201 ? 'active' : ''}">
+                    <a href="{:U('Member/Index/index')}">会员信息</a>
+                </li>
+                <!--<li class="{$actived == 200 ? 'active' : ''}">-->
+                    <!--<a href="{:U('Member/Index/chat')}">管理员消息</a>-->
+                <!--</li>-->
+                <li class="{$actived == 202 ? 'active' : ''}">
+                    <a href="{:U('Member/Index/setPassword')}">密码设置</a>
+                </li>
+                <li class="{$actived == 203 ? 'active' : ''}">
+                    <a href="{:U('Member/Index/certificationPersonal')}">认证信息</a>
+                </li>
+            </ul>
+        </dl>
+        <!--<dl class="{$menu_actived == 21 ? 'active' : ''}">-->
+            <!--<a href="#" class="flex">-->
+                <!--<dd class="icon flex">-->
+                    <!--<span class="sales_icon"></span>-->
+                <!--</dd>-->
+                <!--<dd class="text nowrap">-->
+                    <!--会员活动管理-->
+                <!--</dd>-->
+            <!--</a>-->
+            <!--<ul>-->
+                <!--<li class="{$actived == 211 ? 'active' : ''}">-->
+                    <!--<a href="{:U('MemberActivity/Index/index')}">活动列表</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</dl>-->
+        <dl class="{$menu_actived == 22 ? 'active' : ''}">
+            <a href="#" class="flex">
+                <dd class="icon flex">
+                    <span class="sales_icon"></span>
+                </dd>
+                <dd class="text nowrap">
+                    会员工单管理
+                </dd>
+            </a>
+            <ul>
+                <li class="{$actived == 221 ? 'active' : ''}">
+                    <a href="{:U('MemberRepair/Index/index')}">工单列表</a>
+                </li>
+            </ul>
+        </dl>
+        <if condition="$is_live!=''">
+            <dl class="{$menu_actived == 23 ? 'active' : ''}">
+                <a href="#" class="flex">
+                    <dd class="icon flex">
+                        <span class="live_icon"></span>
+                    </dd>
+                    <dd class="text nowrap">
+                        直播商管理
+                    </dd>
+                </a>
+                <ul>
+                    <li class="{$actived == 231 ? 'active' : ''}">
+                        <a href="{:U('MemberLive_bsn/Index/index')}">直播商</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="{$actived == 232 ? 'active' : ''}">
+                        <a href="{:U('MemberLive_bsn/Channel/index')}">频道</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="{$actived == 233 ? 'active' : ''}">
+                        <a href="{:U('MemberLive_bsn/Tags/index')}">话题</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="{$actived == 234 ? 'active' : ''}">
+                        <a href="{:U('MemberLive_bsn/Liveroom/index')}">直播间</a>
+                    </li>
+                </ul>
+            </dl>
+        </if>
+
+    </if>
+</div>

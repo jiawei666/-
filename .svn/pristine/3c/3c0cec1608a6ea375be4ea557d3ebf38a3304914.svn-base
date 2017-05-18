@@ -1,0 +1,230 @@
+<extend name="Admin/base"/>
+
+<block name="head">
+    <link rel="stylesheet" href="__CSS__style.css">
+    <style>
+        table.dataTable thead > tr > th {
+            padding-left: 50px;
+            font-size: 14px;
+        }
+
+        div>label{
+            font-size: 14px;
+            font-weight:normal;
+            margin-bottom: 20px;
+            padding-left: 45px !important;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function(){
+            $('#add').click(function(){
+                $('.button').show();
+                $('.permissions-name').show();
+                $('#modify').hide();
+                $('#disable').hide();
+                $('#recovery').hide();
+                $(".nav-tabs-custom>ul>li>a[href!='javascript:;']").hide();
+                $("input[type!='checkbox']").attr("value","");
+                $('input[type="checkbox"]').prop("checked",false);
+            });
+
+            $('#modify').click(function(){
+                $('.button').show();
+                $('.permissions-name').show();
+                $('#add').hide();
+                $('#disable').hide();
+                $('#recovery').hide();
+                $(".nav-tabs-custom>ul>li>a[href!='javascript:;']").hide();
+            });
+        });
+
+        function disable($id){
+            if(window.confirm('是否确定禁用该权限组？')){
+                $.ajax({
+                    type: 'POST',
+                    data: {id:$id},
+                    url : "{:U('User/Permissions/changeState')}",
+                    success: function(data){
+                        if (data.flag==1){
+                            location.reload();
+                        }else {
+                            alert(' 参数错误');
+                        }
+                    },
+                    error: function (){
+                        alert('操作失败');
+                    }
+                })
+            }
+        }
+
+        function recovery($id){
+            if(window.confirm('是否确定恢复该权限组？')){
+                $.ajax({
+                    type: 'POST',
+                    data: {id:$id,state:1},
+                    url : "{:U('User/Permissions/changeState')}",
+                    success: function(data){
+                        if (data.flag==1){
+                            location.reload();
+                        }else {
+                            alert(' 参数错误');
+                        }
+                    },
+                    error: function (){
+                        alert('操作失败');
+                    }
+                })
+            }
+        }
+
+    </script>
+</block>
+<block name="menu">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Index')}
+</block>
+
+<block name="main">
+    {:\\Onemla\\OnemlaHelper::W('Menu/Left_Menu')}
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                权限组列表
+                <small>PermissionsGroup list</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{:U('Home/Index/index')}"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li>员工管理</li>
+                <li class="active">权限组列表</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                        <foreach name="permissions_group_list" item="vo">
+                            <li <if condition="$type eq $key">class='active'</if>><a href="{:U('User/Permissions/index', array('type'=>$key))}">{$vo['permissions_group_name']}</a></li>
+                        </foreach>
+
+                    <div class="topbox">
+                        <if condition="$permissions_group_list[$type]['state'] eq 1">
+                            <a href="javascript:;" id="disable" class="add" onclick="disable({$permissions_group_list[$type]['id']})">禁用</a>
+                            <else/>
+                            <a href="javascript:;" id="recovery" class="add" onclick="recovery({$permissions_group_list[$type]['id']})">恢复</a>
+                        </if>
+                        <a href="javascript:;" id="modify" class="add">修改</a>
+                        <a href="javascript:;" id="add" class="add">添加权限组+</a>
+                    </div>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+
+                            </div>
+
+                            <form class="form-horizontal" method="post" action="{:U('User/Permissions/modify')}">
+                                <div class="form-group permissions-name" hidden>
+                                    <label class="col-sm-1 control-label"><label style="color: red;">*</label>权限组名</label>
+                                    <div class="col-sm-11">
+                                        <input class="input-text input-text-width" type="text" name="permissions_group_name" placeholder="权限组名" required value="{$permissions_group_list[$type]['permissions_group_name']}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group permissions-desc">
+                                    <label class="col-sm-1 control-label">权限组备注</label>
+                                    <div class="col-sm-11">
+                                        <input class="input-text input-text-width" type="text" name="content" placeholder="权限组备注" value="{$permissions_group_list[$type]['content']}"/>
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered table-hover dataTable" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                        <assign name="k" value="1"/>
+                                        <foreach name="permissions_group" item="list">
+                                            <th rowspan="1" colspan="1">
+                                                <input type="checkbox" id="permissions[{$k}]" name="permissions[{$k++}][]" value="{$key}" <if condition="(substr($permissions_group_list[$type]['permissions'],0,2) eq ($key.',')) OR (strpos($permissions_group_list[$type]['permissions'], ','.$key.',') OR (substr($permissions_group_list[$type]['permissions'],-2) eq (','.$key)))">checked </if>/>{$list[0]}
+                                            </th>
+                                        </foreach>
+                                        <th rowspan="1" colspan="1"></th>
+                                    </thead>
+                                    <tbody>
+                                    <tr role="row" class="odd">
+                                        <volist name="permissions_group" id="list">
+                                            <td class="sorting_1">
+                                                <foreach name="list[1]" item="vo" >
+                                                <span class="permissions_list">
+                                                    <input type="checkbox" name="permissions[{$i}][]" value="{$key}" <if condition="(strpos($permissions_group_list[$type]['permissions'], ','.$key))">checked </if>/>{$vo}
+                                                </span>
+                                                </foreach>
+                                            </td>
+                                        </volist>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <input type="hidden" name="id" value="{$permissions_group_list[$type]['id']}">
+                                <div class="button" hidden>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                    <button type="button" class="btn btn-primary"  onclick="location.reload();">返回</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</block>
+
+<block name="footer">
+
+    {:\\Onemla\\OnemlaHelper::W('Footer/Index')}
+
+</block>
+
+<block name="bottom">
+    <script>
+        $(document).ready(function(){
+
+            $('[type="checkbox"]').click(function(){
+
+                if($(this).attr('id') != '' && $(this).attr('id') != null && $(this).attr('id') != undefined){
+                    if($(this).is(':checked')){
+                        $("[name='"+$(this).attr('id')+"[]']").each(function(){
+                            $(this).prop("checked",true);
+                        });
+                    }else {
+                        $("[name='"+$(this).attr('id')+"[]']").each(function(){
+                            $(this).prop("checked",false);
+                        });
+                    }
+                }
+
+                //非标题的复选框 复选框选中时is(':checked')
+                if($(this).attr('id') == '' || $(this).attr('id') == null || $(this).attr('id') == undefined){
+                    var str = $(this).attr('name');
+                    if($(this).is(':checked')){
+                        $("[id='"+ str.substring(0,str.length-2) +"']").prop("checked",true);
+                    }else {
+                        var state = true;
+                        $("[name='"+ str +"']").each(function(){
+                            if($(this).is(':checked') && ($(this).attr('id') == '' || $(this).attr('id') == null || $(this).attr('id') == undefined)){
+                                state = false;
+                            }
+                        });
+                        if(state){
+                            $("[id='"+str.substring(0,str.length-2)+"']").prop("checked",false);
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+
+</block>

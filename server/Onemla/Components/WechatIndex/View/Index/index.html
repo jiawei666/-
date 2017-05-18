@@ -1,0 +1,147 @@
+<extend name="Public/wechatBase"/>
+
+<block name="head">
+	<link rel="stylesheet" href="__WECHAT__css/vendor/swiper.min.css" />
+	<link rel="stylesheet" href="__WECHAT__css/css.css" />
+	<link rel="stylesheet" href="__WECHAT__css/index.css" />
+	<script src="__WECHAT__js/more_index.js"></script>
+</block>
+<block name="main">
+
+	<!--banner-->
+		<div class="swiper-container banner">
+			<div class="swiper-wrapper" id="swiper-wrapper">
+				<volist name="banner" id="bn_vo">
+					<div class="swiper-slide">
+						<if condition="$bn_vo[alink]==''">
+							<a href="#" name="view_count">
+								<input type="hidden" value="{$bn_vo[room_id]}">
+								<img src="__ROOT__/Administrator/Res/Uploads/live_banner/{$bn_vo.image}" alt="">
+							</a>
+							<else />
+							<a href="{$bn_vo[alink]}" name="view_count">
+								<input type="hidden" value="{$bn_vo[room_id]}">
+								<img src="__ROOT__/Administrator/Res/Uploads/live_banner/{$bn_vo.image}" alt="">
+							</a>
+						</if>
+						<div class="banner-href">
+							<p class="banner-href-brief">{$bn_vo.title}</p>
+							<!--<if condition="$bn_vo[status]==1">-->
+								<!--<a style="background:#fc7a2b" href="javascript:void(0)">-->
+									<!--直播中-->
+								<!--</a>-->
+								<!--<elseif condition="$rm_vo[status]==2" />-->
+								<!--<a style="background:#00a0e9" href="javascript:void(0)">-->
+									<!--预告-->
+								<!--</a>-->
+								<!--<else/>-->
+								<!--<a style="background:#aaaaaa" href="javascript:void(0)">-->
+									<!--回放-->
+								<!--</a>-->
+							<!--</if>-->
+						</div>
+					</div>
+				</volist>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	<!--直播商推荐-->
+	<div class="index-recommend swiper-container">
+		<div class="index-recommend-container swiper-wrapper">
+			<div class="swiper-slide">
+				<a href="{:U('WechatIndex/Index/live_bsn')}">
+					<img src="__WECHAT__images/recommend-1.jpg"/>
+					<p class="index-recommend-text">全部直播商</p>
+				</a>
+			</div>
+			<volist name="userInfo" id="ui_vo">
+				<div class="swiper-slide">
+					<a href="{:U('WechatIndex/LiveBsn/index')}&bsn_id={$ui_vo.bsn_id}">
+						<img {$ui_vo["type"] ==1 ? 'src="__ROOT__/Administrator/Res/Uploads/certification/personal/':'src="__ROOT__/Administrator/Res/Uploads/certification/company/'}{$ui_vo.public_logo}"/>
+						<p class="index-recommend-text">
+							<if condition="judgeUtf8($ui_vo[live_name])==1">
+								<if condition="strlen($ui_vo[live_name]) gt 15">
+									{:msubstr($ui_vo["live_name"],0,4)}
+									<else />
+									{$ui_vo[live_name]}
+								</if>
+								<elseif condition="strlen($ui_vo[live_name]) gt 9"/>
+								{:msubstr($ui_vo["live_name"],0,6)}
+								<else />
+								{$ui_vo[live_name]}
+							</if>
+						</p>
+					</a>
+				</div>
+			</volist>
+		</div>
+	</div>
+	<!--直播列表-->
+	<div class="index-list-container" name="roomList">
+		<volist name="room" id="rm_vo">
+			<div class="index-list" >
+				<a href="{$rm_vo.alink}" name="view_count">
+					<input type="hidden" value="{$rm_vo[room_id]}">
+					<img src="__ROOT__/Administrator/Res/Uploads/live_room/{$rm_vo.bg_image}"/>
+				</a>
+				<p class="index-list-time">
+					{$rm_vo.start_time}
+				</p>
+				<div class="index-list-href">
+					<p class="index-list-brief">{$rm_vo.title}</p>
+					<if condition="$rm_vo[status]==2">
+						<a class="underway" href="javascript:void(0)">
+							直播中
+						</a>
+						<elseif condition="$rm_vo[status]==1" />
+						<a class="trailer" href="javascript:void(0)">
+							预告
+						</a>
+						<else/>
+						<a class="playback" href="javascript:void(0)">
+							回放
+						</a>
+					</if>
+					<p class="index-list-eye">
+						{$rm_vo.view_count}
+					</p>
+				</div>
+			</div>
+		</volist>
+	</div>
+	<!--<button value="2" name="more" style="position: relative;bottom: 0.8rem;;left: 3.2rem;color: white;background-color: #c81914;border: 1px solid #adadad;">加载更多</button>-->
+	<div class="loading" name="more" >
+		<input type="hidden" value="2" name="number">
+		<p>点击加载更多</p>
+	</div>
+</block>
+<block name="bottom">
+	{:\\Onemla\\OnemlaHelper::W('Footer/wechatIndex')}
+
+	<script>
+		window.onload = function(){
+			//轮播
+			var mySwiper = new Swiper('.swiper-container.banner',{
+				pagination : '.swiper-pagination',
+				paginationClickable :true,
+				loop:true,
+				autoplay:2000
+			});
+			var swiper = new Swiper('.index-recommend.swiper-container', {
+				slidesPerView: 5,
+				spaceBetween: 50,
+				freeMode: true,
+				breakpoints: {
+					420: {
+						slidesPerView: 4,
+						spaceBetween: 40
+					},
+					320: {
+						slidesPerView: 3,
+						spaceBetween: 30
+					}
+				}
+			});
+		}
+	</script>
+</block>
